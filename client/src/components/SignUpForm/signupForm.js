@@ -1,13 +1,12 @@
 import React from 'react';
 
 const SignUpForm = (props) => {
-
     const renderFields=()=>{
         let template=null;
         switch (props.type) {
             case 'signin':
                 template=(
-                    <div data-aos='fade-in' data-aos-duration='500'>
+                    <div data-aos='fade-in' data-aos-delay='100' data-aos-duration='500'>
                         <h3 className="h4 text-black mb-4">Sign In</h3>
                         <div className="form-group">
                             <input type="email" placeholder="Email Address" className="form-control"/>
@@ -17,13 +16,14 @@ const SignUpForm = (props) => {
                         </div>
                         <div className="form-group">
                             <button type="submit" className="btn btn-primary btn-pill">SIGN IN</button>
+                            {props.fun()}
                         </div>
                     </div>
                 )
                 break;
             case 'signup':
                 template=(
-                    <div data-aos='fade-up' data-aos-duration='500'>
+                    <div data-aos='fade-in' data-aos-delay='100' data-aos-duration='500'>
                         <h3 className="h4 text-black mb-4">Sign Up</h3>
                         <div className="form-group">
                             <div className='row' style={{minHeight:'0'}}>
@@ -43,6 +43,7 @@ const SignUpForm = (props) => {
                         </div>
                         <div className="form-group">
                             <button type="submit" className="btn btn-primary btn-pill">SIGN UP</button>
+                            {props.fun()}
                         </div>
                     </div>
                 )

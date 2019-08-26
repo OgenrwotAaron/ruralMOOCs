@@ -10,14 +10,11 @@ const Us = () => {
                 <h2 style={{paddingLeft:'10px'}}>
                     We strive for the success in educating people in the rural areas globally
                 </h2>
-                <div className='col-xs-4'>
-                   <FontCard/> 
+                <div className='col-xs-6'>
+                   <FontCard title='Mission' details='To increase access to high-quality education for everyone everywhere, focusing on those living in low bandwidth areas of the developing countries.'/> 
                 </div>
-                <div className='col-xs-4'>
-                   <FontCard/> 
-                </div>
-                <div className='col-xs-4'>
-                   <FontCard/> 
+                <div className='col-xs-6'>
+                   <FontCard title='Our Difference' details='The traditional content access method for MOOCs through high speed Internet and constant connectivity is not realistic to many developing countries especially those in Africa even in the near future. This platform delivers content to students under low bandwidth environments.'/> 
                 </div>
             </div>
         </div>

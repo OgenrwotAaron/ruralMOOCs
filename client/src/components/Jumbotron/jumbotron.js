@@ -10,9 +10,9 @@ class Jumbotron extends Component {
 
     getStarted=()=>(
         this.state.getStarted? 
-            <button onClick={()=>{this.setState({form:'signup',getStarted:false})}} className="btn btn-primary btn-pill">GET STARTED</button>
+            <p onClick={()=>{this.setState({form:'signup',getStarted:false})}} style={{color:'#333',cursor:'pointer'}}>Or Signup here</p>
             :
-            <button onClick={()=>{this.setState({form:'signin',getStarted:true})}} className="btn btn-primary btn-pill"><span className='icon icon-close'></span></button>
+            <p onClick={()=>{this.setState({form:'signin',getStarted:true})}} style={{color:'#333',cursor:'pointer'}}>Login</p>
     )
 
     renderJumbo=()=>{
@@ -28,11 +28,10 @@ class Jumbotron extends Component {
                                     <div className="col-sm-6" style={{paddingBottom:'10px'}}>
                                         <h1 style={{marginBottom:'0'}}>Learning Beyond <br/> Limitations</h1>
                                         <p style={{marginTop:'0'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime ipsa nulla sed quis rerum amet natus quas necessitatibus.</p>
-                                        {this.getStarted()}
                                     </div>
                                     <div className="col-sm-1"></div>
                                     <div className="col-sm-5">
-                                        <SignUpForm type={this.state.form}/>
+                                        <SignUpForm fun={this.getStarted} type={this.state.form}/>
                                     </div>
                                 </div>
                             </div>

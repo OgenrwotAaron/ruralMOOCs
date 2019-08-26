@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FontCard = () => {
+const FontCard = (props) => {
     return (
         <div>
             <div data-aos="fade-up" data-aos-duration="800" style={{color:'gray',textAlign:'center'}}>
@@ -8,8 +8,8 @@ const FontCard = () => {
                     <span style={{color:'gray',fontSize:'100px'}} className='icon icon-bullseye'></span>
                 </div>
                 <div>
-                <div><h2>Objective</h2></div>
-                    <p style={{color:'lightslategray'}}>We strive for the success in educating people in the rural areas globally</p>
+                <div><h1>{props.title}</h1></div>
+                    <p style={{color:'lightslategray'}}>{props.details}</p>
                 </div>
             </div>
         </div>
