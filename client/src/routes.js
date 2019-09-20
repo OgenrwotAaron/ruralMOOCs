@@ -4,6 +4,7 @@ import Home from './components/Home/home';
 import Layout from './hoc/layout'
 import Categories from './components/Category/category';
 import Dashboard from './components/Dashboard/dashboard';
+import UploadTest from './components/videoUploadTest/uploadTest';
 
 const Routes = () => {
     return (
@@ -12,6 +13,7 @@ const Routes = () => {
                 <Route path="/" exact component={Home}/>
                 <Route path="/category/:id" exact component={Categories}/>
                 <Route path="/dashboard" exact component={Dashboard}/>
+                <Route path="/uploads" exact component={UploadTest}/>
             </Switch>
         </Layout>
         

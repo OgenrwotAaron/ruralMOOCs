@@ -4,7 +4,10 @@
   "description": "online courses",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server/server",
+    "server": "nodemon server/server",
+    "client": "sudo npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Ogenrwot Aaron",
   "license": "ISC",
@@ -14,6 +17,7 @@
     "concurrently": "^4.1.0",
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
+    "express-fileupload": "^1.1.5",
     "jsonwebtoken": "^8.5.1",
     "moment-js": "^1.1.15",
     "mongoose": "^5.5.11"

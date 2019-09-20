@@ -22,7 +22,7 @@ class Jumbotron extends Component {
             case 'home':
                 template=(
                     <div className="slide-1" style={{backgroundImage:"url('images/hero.jpg')",backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition:"50% 50%",backgroundAttachment:'fixed'}}>
-                        <div className="container jumb" style={{backgroundColor:'#343a40e6',width:'100%'}}>
+                        <div className="container jumb" style={{backgroundColor:'rgba(7,6,28,0.88)',width:'100%'}}>
                             <div className="row jumbo">
                                 <div className="col-sm-12"  data-aos="fade-up" data-aos-duration="500">
                                     <div className="col-sm-6" style={{paddingBottom:'10px'}}>
