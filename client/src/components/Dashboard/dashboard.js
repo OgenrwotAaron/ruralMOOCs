@@ -17,7 +17,13 @@ const Dashboard =()=>{
                         <SideNav/>
                     </div>
                     <div className='col-sm-9'>
-
+                        <div style={{padding:'13% 0 0 5%'}}>
+                            <div className="row" >
+                                <div className="col-sm-6" style={{background:"white"}}></div>
+                                <div className="col-sm-6" style={{background:"white"}}></div>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div> 
             </div>
