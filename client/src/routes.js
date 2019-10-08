@@ -4,7 +4,9 @@ import Home from './components/Home/home';
 import Layout from './hoc/layout'
 import Categories from './components/Category/category';
 import Dashboard from './components/Dashboard/dashboard';
-import UploadTest from './components/videoUploadTest/uploadTest';
+import Join from './components/Join/join';
+import AddCourse from './components/AddCourse/addCourse';
+import AddInstructor from './components/AddInstructor/addInstructor';
 
 const Routes = () => {
     return (
@@ -12,8 +14,11 @@ const Routes = () => {
             <Switch>
                 <Route path="/" exact component={Home}/>
                 <Route path="/category/:id" exact component={Categories}/>
+                <Route path="/dashboard/:id" exact component={Dashboard}/>
                 <Route path="/dashboard" exact component={Dashboard}/>
-                <Route path="/uploads" exact component={UploadTest}/>
+                <Route path="/join" exact component={Join}/>
+                <Route path="/add-course" exact component={AddCourse}/>
+                <Route path='/add-instructor' exact component={AddInstructor}/>
             </Switch>
         </Layout>
         

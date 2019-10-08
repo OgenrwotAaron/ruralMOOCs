@@ -15,18 +15,33 @@ const Nav = () => {
                       <span className="caret" />
                     </a>
                     <ul className="dropdown-menu">
-                      <label style={{paddingLeft:'5px'}}>Available MOOCS</label>
+                      <label style={{paddingLeft:'5px'}}>Available MOOCs</label>
                       <li>
-                        <Link to='/category/science'>SCIENCE & TECHNOLOGY</Link>
+                        <Link to='/category/science'>TECHNOLOGY</Link>
                       </li>
                       <li>
-                        <Link to='/category/agriculture'>AGRICULTURE</Link>
+                        <Link to='/category/arts'>LANGUAGE</Link>
                       </li>
                       <li>
-                        <Link to='/category/arts'>HISTORY & ARTS</Link>
+                        <Link to='/category/science'>SCIENCE</Link>
                       </li>
                       <li>
-                      <Link to='/category/commerce'>BUSINESS & ECONOMICS</Link>
+                      <Link to='/category/science'>HEALTH</Link>
+                      </li>
+                      <li>
+                      <Link to='/category/agriculture'>HUMANITIES</Link>
+                      </li>
+                      <li>
+                      <Link to='/category/commerce'>BUSINESS</Link>
+                      </li>
+                      <li>
+                      <Link to='/category/science'>MATHEMATICS</Link>
+                      </li>
+                      <li>
+                      <Link to='/category/commerce'>MARKETING</Link>
+                      </li>
+                      <li>
+                      <Link to='/category/arts'>LIFESTYLE</Link>
                       </li>
                     </ul>
                   </li>

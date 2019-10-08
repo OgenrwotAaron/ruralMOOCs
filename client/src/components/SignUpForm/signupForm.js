@@ -1,22 +1,121 @@
-import React from 'react';
+import React,{ Component,Fragment} from 'react';
+import axios from 'axios';
 
-const SignUpForm = (props) => {
-    const renderFields=()=>{
+class SignUpForm extends Component {
+
+    state={
+        loggedIn:false,
+        registerError:'',
+        loading:false,
+        formData:{
+            fname:{
+                value:'',
+                validation:{
+                    required:true
+                },
+                valid:false,
+                touched:false,
+                validationMessage:''
+            },
+            lname:{
+                value:'',
+                validation:{
+                    required:true
+                },
+                valid:false,
+                touched:false,
+                validationMessage:''
+            },
+            email:{
+                value:'',
+                validation:{
+                    email:true,
+                    required:true
+                },
+                valid:false,
+                touched:false,
+                validationMessage:''
+            },
+            pwd:{
+                value:'',
+                validation:{
+                    pwd:true,
+                    required:true
+                },
+                valid:false,
+                touched:false,
+                validationMessage:''
+            }
+        }
+    }
+
+    updateForm=({e,blur,id})=>{
+        const newFormData={...this.state.formData};
+        const newElement={...newFormData[id]};
+        newElement.value=e.target.value;
+
+        if(blur){
+            let validData=this.validate(newElement);
+            newElement.valid=validData[0];
+            newElement.validationMessage=validData[1];
+        }
+
+        newFormData[id]=newElement;
+
+        this.setState({
+            formData:newFormData
+        });
+    };
+
+    validate=(element)=>{
+        let error=[true,''];
+
+        if(element.validation.email){
+            const valid=/\S+@\S+\.\S+/.test(element.value);
+            const message=`${!valid ? 'Must be a valid email':''}`;
+            error=!valid ?  [valid,message]:error;
+        }
+
+        if(element.validation.pwd){
+            const valid=element.value.length>=8;
+            const message=`${!valid ? 'Password must be greater than 8':''}`;
+            error=!valid ? [valid,message]:error;
+        }
+
+        if(element.validation.required){
+            const valid=element.value.trim()!=='';
+            const message=`${!valid ? 'This field is required':''}`;
+            error=!valid ? [valid,message]:error;
+        }
+
+        return error;
+    }
+
+    renderFields=()=>{
         let template=null;
-        switch (props.type) {
+        switch (this.props.type) {
             case 'signin':
                 template=(
                     <div data-aos='fade-in' data-aos-delay='100' data-aos-duration='500'>
                         <h3 className="h4 text-black mb-4">Sign In</h3>
                         <div className="form-group">
-                            <input type="email" placeholder="Email Address" className="form-control"/>
+                            <input onChange={(e)=>this.updateForm({e,blur:true,id:'email'})} type="email" placeholder="Email Address" className="form-control"/>
                         </div>
                         <div className="form-group">
-                            <input type="password" placeholder="Password" className="form-control"/>
+                            <input onChange={(e)=>this.updateForm({e,blur:true,id:'pwd'})} type="password" placeholder="Password" className="form-control"/>
                         </div>
                         <div className="form-group">
-                            <button type="submit" className="btn btn-primary btn-pill">SIGN IN</button>
-                            {props.fun()}
+                            {this.state.loading ? 
+                                <p style={{color:'#03a9f0'}}>Loading...</p>
+                                :
+                                <button 
+                                    type="submit" 
+                                    onClick={(e)=>this.registerUser({e,login:true})} 
+                                    className="btn btn-primary btn-pill">
+                                        SIGN IN
+                                </button>
+                            }
+                            {this.props.fun()}
                         </div>
                     </div>
                 )
@@ -28,22 +127,31 @@ const SignUpForm = (props) => {
                         <div className="form-group">
                             <div className='row' style={{minHeight:'0'}}>
                                 <div className='col-sm-6'>
-                                    <input type="text" placeholder="Firstname" className="form-control"/>
+                                    <input onChange={(e)=>this.updateForm({e,blur:true,id:'fname'})} required type="text" placeholder="Firstname" className="form-control"/>
                                 </div>
                                 <div className='col-sm-6'>
-                                    <input type="text" placeholder="Lastname" className="form-control"/>
+                                    <input onChange={(e)=>this.updateForm({e,blur:true,id:'lname'})} required type="text" placeholder="Lastname" className="form-control"/>
                                 </div>
                             </div>
                         </div>
                         <div className="form-group">
-                            <input type="email" placeholder="Email" className="form-control"/>
+                            <input onChange={(e)=>this.updateForm({e,blur:true,id:'email'})} required type="email" placeholder="Email" className="form-control"/>
                         </div>
                         <div className="form-group">
-                            <input type="password" placeholder="Password" className="form-control"/>
+                            <input onChange={(e)=>this.updateForm({e,blur:true,id:'pwd'})} required type="password" placeholder="Password" className="form-control"/>
                         </div>
                         <div className="form-group">
-                            <button type="submit" className="btn btn-primary btn-pill">SIGN UP</button>
-                            {props.fun()}
+                            {this.state.loading? 
+                                <p style={{color:'#03a9f0'}}>Loading...</p>
+                                :
+                                <button 
+                                    type="submit" 
+                                    onClick={(e)=>this.registerUser({e,register:true})} 
+                                    className="btn btn-primary btn-pill">
+                                        SIGN UP
+                                </button>
+                            }
+                            {this.props.fun()}
                         </div>
                     </div>
                 )
@@ -57,11 +165,99 @@ const SignUpForm = (props) => {
         return template;
     }
 
-    return (
-        <form method="post" className="form-box">
-            {renderFields()}
-        </form>
-    );
+    registerUser=(event)=>{
+        event.e.preventDefault();
+
+        let dataToSubmit={};
+        let formIsValid=true;
+
+        if(event.register){
+            for(let key in this.state.formData){
+                dataToSubmit[key]=this.state.formData[key].value;
+            };
+
+            for(let key in this.state.formData){
+                formIsValid=this.state.formData[key].valid && formIsValid;
+            };
+
+            if(formIsValid){
+                this.setState({
+                    loading:true,
+                    registerError:''
+                })
+                axios.post('/register',{
+                    email:dataToSubmit.email,
+                    password:dataToSubmit.pwd,
+                    fname:dataToSubmit.fname,
+                    lname:dataToSubmit.lname
+                })
+                .then(response=>{
+                    window.location.reload();
+                })
+                .catch(err=>this.setState({
+                    registerError:err
+                }))
+            }
+        }
+
+        if(event.login){
+            let newFormData={};
+            newFormData['email']=this.state.formData.email;
+            newFormData['pwd']=this.state.formData.pwd;
+
+            dataToSubmit['email']=newFormData.email.value;
+            dataToSubmit['pwd']=newFormData.pwd.value;
+
+            for(let key in newFormData){
+                formIsValid=newFormData[key] && formIsValid;
+            }
+
+            if(formIsValid){
+                this.setState({
+                    loading:true,
+                    registerError:''
+                });
+                axios.post('/login',{email:dataToSubmit.email,password:dataToSubmit.pwd})
+                .then(response=>{
+                    const message=response.data.message
+                    if(message){
+                        this.setState({
+                            registerError:response.data.message,
+                            loading:false
+                        })
+                    }else{
+                        this.setState({
+                           loggedIn:true,
+                           loading:false
+                        });
+                    }
+                    
+                })
+                .catch(err=>this.setState({
+                    registerError:err.message
+                }))
+            }
+        }
+    }
+
+    showError = ()=>(
+        this.state.registerError !=='' ? 
+        <div style={{color:'red'}}>{this.state.registerError}</div>
+        :''
+    )
+
+    render(){
+        return (
+            <Fragment>
+                {!this.state.loggedIn ? <form className="form-box">
+                    {this.renderFields()}
+                    {this.showError()}
+                </form> : ''}
+            </Fragment>
+            
+        );
+    }
+    
 };
 
 export default SignUpForm;

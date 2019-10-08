@@ -21,6 +21,9 @@ h3, h4 {
 .content{
   padding: 16px;
 }
+#dash a div:hover{
+  color: white;
+}
 
 .sticky{
   position: fixed !important;
@@ -127,11 +130,15 @@ a:visited{
 .row.jumbo{
   display: flex;
   flex-wrap: wrap;
-  padding:20% 0 20% 0;
+  padding:15% 0 20% 0;
 }
 .jumbo{
   align-items: center !important;
 }
 .input{
   margin: 10px 0;
+}
+ul#board{
+  list-style: none;
+  font-size: 20px;
 }
