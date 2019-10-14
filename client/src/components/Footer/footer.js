@@ -22,7 +22,9 @@ const Footer = () => {
                     <span className='icon icon-linkedin-square'></span>
                 </div>
                 <div className='col-xs-3'>
-                    <span className='icon icon-envelope'></span>
+                    <a href="mailto:support@ruralmoocs.com">
+                        <span className='icon icon-envelope'></span>
+                    </a>
                 </div>
             </div>
             <div style={{width:'100%'}}>

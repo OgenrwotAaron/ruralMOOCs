@@ -7,6 +7,8 @@ import Dashboard from './components/Dashboard/dashboard';
 import Join from './components/Join/join';
 import AddCourse from './components/AddCourse/addCourse';
 import AddInstructor from './components/AddInstructor/addInstructor';
+import CourseSingle from './components/Course/courseSingle';
+import AddTopic from './components/AddTopic/addTopic';
 
 const Routes = () => {
     return (
@@ -19,6 +21,8 @@ const Routes = () => {
                 <Route path="/join" exact component={Join}/>
                 <Route path="/add-course" exact component={AddCourse}/>
                 <Route path='/add-instructor' exact component={AddInstructor}/>
+                <Route path='/course/:id' exact component={CourseSingle}/>
+                <Route path='/addTopic/:id' exact component={AddTopic}/>
             </Switch>
         </Layout>
         

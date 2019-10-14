@@ -1,33 +1,67 @@
-import React from 'react';
-import {Link} from 'react-router-dom'
+import React,{ Component} from 'react';
+import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 import Card from '../widgets/Cards/cards';
 
-const Courses = () => {
-    return (
-        <div style={{textAlign:'center'}}>
-            <div  style={{backgroundColor:'#337ab7',margin:'0',padding:'5%',borderRadius:'0 0 100% 100%'}}>
-            <h1 data-aos="fade-in" data-aos-duration="500">Availabble MOOCs</h1>
+class Courses extends Component {
+
+    state={
+        courses:[]
+    }
+
+    //WARNING! To be deprecated in React v17. Use componentDidMount instead.
+    componentWillMount() {
+        axios.get('/courses')
+        .then(response=>{
+            this.setState({
+                courses:response.data
+            })
+        })
+        .catch(e=>console.log(e))
+    }
+
+    renderCourses=(data)=>{
+       return data.slice(0,2).map((item,i)=>
+            (
+            <div key={i}>
+                <div className='col-sm-4'>
+                    <Link to={`/course/${item._id}`}>
+                        <Card item={item}/>
+                    </Link>
+                </div>
             </div>
-            <div className='row' style={{width:'100%', marginLeft:'0',color:'#1e486d'}}>
-                <div className='col-sm-4'>
-                    <Link to='/'>
-                        <Card/>
-                    </Link>
+            
+        ))
+    }
+
+    render(){
+        return (
+            <div style={{textAlign:'center'}}>
+                <div  style={{backgroundColor:'#337ab7',margin:'0',padding:'5%',borderRadius:'0 0 100% 100%'}}>
+                <h1 data-aos="fade-in" data-aos-duration="500">Availabble MOOCs</h1>
                 </div>
-                <div className='col-sm-4'>
-                    <Link to='/'>
-                        <Card/>
-                    </Link>
-                </div>
-                <div className='col-sm-4'>
-                    <Link to='/'>
-                        <Card/>
-                    </Link>
+                <div className='row' style={{width:'100%', marginLeft:'0',color:'#1e486d'}}>
+                    {this.renderCourses(this.state.courses)}
+                    {/* <div className='col-sm-4'>
+                        <Link to='/'>
+                            <Card/>
+                        </Link>
+                    </div>
+                    <div className='col-sm-4'>
+                        <Link to='/'>
+                            <Card/>
+                        </Link>
+                    </div>
+                    <div className='col-sm-4'>
+                        <Link to='/'>
+                            <Card/>
+                        </Link>
+                    </div> */}
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
 };
 
 export default Courses;

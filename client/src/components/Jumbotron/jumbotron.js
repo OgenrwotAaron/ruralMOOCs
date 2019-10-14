@@ -25,12 +25,14 @@ class Jumbotron extends Component {
                     <div className="slide-1" style={{backgroundImage:"url('images/hero.jpg')",backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition:"50% 50%",backgroundAttachment:'fixed'}}>
                         <div className="container jumb" style={{backgroundColor:'rgba(7,6,28,0.88)',width:'100%'}}>
                             <div className="row jumbo">
-                                <div className="col-sm-12"  data-aos="fade-up" data-aos-duration="500">
-                                    <div className="col-sm-12" style={{paddingBottom:'10px',textAlign:'center'}}>
-                                        <img style={{width:'30%', height:'auto'}} src='/images/header-img.png' alt='home'/>
-                                        <h1 style={{marginBottom:'0'}}>Learning Beyond Limitations</h1>
+                                <div className="col-sm-12" style={{padding:'0 5%'}}  data-aos="fade-up" data-aos-duration="500">
+                                    <div className="col-sm-6" style={{paddingBottom:'10px'}}>
+                                        <h1 style={{marginBottom:'0',fontSize:'50px'}}>Learning Beyond Limitations</h1>
                                         <p style={{marginTop:'0'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime ipsa nulla sed quis rerum amet natus quas necessitatibus.</p>
                                         <Link to="/join"><button className="btn btn-white">Get Started</button></Link>
+                                    </div>
+                                    <div className='col-sm-6'>
+                                        <img style={{width:'60%', height:'auto',float:'right'}} src='/images/header-img.png' alt='home'/>
                                     </div>
                                 </div>
                             </div>
@@ -44,8 +46,7 @@ class Jumbotron extends Component {
                         <div className="container" style={{backgroundColor:'#343a40c9',height:'100%',width:'100%'}}>
                             <div className="row jumbo">
                                 <div className="col-md-12"  data-aos="fade-up" data-aos-duration="500">
-                                    <h1 style={{marginBottom:'0',textAlign:'center'}}>{this.props.image}</h1>
-                                    <p style={{marginTop:'0',textAlign:'center'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime ipsa nulla sed quis rerum amet natus quas necessitatibus.</p>
+                                    <h1 style={{marginBottom:'0',textAlign:'center'}}>{this.props.title}</h1>
                                 </div>
                             </div>
                         </div>

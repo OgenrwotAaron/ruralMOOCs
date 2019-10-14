@@ -8,7 +8,15 @@ h3, h4 {
   font-size: 20px;
   color: #111;
 }
+#playvid:hover{
+  font-size: 50px !important;
+  color: white !important;
+}
 
+#addvid:hover{
+  font-size: 25px !important;
+  color: white !important;
+}
 .header{
   padding: 10px 16px;
   color: #f1f1f1;
@@ -105,7 +113,7 @@ p{
   color: rgba(255,255,255,0.5);
 }
 h1{
-  font-size: 3em !important;
+  font-size: 3em;
   font-weight: 700;
 }
 @media(max-width:425px){
@@ -121,7 +129,7 @@ a:visited{
   text-decoration: none;
 }
 .cards{
-  transition: all ease 0.3s;
+  transition-duration: 0.5s;
 }
 .cards:hover{
   box-shadow:2px 2px 10px gray;
@@ -141,4 +149,29 @@ a:visited{
 ul#board{
   list-style: none;
   font-size: 20px;
+}
+
+[type="file"]{
+  height: 0;
+  overflow: hidden;
+  width: 0;
+}
+
+[type="file"] + label{
+  background: #fff;
+  border: none;
+  border-radius: 5px;
+  color: #111;
+  cursor: pointer;
+  outline: none;
+  padding: 5px 10px;
+  position: relative;
+  transition: all 0.2s;
+  vertical-align: middle;
+}
+
+[type="file"] + label:hover{
+  background:#64040400;
+  color: white;
+  border: white 1px solid;
 }

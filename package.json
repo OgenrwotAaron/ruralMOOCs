@@ -24,6 +24,7 @@
     "moment-js": "^1.1.15",
     "mongoose": "^5.5.11",
     "multer": "^1.4.2",
-    "multer-gridfs-storage": "^3.3.0"
+    "multer-gridfs-storage": "^3.3.0",
+    "transloadit": "^2.0.8"
   }
 }

@@ -9,34 +9,47 @@ class SideNav extends Component{
                     <ul id="board">
                         <li>
                             <Link style={{color:'white'}} to='/dashboard'>
+                                <span style={{padding:'0 5px'}} className='icon icon-bar-chart'></span>
                                 Dashboard
                             </Link>
                         </li>
                         <hr/>
                         <li>
                             <Link style={{color:'white'}} to='/dashboard/courses'>
+                                <span style={{padding:'0 5px'}} className='icon icon-apps'></span>
                                 Courses
                             </Link>
                         </li>
                         <li>
                             <Link style={{color:'white'}} to='/dashboard/students'>
+                                <span style={{padding:'0 5px'}} className='icon icon-users'></span>
                                 Students
                             </Link>
                         </li>
                         <li>
                             <Link style={{color:'white'}} to='/dashboard/instructors'>
+                                <span style={{padding:'0 5px'}} className='icon icon-id-card'></span>
                                 Instructors
                             </Link>
                         </li>
                         <hr/>
                         <li>
                             <Link style={{color:'white'}} to='/dashboard/feeds'>
+                                <span style={{padding:'0 5px'}} className='icon icon-feed'></span>
                                 News Feed
                             </Link>
                         </li>
                         <li>
                             <Link style={{color:'white'}} to='/dashboard/mail'>
+                                <span style={{padding:'0 5px'}} className='icon icon-mail_outline'></span>
                                 Inbox
+                            </Link>
+                        </li>
+                        <hr/>
+                        <li>
+                            <Link style={{color:'white'}} to='/dashboard/mail'>
+                                <span style={{padding:'0 5px'}} className='icon icon-exit_to_app'></span>
+                                Logout
                             </Link>
                         </li>
                     </ul>

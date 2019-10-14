@@ -30,6 +30,9 @@ const userSchema = mongoose.Schema({
     token:{
         type:String
     }
+},
+{
+    timestamp:true
 })
 
 userSchema.pre('save',function(next){
