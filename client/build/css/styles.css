@@ -1,0 +1,177 @@
+body{
+  
+  color: white !important;
+}
+h3, h4 {
+  margin: 10px 0 30px 0;
+  letter-spacing: 10px;      
+  font-size: 20px;
+  color: #111;
+}
+#playvid:hover{
+  font-size: 50px !important;
+  color: white !important;
+}
+
+#addvid:hover{
+  font-size: 25px !important;
+  color: white !important;
+}
+.header{
+  padding: 10px 16px;
+  color: #f1f1f1;
+  transition: .3s all ease;
+  position: absolute;
+  top:0;
+  z-index: 999;
+}
+
+.content{
+  padding: 16px;
+}
+#dash a div:hover{
+  color: white;
+}
+
+.sticky{
+  position: fixed !important;
+  top: 0;
+  z-index: 999;
+  background: #285f8f !important;
+  width: 100%;
+  transition: .3s all ease;
+}
+.sticky + .content{
+  padding-top: 102px;
+}
+.nav-tabs li a {
+  color: #777;
+} 
+.navbar {
+  position: absolute;
+  margin-bottom: 0 !important;
+  background-color: #23232400;
+  border: 0 !important;
+  font-size: 11px !important;
+  letter-spacing: 4px;
+  border-radius: 0 !important;
+}
+.navbar li a, .navbar{ 
+  color: #dbdbdb !important;
+}
+.navbar-brand a{
+  text-decoration: none;
+  color: white;
+  font-size: 2em;
+}
+.navbar-nav li a:hover {
+  color: rgb(1, 169, 240) !important;
+}
+.navbar-nav li a{
+  color: #fff;
+}
+.navbar-nav li.active a {
+  color: #fff !important;
+  background-color: #29292c !important;
+}
+.navbar-default .navbar-toggle {
+  border-color: transparent;
+}
+.open .dropdown-toggle {
+  color: #fff;
+  background-color: #555 !important;
+}
+.dropdown-menu{
+  background-color: #444343f0;
+}
+.dropdown-menu li a {
+  color: #bfbfbf !important;
+}
+.dropdown-menu li a:hover {
+  background-color: rgb(141, 139, 139) !important;
+}
+footer {
+  background-color: #2d2d30;
+  color: #f5f5f5;
+  padding: 32px;
+}
+footer a {
+  color: #f5f5f5;
+}
+footer a:hover {
+  color: #777;
+  text-decoration: none;
+}  
+.form-control {
+  border-radius: 0;
+}
+textarea {
+  resize: none;
+}
+p{
+  font-size: 1.5em;
+  color: rgba(255,255,255,0.5);
+}
+h1{
+  font-size: 3em;
+  font-weight: 700;
+}
+@media(max-width:425px){
+  .navbar-collapse{
+    background: rgb(56, 56, 56);
+  }
+  
+  .row{
+    min-height: 0;
+  }
+}
+a:visited{
+  text-decoration: none;
+}
+.cards{
+  transition-duration: 0.5s;
+}
+.cards:hover{
+  box-shadow:2px 2px 10px gray;
+}
+
+.row.jumbo{
+  display: flex;
+  flex-wrap: wrap;
+  padding:15% 0 20% 0;
+}
+.jumbo{
+  align-items: center !important;
+}
+.input{
+  margin: 10px 0;
+}
+ul#board{
+  list-style: none;
+  font-size: 20px;
+}
+
+[type="file"]{
+  height: 0;
+  overflow: hidden;
+  width: 0;
+}
+
+[type="file"] + label{
+  background: #fff;
+  border: none;
+  border-radius: 5px;
+  color: #111;
+  cursor: pointer;
+  outline: none;
+  padding: 5px 10px;
+  position: relative;
+  transition: all 0.2s;
+  vertical-align: middle;
+}
+
+[type="file"] + label:hover{
+  background:#64040400;
+  color: white;
+  border: white 1px solid;
+}
