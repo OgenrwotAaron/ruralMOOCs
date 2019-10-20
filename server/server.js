@@ -56,7 +56,7 @@ const storage=new GridFsStorage({
             const fileInfo={
                 filename:filename,
                 metadata:req.body,
-                bucketName:req.body.course ? 'courses' :'topics'
+                bucketName:req.body.course !== '' ? 'courses' :'topics'
             };
 
             resolve(fileInfo);
