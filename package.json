@@ -2,12 +2,13 @@
   "name": "moocs",
   "version": "1.0.0",
   "description": "online courses",
-  "main": "index.js",
+  "main": "server/server.js",
   "scripts": {
     "start": "node server/server",
     "server": "nodemon server/server",
-    "client": "sudo npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild":"npm install --prefix client && npm run build prefix client"
   },
   "engines": {
     "node": "11.1.0"
