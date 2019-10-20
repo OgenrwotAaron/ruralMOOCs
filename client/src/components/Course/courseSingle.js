@@ -12,7 +12,7 @@ class CourseSingle extends Component {
 
     //WARNING! To be deprecated in React v17. Use componentDidMount instead.
     componentWillMount() {
-        axios.get(`/course/${this.props.match.params.id}`)
+        axios.get(`/api/course/${this.props.match.params.id}`)
         .then(res=>{
             this.setState({
                 item:res.data
@@ -26,7 +26,7 @@ class CourseSingle extends Component {
         }
         return ( 
             <div>
-                <Jumbotron type='category' title={`${this.state.item.metadata.course}`} image={`/image/${this.state.item.filename}`}/>
+                <Jumbotron type='category' title={`${this.state.item.metadata.course}`} image={`/api/image/${this.state.item.filename}`}/>
                 <Link id='playvid' style={{fontSize:'45px',position:'absolute',zIndex:'1',bottom:'52%',left:'5%',color:'#ffffffab'}} to={`/video/${this.state.item._id}`}>
                     <span className="icon icon-play_circle_outline"></span>
                 </Link>

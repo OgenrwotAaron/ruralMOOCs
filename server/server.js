@@ -128,10 +128,6 @@ app.post('/api/login',(req,res)=>{
     });
 });
 
-app.get('/*',(req,res)=>{
-    res.sendFile(path.resolve(__dirname,'..','client','build','index.html'));
-})
-
 app.get('/api/user',auth,(req,res)=>{
     res.json({
         isAuth:true,
@@ -187,9 +183,10 @@ app.get('/api/course/:id',(req,res)=>{
     })
 })
 
-app.get('/',(req,res)=>{
-    res.send('hello')
+app.get('*',(req,res)=>{
+    res.sendFile(path.resolve(__dirname,'..','client','build','index.html'));
 })
+
 
 const PORT = process.env.PORT || 5000;
 
