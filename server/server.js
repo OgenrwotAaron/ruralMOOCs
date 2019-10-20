@@ -6,6 +6,7 @@ const multer=require('multer');
 const GridFsStorage=require('multer-gridfs-storage');
 const Grid=require('gridfs-stream');
 const methodOverride=require('method-override');
+const { createServer }=require('http');
 const ObjectId=require('mongodb').ObjectId;
 const TransloaditClient=require('transloadit');
 //const nodeMailer=require('nodemailer');
@@ -128,7 +129,7 @@ app.post('/api/login',(req,res)=>{
 });
 
 app.get('*',(req,res)=>{
-    res.sendFile(path.resolve(__dirname,'..','client','build','index.html'))
+    res.sendFile(path.resolve(__dirname,'..','client','build','index.html'));
 })
 
 app.get('/api/user',auth,(req,res)=>{
@@ -192,7 +193,9 @@ app.get('/',(req,res)=>{
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT,_=>{
+const server=createServer(app);
+
+server.listen(PORT,_=>{
     console.log(`App listening on port ${PORT}`);
     console.log('Press Ctrl+C to quit');
 })
