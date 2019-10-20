@@ -9,6 +9,9 @@
     "client": "sudo npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
+  "engines": {
+    "node": "11.1.0"
+  },
   "author": "Ogenrwot Aaron",
   "license": "ISC",
   "dependencies": {
