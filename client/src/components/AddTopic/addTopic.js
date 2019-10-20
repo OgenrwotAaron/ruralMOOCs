@@ -40,7 +40,7 @@ class AddTopic extends Component {
                     <div className="row jumbo">
                         <div className="col-sm-3"></div>
                         <div className="col-sm-6"  data-aos="fade-up" data-aos-duration="500">
-                            <form encType='multipart/form-data' method='POST' action='/addtopic'>
+                            <form encType='multipart/form-data' method='POST' action='/api/addtopic'>
                                 <h1 style={{textAlign:'center'}}>Add Topic to {`${this.state.formdata.metadata.course}`}</h1>
                                 <div className="row custom-file mb-3">
                                     <div className='col-sm-3'></div>

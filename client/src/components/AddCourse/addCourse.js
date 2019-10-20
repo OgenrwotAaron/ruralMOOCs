@@ -7,7 +7,7 @@ const AddCourse=()=>{
                 <div className="row jumbo">
                     <div className="col-sm-3"></div>
                     <div className="col-sm-6"  data-aos="fade-up" data-aos-duration="500">
-                        <form encType='multipart/form-data' method='POST' action='/addCourse'>
+                        <form encType='multipart/form-data' method='POST' action='/api/addCourse'>
                             <h1 style={{textAlign:'center'}}>Add Course</h1>
                             <div className="custom-file mb-3">
                                 <input type="file" name="file" id="file" className="custom-file-input"/>
