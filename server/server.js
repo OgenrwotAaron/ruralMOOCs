@@ -28,7 +28,7 @@ const { auth } = require('./middleware/auth');
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(express.static(path.resolve(__dirname,'build')))
+app.use(express.static(path.resolve(__dirname,'../client','build')))
 
 //init gfs
 let gfs;
