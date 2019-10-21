@@ -123,6 +123,7 @@ app.post('/api/login',(req,res)=>{
                     id:user._id,
                     email:user.email
                 });
+                res.redirect('/dashboard');
             });
         });
     });
