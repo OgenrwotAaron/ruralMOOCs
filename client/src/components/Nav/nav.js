@@ -11,7 +11,7 @@ const Nav = () => {
                       data-toggle="dropdown"
                       href="all"
                     >
-                      MOOCs
+                      <span style={{fontSize:'20px'}} className='icon icon-th'/>
                       <span className="caret" />
                     </a>
                     <ul className="dropdown-menu">
@@ -45,11 +45,11 @@ const Nav = () => {
                       </li>
                     </ul>
                   </li>
-                  <li>
-                    <Link to='/about'>MORE</Link>
-                  </li>
                   <li style={{padding:'15px'}}>
                     <input id='search' className="form-control" placeholder='browse..' style={{height:'25px',padding:'2px 10px',border:'none',borderRadius:'25px'}} type='search' /><span style={{margin:'15px',fontSize:'18px',paddingTop:'2px',color:'#01a9f0'}} className='icon icon-search form-control-feedback'></span>
+                  </li>
+                  <li style={{padding:'10px 5px',fontSize:'25px'}}>
+                    <span className="icon icon-user-circle-o"></span>
                   </li>
                 </ul>
     );

@@ -38,7 +38,7 @@ class Header extends Component {
                 </button>
                 <div className="navbar-brand">
                     <Link to="/">
-                        RuralMoocs
+                        RuralMOOCs
                     </Link>
                 </div>
               </div>

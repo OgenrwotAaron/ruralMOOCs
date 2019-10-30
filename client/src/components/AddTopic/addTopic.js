@@ -9,7 +9,7 @@ class AddTopic extends Component {
 
     //WARNING! To be deprecated in React v17. Use componentDidMount instead.
     componentWillMount() {
-        axios.get(`/course/${this.props.match.params.id}`)
+        axios.get(`/api/course/${this.props.match.params.id}`)
         .then(res=>{
             this.setState({
                 formdata:res.data
@@ -35,7 +35,7 @@ class AddTopic extends Component {
             return null;
         }
         return ( 
-            <div className="slide-1" style={{backgroundImage:`url('/image/${this.state.formdata.filename}')`,backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition:"50% 50%",backgroundAttachment:'fixed'}}>
+            <div className="slide-1" style={{backgroundImage:`url('/api/image/${this.state.formdata.filename}')`,backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition:"50% 50%",backgroundAttachment:'fixed'}}>
                 <div className="container jumb" style={{backgroundColor:'rgba(7,6,28,0.88)',width:'100%'}}>
                     <div className="row jumbo">
                         <div className="col-sm-3"></div>

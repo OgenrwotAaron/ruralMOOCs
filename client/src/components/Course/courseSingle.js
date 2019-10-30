@@ -44,11 +44,12 @@ class CourseSingle extends Component {
                     </div>
                     <div className='col-sm-6'>
                         <div className='row' style={{padding:'10px',borderBottom:'solid 1px lightgray'}}>
-                            <div className='col-sm-2' style={{background:'url("/images/about.jpg")',backgroundSize:'cover'}}>
-                                <span style={{fontSize:'50px',textAlign:'center',background:'linear-gradient(90deg, transparent, #00000038, transparent)'}} className='icon icon-play-circle-o'></span>
+                            <div className='col-sm-2' style={{background:'url("/images/about.jpg")',backgroundSize:'cover',width:'50px',height:'50px',padding:'0',textAlign:'center'}}>
+                                <span style={{fontSize:'40px',textAlign:'center',background:'linear-gradient(90deg, transparent, #00000038, transparent)'}} className='icon icon-play-circle-o'></span>
                             </div>
                             <div className='col-sm-10'>
-                                <p style={{color:'#565555',fontWeight:'bold',marginTop:'0'}}>title</p>
+                                <p style={{color:'#565555',fontWeight:'bold',margin:'0'}}>Title</p>
+                                <p style={{margin:'0',color:'#565555'}}>Duration</p>
                             </div>
                         </div>
                     </div>

@@ -1,5 +1,18 @@
 import React from 'react';
 
+const changeLabel=(event)=>{
+    console.log(event.target.files)
+    const file=event.target.files[0];
+    if(file.size>62914560){
+        alert('File too large')
+        event.target.value=''
+        document.getElementById('thename').innerText='Upload Video';
+    }else{
+       document.getElementById('thename').innerText=file.name; 
+    }
+    
+}
+
 const AddCourse=()=>{
     return(
         <div className="slide-1" style={{backgroundImage:"url('images/science.jpg')",backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition:"50% 50%",backgroundAttachment:'fixed'}}>
@@ -10,7 +23,7 @@ const AddCourse=()=>{
                         <form encType='multipart/form-data' method='POST' action='/api/addCourse'>
                             <h1 style={{textAlign:'center'}}>Add Course</h1>
                             <div className="custom-file mb-3">
-                                <input type="file" name="file" id="file" className="custom-file-input"/>
+                                <input type="file" name="file" id="file" onChange={(e)=>changeLabel(e)} className="custom-file-input"/>
                                 <label id="thename" htmlFor="file" className="custom-file-label">Choose Poster Photo</label>
                             </div>
                             <div className="row form-group">
