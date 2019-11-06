@@ -9,6 +9,7 @@ import AddCourse from './components/AddCourse/addCourse';
 import AddInstructor from './components/AddInstructor/addInstructor';
 import CourseSingle from './components/Course/courseSingle';
 import AddTopic from './components/AddTopic/addTopic';
+import Video from './components/Video/video';
 
 const Routes = () => {
     return (
@@ -23,6 +24,7 @@ const Routes = () => {
                 <Route path='/add-instructor' exact component={AddInstructor}/>
                 <Route path='/course/:id' exact component={CourseSingle}/>
                 <Route path='/addTopic/:id' exact component={AddTopic}/>
+                <Route path='/video/:id' exact component={Video}/>
             </Switch>
         </Layout>
         

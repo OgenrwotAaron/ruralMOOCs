@@ -33,13 +33,10 @@ app.use(express.static(path.resolve(__dirname,'..','client','build')))
 
 //init gfs
 let gfs;
-let gfss;
 conn.once('open',()=>{
     //initialise stream
     gfs= Grid(conn.db,mongoose.mongo);
-    gfss= Grid(conn.db,mongoose.mongo);
     gfs.collection('courses');
-    gfss.collection('topics');
 })
 
 //create storage engine
@@ -154,20 +151,6 @@ app.get('/api/image/:filename',(req,res)=>{
     })
 })
 
-app.get('/api/video/:filename',(req,res)=>{
-    gfss.files.findOne({filename:req.params.filename},(err,file)=>{
-        if(!file || file.length === 0){
-            return res.status(404).json({error:'No such file exists'})
-        }
-        if(file.contentType ==='video/mp4'){
-            const readStream=gfss.createReadStream(file.filename);
-            readStream.pipe(res)
-        }else{
-            res.status(404).json({error:'Not a video'})
-        }
-    })
-})
-
 app.get('/api/course/:id',(req,res)=>{
     gfs.files.findOne({ _id:ObjectId(req.params.id)},(err,file)=>{
         if(err) return res.json({error:err})
@@ -179,13 +162,23 @@ app.get('/api/course/:id',(req,res)=>{
 })
 
 app.get('/api/topics/:course',(req,res)=>{
-    Topic.find({'course':req.params.course},(err,files)=>{
+    Topic.find({course:req.params.course},(err,files)=>{
         if(err) return res.json({error:err})
         if(!files || files.length === 0){
             return res.status(404).json({error:'No files exist'});
         }
         return res.json(files);
     });
+})
+
+app.get('/api/topic/:id',(req,res)=>{
+    Topic.findOne({_id:ObjectId(req.params.id)},(err,topic)=>{
+        if(err) return res.json({error:err})
+        if(!topic || topic.length === 0){
+            return res.status(404).json({error:'No files exist'});
+        }
+        return res.json(topic);
+    })
 })
 
 app.get('*',(req,res)=>{

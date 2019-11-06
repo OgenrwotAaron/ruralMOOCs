@@ -30,13 +30,16 @@ class CourseSingle extends Component {
     renderTopics=(topics)=>{
         return topics.map((topic,i)=>(
             <div key={i} className='row' style={{padding:'10px',borderBottom:'solid 1px lightgray'}}>
-                <div className='col-sm-2' style={{background:'url("/images/about.jpg")',backgroundSize:'cover',width:'50px',height:'50px',padding:'0',textAlign:'center'}}>
-                    <span style={{fontSize:'40px',textAlign:'center',background:'linear-gradient(90deg, transparent, #00000038, transparent)'}} className='icon icon-play-circle-o'></span>
-                </div>
-                <div className='col-sm-10'>
-                    <p style={{color:'#565555',fontWeight:'bold',margin:'0'}}>Title</p>
-                    <p style={{margin:'0',color:'#565555'}}>Duration</p>
-                </div>
+                <Link to={`/video/${topic._id}`}>
+                    <div className='col-sm-2' style={{background:`url("${topic.poster}")`,backgroundSize:'cover',width:'50px',height:'50px',padding:'0',textAlign:'center'}}>
+                        <span style={{color:'white',fontSize:'40px',textAlign:'center',background:'linear-gradient(90deg, transparent, #00000038, transparent)'}} className='icon icon-play-circle-o'></span>
+                    </div>
+                    <div className='col-sm-10'>
+                        <p style={{color:'#565555',fontWeight:'bold',margin:'0'}}>{topic.title}</p>
+                        <p style={{float:'left',color:'#565555',margin:'0'}}>{topic.description}</p>
+                        <p style={{margin:'0',color:'#565555',float:'right'}}>{`${Math.round((topic.duration/60)*10)/10} mins`}</p>
+                    </div>
+                </Link>
             </div>
             )
         )
@@ -49,10 +52,10 @@ class CourseSingle extends Component {
         return ( 
             <div>
                 <Jumbotron type='category' title={`${this.state.item.metadata.course}`} image={`/api/image/${this.state.item.filename}`}/>
-                <Link id='playvid' style={{fontSize:'45px',position:'absolute',zIndex:'1',bottom:'52%',left:'5%',color:'#ffffffab'}} to={`/video/${this.state.item._id}`}>
+                <Link data-aos='fade' data-aos-duration='700' id='playvid' style={{fontSize:'45px',position:'absolute',zIndex:'1',bottom:'52%',left:'5%',color:'#ffffffab'}} to={`/video/${this.state.topics[0]._id}`}>
                     <span className="icon icon-play_circle_outline"></span>
                 </Link>
-                <Link id='addvid' style={{fontSize:'18px',position:'absolute',zIndex:'1',bottom:'52%',right:'5%',color:'#ffffffab'}} to={`/addTopic/${this.state.item._id}`}>  
+                <Link data-aos='fade' data-aos-duration='700' id='addvid' style={{fontSize:'18px',position:'absolute',zIndex:'1',bottom:'52%',right:'5%',color:'#ffffffab'}} to={`/addTopic/${this.state.item._id}`}>  
                     <span className="icon icon-playlist_add"></span>
                     Add topic
                 </Link>
