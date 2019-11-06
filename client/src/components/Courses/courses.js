@@ -11,7 +11,7 @@ class Courses extends Component {
     }
 
     //WARNING! To be deprecated in React v17. Use componentDidMount instead.
-    componentWillMount() {
+    componentDidMount() {
         axios.get('/api/courses')
         .then(response=>{
             this.setState({

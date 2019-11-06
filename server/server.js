@@ -24,6 +24,7 @@ const conn=mongoose.createConnection(process.env.MONGODB_URI || 'mongodb://local
 
 const { User } = require('./models/user');
 const { Inbox } = require('./models/inbox');
+const { Topic } = require('./models/topic')
 const { auth } = require('./middleware/auth');
 
 app.use(bodyParser.json());
@@ -72,7 +73,11 @@ app.post('/api/addCourse',upload.any(),(req,res)=>{
 })
 
 app.post('/api/addtopic',(req,res)=>{
-    console.log(req);
+    const topic= new Topic(req.body);
+    topic.save((err,doc)=>{
+        if(err) return res.json({success:false,error:err});
+        res.json({success:true,doc:doc})
+    })
 })
 
 app.post('/api/register',(req,res)=>{
@@ -171,6 +176,16 @@ app.get('/api/course/:id',(req,res)=>{
         }
         return res.json(file);
     })
+})
+
+app.get('/api/topics/:course',(req,res)=>{
+    Topic.find({'course':req.params.course},(err,files)=>{
+        if(err) return res.json({error:err})
+        if(!files || files.length === 0){
+            return res.status(404).json({error:'No files exist'});
+        }
+        return res.json(files);
+    });
 })
 
 app.get('*',(req,res)=>{

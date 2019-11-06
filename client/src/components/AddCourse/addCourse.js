@@ -1,7 +1,6 @@
 import React from 'react';
 
 const changeLabel=(event)=>{
-    console.log(event.target.files)
     const file=event.target.files[0];
     if(file.size>62914560){
         alert('File too large')

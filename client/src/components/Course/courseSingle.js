@@ -7,17 +7,39 @@ import InstructorCard from '../widgets/InstructorCard/instructorCard';
 class CourseSingle extends Component {
 
     state={
-        item:''
+        item:'',
+        topics:''
     }
 
     //WARNING! To be deprecated in React v17. Use componentDidMount instead.
-    componentWillMount() {
+    componentDidMount() {
         axios.get(`/api/course/${this.props.match.params.id}`)
         .then(res=>{
-            this.setState({
-                item:res.data
+            axios.get(`/api/topics/${res.data._id}`)
+            .then(resp=>{
+                this.setState({
+                    item:res.data,
+                    topics:resp.data
+                })
             })
+            .catch(err=>console.log(err))
         })
+        .catch(error=>console.log(error))
+    }
+
+    renderTopics=(topics)=>{
+        return topics.map((topic,i)=>(
+            <div key={i} className='row' style={{padding:'10px',borderBottom:'solid 1px lightgray'}}>
+                <div className='col-sm-2' style={{background:'url("/images/about.jpg")',backgroundSize:'cover',width:'50px',height:'50px',padding:'0',textAlign:'center'}}>
+                    <span style={{fontSize:'40px',textAlign:'center',background:'linear-gradient(90deg, transparent, #00000038, transparent)'}} className='icon icon-play-circle-o'></span>
+                </div>
+                <div className='col-sm-10'>
+                    <p style={{color:'#565555',fontWeight:'bold',margin:'0'}}>Title</p>
+                    <p style={{margin:'0',color:'#565555'}}>Duration</p>
+                </div>
+            </div>
+            )
+        )
     }
 
     render(){
@@ -43,15 +65,7 @@ class CourseSingle extends Component {
                         </div>
                     </div>
                     <div className='col-sm-6'>
-                        <div className='row' style={{padding:'10px',borderBottom:'solid 1px lightgray'}}>
-                            <div className='col-sm-2' style={{background:'url("/images/about.jpg")',backgroundSize:'cover',width:'50px',height:'50px',padding:'0',textAlign:'center'}}>
-                                <span style={{fontSize:'40px',textAlign:'center',background:'linear-gradient(90deg, transparent, #00000038, transparent)'}} className='icon icon-play-circle-o'></span>
-                            </div>
-                            <div className='col-sm-10'>
-                                <p style={{color:'#565555',fontWeight:'bold',margin:'0'}}>Title</p>
-                                <p style={{margin:'0',color:'#565555'}}>Duration</p>
-                            </div>
-                        </div>
+                        {this.renderTopics(this.state.topics)}
                     </div>
                     <div className='col-sm-3'>
                         <InstructorCard id={this.props.match.params.id}/>

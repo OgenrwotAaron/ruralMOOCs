@@ -8,7 +8,7 @@ class AddTopic extends Component {
 
     state={
         formdata:'',
-        title:''
+        error:false
     }
 
     //WARNING! To be deprecated in React v17. Use componentDidMount instead.
@@ -29,6 +29,9 @@ class AddTopic extends Component {
             allowedFileTypes:['video/mp4'],
             maxNumberOfFiles:1,
             minNumberOfFiles:1
+        },
+        meta:{
+            course:this.props.match.params.id
         }
     })
     .use(Transloadit,{
@@ -36,12 +39,31 @@ class AddTopic extends Component {
             template_id: '63faa7b75c624882a12a862c043a4e53',
             auth:{key:'c330851cae3e4bbc83328eb89b2926fe'}
         },
-        fields:{
-            title:this.state.title
-        }
+        limit:1,
+        waitForEncoding:true,
+        fields:['course','title','description']
     })
     .on('complete',results=>{
-        console.log(results)
+        const metaData=results.transloadit[0];
+        const videoMeta=metaData.results;
+        axios.post('/api/addtopic',{
+            title:metaData.fields.title,
+            description:metaData.fields.description,
+            duration:videoMeta.video_dash[0].meta.duration,
+            course:metaData.fields.course,
+            video:videoMeta.video_dash[1].url,
+            poster:videoMeta.thumbnail[0].url
+        })
+        .then(response=>{
+            if(response.data.success===false){
+                this.setState({
+                    error:true
+                })
+            }else{
+                this.props.history.push(`/course/${response.data.doc.course}`)
+            }
+        })
+        .catch(err=>this.setState({error:true}))
     })
 
     render(){
@@ -55,17 +77,23 @@ class AddTopic extends Component {
                         <div className="col-sm-3"></div>
                         <div className="col-sm-6"  data-aos="fade-up" data-aos-duration="500">
                             <h1 style={{textAlign:'center'}}>Add Topic to {`${this.state.formdata.metadata.course}`}</h1>
-                            <form id='my-form'>
-                                <input type='text' style={{color:'black'}} onChange={(e)=>this.setState({title:e.target.value})} placeholder='Topic title' />
-                            </form>
+                            {this.state.error === true ? 
+                                <div style={{color:'red'}}>
+                                    Error ocurred, please try again later
+                                </div>
+                                :
+                                null
+                            }
                             {
                                 <Dashboard
                                     uppy={this.uppy}
-                                    height={100}
+                                    height={200}
                                     metaFields={[
-                                        { id: 'name', name: 'Name', placeholder: 'Enter the file name.' },
-                                        { id: 'caption', name: 'Caption', placeholder: 'Describe what the image is about.' }
-                                      ]}
+                                        { id: 'title', name: 'Title', placeholder: 'Enter topic title' },
+                                        { id: 'description', name: 'Description', placeholder: 'Brief Description of the topic' }
+                                    ]}
+                                    note='Click on the edit button to add Topic title'
+                                
                                 />
                             }
                             {
