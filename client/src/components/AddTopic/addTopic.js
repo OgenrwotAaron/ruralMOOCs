@@ -1,10 +1,14 @@
 import React,{ Component } from 'react';
 import axios from 'axios';
+const Uppy = require('@uppy/core')
+const Transloadit=require('@uppy/transloadit');
+const { Dashboard, ProgressBar } = require('@uppy/react')
 
 class AddTopic extends Component {
 
     state={
-        formdata:''
+        formdata:'',
+        title:''
     }
 
     //WARNING! To be deprecated in React v17. Use componentDidMount instead.
@@ -17,18 +21,28 @@ class AddTopic extends Component {
         })
     }
 
-    changeLabel=(event)=>{
-        console.log(event.target.files)
-        const file=event.target.files[0];
-        if(file.size>62914560){
-            alert('File too large')
-            event.target.value=''
-            document.getElementById('thename').innerText='Upload Video';
-        }else{
-           document.getElementById('thename').innerText=file.name; 
+    uppy= new Uppy({
+        id:'uppy',
+        autoProceed:false,
+        debug:true,
+        restrictions:{
+            allowedFileTypes:['video/mp4'],
+            maxNumberOfFiles:1,
+            minNumberOfFiles:1
         }
-        
-    }
+    })
+    .use(Transloadit,{
+        params: {
+            template_id: '63faa7b75c624882a12a862c043a4e53',
+            auth:{key:'c330851cae3e4bbc83328eb89b2926fe'}
+        },
+        fields:{
+            title:this.state.title
+        }
+    })
+    .on('complete',results=>{
+        console.log(results)
+    })
 
     render(){
         if(this.state.formdata === ''){
@@ -40,35 +54,26 @@ class AddTopic extends Component {
                     <div className="row jumbo">
                         <div className="col-sm-3"></div>
                         <div className="col-sm-6"  data-aos="fade-up" data-aos-duration="500">
-                            <form encType='multipart/form-data' method='POST' action='/api/addtopic'>
-                                <h1 style={{textAlign:'center'}}>Add Topic to {`${this.state.formdata.metadata.course}`}</h1>
-                                <div className="row custom-file mb-3">
-                                    <div className='col-sm-3'></div>
-                                    <div className='col-sm-6'>
-                                        <input required accept='video/mp4' type="file" onChange={(e)=>this.changeLabel(e)} name="file" id="file" className="custom-file-input"/>
-                                        <label id="thename" htmlFor="file" className="custom-file-label">Upload Video</label>
-                                    </div>
-                                    <div className='col-sm-3'></div>
-                                </div>
-                                <div className="row form-group">
-                                    <div className='col-sm-3'></div>
-                                    <div className="col-sm-6">
-                                        <input required name='title' className="form-control" type="text" placeholder="Topic title"/>
-                                    </div>
-                                    <div className='col-sm-3'>
-                                        <input name='course' type='text' readOnly style={{display:'none'}} value={this.state.formdata._id}/>
-                                    </div>
-                                </div>
-                                <div className='row form-group'>
-                                    <div className='col-sm-3'></div>
-                                    <div className='col-sm-6'>
-                                        <button type='submit' className='btn btn-primary btn-block'>
-                                            Add Topic
-                                        </button>
-                                    </div>
-                                    <div className='col-sm-3'></div>
-                                </div>                    
+                            <h1 style={{textAlign:'center'}}>Add Topic to {`${this.state.formdata.metadata.course}`}</h1>
+                            <form id='my-form'>
+                                <input type='text' style={{color:'black'}} onChange={(e)=>this.setState({title:e.target.value})} placeholder='Topic title' />
                             </form>
+                            {
+                                <Dashboard
+                                    uppy={this.uppy}
+                                    height={100}
+                                    metaFields={[
+                                        { id: 'name', name: 'Name', placeholder: 'Enter the file name.' },
+                                        { id: 'caption', name: 'Caption', placeholder: 'Describe what the image is about.' }
+                                      ]}
+                                />
+                            }
+                            {
+                                <ProgressBar
+                                    uppy={this.uppy}
+                                    hideAfterFinish={false}
+                                />
+                            }
                         </div>
                         <div className="col-sm-3"></div>
                     </div>

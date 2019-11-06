@@ -56,7 +56,7 @@ const storage=new GridFsStorage({
             const fileInfo={
                 filename:filename,
                 metadata:req.body,
-                bucketName:req.body.course !== '' ? 'courses' :'topics'
+                bucketName:'courses'
             };
 
             resolve(fileInfo);
@@ -71,19 +71,8 @@ app.post('/api/addCourse',upload.any(),(req,res)=>{
     res.redirect(`/course/${req.files[0].id}`)
 })
 
-app.post('/api/addtopic',upload.any(),(req,res)=>{
-    transloadit.addFile(req.files.filename,`/${req.files.filename}`);
-    const options = {
-        params:{
-            template_id:'16a8b58cc3ff438da8b293b39a7e5b39'
-        }
-    }
-
-    transloadit.createAssembly(options,(err,result)=>{
-        if(err) throw err;
-        console.log({result})
-    })
-    res.json({doc:req.files})
+app.post('/api/addtopic',(req,res)=>{
+    console.log(req);
 })
 
 app.post('/api/register',(req,res)=>{
