@@ -29,7 +29,7 @@ class VideoPlayer extends Component {
     initPlayer=()=>{
         const manifest=this.state.video.video;
         let folder=manifest.substring(manifest.lastIndexOf('pictures/')+9,manifest.lastIndexOf('/')-6);
-        const vid=`http://moocsvids.s3-eu-west-2.amazonaws.com/pictures/${folder}/${folder}.mpd`
+        const vid=`https://moocsvids.s3-eu-west-2.amazonaws.com/pictures/${folder}/${folder}.mpd`
         
         const video= document.getElementById('video')
         const videoContainer=document.getElementById('videoContainer')
