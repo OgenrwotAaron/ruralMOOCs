@@ -29,6 +29,9 @@ class CourseSingle extends Component {
     }
 
     renderTopics=(topics)=>{
+        if(topics === ''){
+            return null;
+        }
         return topics.map((topic,i)=>(
             <Topics topic={topic} key={i}/>
             )
