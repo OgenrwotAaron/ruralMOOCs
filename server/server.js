@@ -165,7 +165,7 @@ app.get('/api/topics/:course',(req,res)=>{
     Topic.find({course:req.params.course},(err,files)=>{
         if(err) return res.json({error:err})
         if(!files || files.length === 0){
-            return res.status(404).json({error:'No files exist'});
+            return res.json({error:'No files exist'});
         }
         return res.json(files);
     });

@@ -9,7 +9,7 @@ class CourseSingle extends Component {
 
     state={
         item:'',
-        topics:''
+        topics:[]
     }
 
     //WARNING! To be deprecated in React v17. Use componentDidMount instead.
@@ -29,13 +29,13 @@ class CourseSingle extends Component {
     }
 
     renderTopics=(topics)=>{
-        if(topics === ''){
+        if(topics.error){
             return null;
+        }else{
+            return topics.map((topic,i)=>(
+                <Topics topic={topic} key={i}/>
+            ))
         }
-        return topics.map((topic,i)=>(
-            <Topics topic={topic} key={i}/>
-            )
-        )
     }
 
     render(){
@@ -45,9 +45,9 @@ class CourseSingle extends Component {
         return ( 
             <div>
                 <Jumbotron type='category' title={`${this.state.item.metadata.course}`} image={`/api/image/${this.state.item.filename}`}/>
-                <Link data-aos='fade' data-aos-duration='700' id='playvid' style={{fontSize:'45px',position:'absolute',zIndex:'1',bottom:'52%',left:'5%',color:'#ffffffab'}} to={`/video/${this.state.topics[0]._id}`}>
+                {this.state.topics.error ==="No files exist" ? null:<Link data-aos='fade' data-aos-duration='700' id='playvid' style={{fontSize:'45px',position:'absolute',zIndex:'1',bottom:'52%',left:'5%',color:'#ffffffab'}} to={`/video/${this.state.topics[0]._id}`}>
                     <span className="icon icon-play_circle_outline"></span>
-                </Link>
+                </Link>}
                 <Link data-aos='fade' data-aos-duration='700' id='addvid' style={{fontSize:'18px',position:'absolute',zIndex:'1',bottom:'52%',right:'5%',color:'#ffffffab'}} to={`/addTopic/${this.state.item._id}`}>  
                     <span className="icon icon-playlist_add"></span>
                     Add topic
