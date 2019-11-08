@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import shaka from 'shaka-player';
+//import shaka from 'shaka-player';
 import axios from 'axios';
+import 'shaka-player/dist/controls.css';
+const shaka = require('shaka-player/dist/shaka-player.ui.js');
 
 class VideoPlayer extends Component {
     state={
@@ -26,12 +28,24 @@ class VideoPlayer extends Component {
 
     initPlayer=()=>{
         const manifest=this.state.video.video;
-        console.log(manifest.substring(manifest.lastIndexOf('/')))
+        let folder=manifest.substring(manifest.lastIndexOf('pictures/')+9,manifest.lastIndexOf('/')-6);
+        const vid=`http://moocsvids.s3-eu-west-2.amazonaws.com/pictures/${folder}/${folder}.mpd`
+        
         const video= document.getElementById('video')
+        const videoContainer=document.getElementById('videoContainer')
+
+        const uiConfig={}
+        uiConfig['controlPanelElements']=['mute', 'volume','rewind', 'fast_forward','play_pause', 'time_and_duration', 'fullscreen', 'overflow_menu']
+
+
         const player=new shaka.Player(video);
+        const ui=new shaka.ui.Overlay(player,videoContainer,video);
+
+        ui.configure(uiConfig);
+        ui.getControls();
         player.addEventListener('error',this.onErrorEvent);
 
-        player.load(manifest)
+        player.load(vid)
         .then(()=>{
             console.log('Video has been loaded')
         })
@@ -48,11 +62,12 @@ class VideoPlayer extends Component {
 
     render() { 
         return ( 
-            <div>
+            <div id='videoContainer'>
                 <video
+                    style={{position:'relative'}}
+                    width='100%'
                     id='video'
-                    width='640'
-                    controls
+                    poster={this.state.video.poster}
                 ></video>
             </div> 
         );

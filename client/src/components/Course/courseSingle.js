@@ -3,6 +3,7 @@ import Jumbotron from '../Jumbotron/jumbotron';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import InstructorCard from '../widgets/InstructorCard/instructorCard';
+import Topics from '../widgets/Topics/topics';
 
 class CourseSingle extends Component {
 
@@ -29,18 +30,7 @@ class CourseSingle extends Component {
 
     renderTopics=(topics)=>{
         return topics.map((topic,i)=>(
-            <div key={i} className='row' style={{padding:'10px',borderBottom:'solid 1px lightgray'}}>
-                <Link to={`/video/${topic._id}`}>
-                    <div className='col-sm-2' style={{background:`url("${topic.poster}")`,backgroundSize:'cover',width:'50px',height:'50px',padding:'0',textAlign:'center'}}>
-                        <span style={{color:'white',fontSize:'40px',textAlign:'center',background:'linear-gradient(90deg, transparent, #00000038, transparent)'}} className='icon icon-play-circle-o'></span>
-                    </div>
-                    <div className='col-sm-10'>
-                        <p style={{color:'#565555',fontWeight:'bold',margin:'0'}}>{topic.title}</p>
-                        <p style={{float:'left',color:'#565555',margin:'0'}}>{topic.description}</p>
-                        <p style={{margin:'0',color:'#565555',float:'right'}}>{`${Math.round((topic.duration/60)*10)/10} mins`}</p>
-                    </div>
-                </Link>
-            </div>
+            <Topics topic={topic} key={i}/>
             )
         )
     }
