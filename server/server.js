@@ -104,8 +104,10 @@ app.post('/api/message',(req,res)=>{
 
 app.post('/api/login',(req,res)=>{
     User.findOne({'email':req.body.email},(err,user)=>{
+        if(err) return res.json({error:err});
         if(!user) return res.json({message:'User not found'});
         user.comparePasswords(req.body.password,(err,same)=>{
+            if(err) return res.json({error:err});
             if(!same) return res.json({message:'Wrong Password'});
             user.generateToken((err,user)=>{
                 if(err) return res.send(err);
@@ -114,7 +116,7 @@ app.post('/api/login',(req,res)=>{
                     id:user._id,
                     email:user.email
                 });
-                res.redirect('/dashboard');
+                //res.redirect('/dashboard');
             });
         });
     });

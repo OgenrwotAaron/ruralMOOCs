@@ -54,9 +54,9 @@ class CourseSingle extends Component {
                 </Link>
                 <div className='row' style={{width:'100%',margin:'0'}}>
                     <div className='col-sm-3'>
-                        <div className='card' style={{textAlign:'center',padding:'10px',margin:'10px',border:'1px solid #e4dcdc',borderRadius:'5px'}}>
+                        <div id="course-card" className='card' style={{textAlign:'center',padding:'10px',margin:'10px',border:'1px solid #e4dcdc',borderRadius:'5px'}}>
                             <b style={{color:'#555',fontSize:'18px'}}>{this.state.item.metadata.course}</b>
-                            <p style={{color:'#5f5e5e',fontSize:'16px',margin:'0',}}>{this.state.item.metadata.description}</p>
+                            <p style={{color:'#5f5e5e',overflowWrap:'break-word',fontSize:'16px',margin:'0',}}>{this.state.item.metadata.description}</p>
                             <p style={{color:'#555',fontSize:'18px'}}>{this.state.item.metadata.duration}</p>
                         </div>
                     </div>

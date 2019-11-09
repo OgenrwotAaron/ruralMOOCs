@@ -5,22 +5,29 @@ import { Provider } from 'react-redux';
 import { createStore,applyMiddleware } from 'redux';
 import promiseMiddleware from 'redux-promise';
 import ReduxThunk from 'redux-thunk';
-//import axios from 'axios';
+import axios from 'axios';
 
 import Routes from './routes';
 import reducers from './reducers'
 
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware,ReduxThunk)(createStore)
 
-// axios.get('/user')
-// .then(res=>{
-    ReactDOM.render(
+const App=(props) =>{
+    return(
         <Provider store={createStoreWithMiddleware(reducers)}>
             <BrowserRouter>
-                <Routes />
+                <Routes {...props}/>
             </BrowserRouter>
-        </Provider>,
+        </Provider>
+    )
+}
+
+axios.get('/api/user')
+.then(res=>{
+    ReactDOM.render(
+        <App user={res.data}/>
+        ,
         document.getElementById('root')
     );
-// })
+})
 

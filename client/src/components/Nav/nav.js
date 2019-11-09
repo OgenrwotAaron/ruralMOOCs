@@ -12,7 +12,6 @@ const Nav = () => {
                       href="all"
                     >
                       <span style={{fontSize:'20px'}} className='icon icon-th'/>
-                      <span className="caret" />
                     </a>
                     <ul className="dropdown-menu">
                       <label style={{paddingLeft:'5px'}}>Available MOOCs</label>

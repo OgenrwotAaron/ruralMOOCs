@@ -62,7 +62,25 @@ h3, h4 {
 .navbar-brand a{
   text-decoration: none;
   color: white;
-  font-size: 2em;
+  font-size: 1.8em;
+}
+/*Mobile Small*/
+@media (max-width:320px){
+  .navbar-brand a{
+    font-size: 1.3em;
+  }
+}
+/*Mobile large*/
+@media (max-width:425px){
+  #course-card{
+    display: none;
+  }
+  #instructor-card{
+    display: none;
+  }
+  #video-player{
+    padding: 0;
+  }
 }
 .navbar-nav li a:hover {
   color: rgb(1, 169, 240) !important;

@@ -3,7 +3,7 @@ import React from 'react';
 const InstructorCard = (props) => {
 
     return ( 
-        <div className='card' style={{textAlign:'center',padding:'10px',margin:'10px',border:'1px solid #e4dcdc',borderRadius:'5px'}}>
+        <div id="instructor-card" className='card' style={{textAlign:'center',padding:'10px',margin:'10px',border:'1px solid #e4dcdc',borderRadius:'5px'}}>
             <b style={{color:'#555',fontSize:'18px'}}>Course Instructor</b>
             <hr/>
             <img alt='instructor' src='/images/agriculture.jpg' style={{width:'50px',height:'50px',borderRadius:'50%'}}/>

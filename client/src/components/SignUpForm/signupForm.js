@@ -185,7 +185,7 @@ class SignUpForm extends Component {
                     loading:true,
                     registerError:''
                 })
-                axios.post('/register',{
+                axios.post('/api/register',{
                     email:dataToSubmit.email,
                     password:dataToSubmit.pwd,
                     fname:dataToSubmit.fname,
@@ -217,7 +217,7 @@ class SignUpForm extends Component {
                     loading:true,
                     registerError:''
                 });
-                axios.post('/login',{email:dataToSubmit.email,password:dataToSubmit.pwd})
+                axios.post('/api/login',{email:dataToSubmit.email,password:dataToSubmit.pwd})
                 .then(response=>{
                     const message=response.data.message
                     if(message){
@@ -230,6 +230,7 @@ class SignUpForm extends Component {
                            loggedIn:true,
                            loading:false
                         });
+                        this.props.history.push('/dashboard');
                     }
                     
                 })

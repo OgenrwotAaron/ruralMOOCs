@@ -21,6 +21,7 @@ class Header extends Component {
   }
 
     render() {
+      console.log(this.props)
       window.addEventListener('scroll',this.handleScroll)
         return (
           <nav className={this.state.classes}>

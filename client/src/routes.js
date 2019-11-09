@@ -11,9 +11,9 @@ import CourseSingle from './components/Course/courseSingle';
 import AddTopic from './components/AddTopic/addTopic';
 import Video from './components/Video/video';
 
-const Routes = () => {
+const Routes = (props) => {
     return (
-        <Layout>
+        <Layout user={props.user}>
             <Switch>
                 <Route path="/" exact component={Home}/>
                 <Route path="/category/:id" exact component={Categories}/>
