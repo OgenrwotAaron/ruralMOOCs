@@ -35,7 +35,7 @@ class VideoPlayer extends Component {
         const videoContainer=document.getElementById('videoContainer')
 
         const uiConfig={}
-        uiConfig['controlPanelElements']=['mute', 'volume','rewind', 'fast_forward','play_pause', 'time_and_duration', 'fullscreen', 'overflow_menu']
+        uiConfig['controlPanelElements']=['mute', 'volume', 'time_and_duration', 'fullscreen', 'overflow_menu']
 
 
         const player=new shaka.Player(video);

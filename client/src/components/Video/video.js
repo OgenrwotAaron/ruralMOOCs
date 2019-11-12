@@ -39,12 +39,10 @@ class Video extends Component {
             <div className='row' style={{width:'100%',margin:'10% 0 0 0'}}>
                 <div id='video-player' className='col-sm-8'>
                     <VideoPlayer source={this.props.match.params.id}/>
-                    tabs
                 </div>
                 <div className='col-sm-4'>
                     <InstructorCard/>
                     {this.renderTopics(this.state.topics)}
-                    videos/topics
                 </div>
             </div>
         );

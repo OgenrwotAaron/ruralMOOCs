@@ -1,8 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 
-const Nav = () => {
-
+const Nav = (props) => {
     return (
         <ul className="nav navbar-nav navbar-right">
                   <li className="dropdown">
@@ -47,9 +46,13 @@ const Nav = () => {
                   <li style={{padding:'15px'}}>
                     <input id='search' className="form-control" placeholder='browse..' style={{height:'25px',padding:'2px 10px',border:'none',borderRadius:'25px'}} type='search' /><span style={{margin:'15px',fontSize:'18px',paddingTop:'2px',color:'#01a9f0'}} className='icon icon-search form-control-feedback'></span>
                   </li>
-                  <li style={{padding:'10px 5px',fontSize:'25px'}}>
-                    <span className="icon icon-user-circle-o"></span>
-                  </li>
+                  {props.user ? 
+                    <li style={{padding:'10px 5px',fontSize:'25px'}}>
+                      <span className="icon icon-user-circle-o"></span>
+                    </li>
+                    :
+                    null
+                  }
                 </ul>
     );
 };

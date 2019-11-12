@@ -21,7 +21,6 @@ class Header extends Component {
   }
 
     render() {
-      console.log(this.props)
       window.addEventListener('scroll',this.handleScroll)
         return (
           <nav className={this.state.classes}>
@@ -44,7 +43,7 @@ class Header extends Component {
                 </div>
               </div>
               <div className="collapse navbar-collapse" id="myNavbar">
-                <Nav/>
+                <Nav {...this.props}/>
               </div>
             </div>
             <hr id='scrolling' style={{margin:'0',borderTop:'3px solid white',width:'0'}}/>

@@ -30,4 +30,11 @@ axios.get('/api/user')
         document.getElementById('root')
     );
 })
+.catch(err=>{
+    ReactDOM.render(
+        <App/>
+        ,
+        document.getElementById('root')
+    );
+})
 
