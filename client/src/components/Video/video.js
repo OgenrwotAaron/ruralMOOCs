@@ -21,7 +21,6 @@ class Video extends Component {
                 })
             })
         })
-        .catch(error=>console.log(error))
     }
 
     renderTopics=(topics)=>{
