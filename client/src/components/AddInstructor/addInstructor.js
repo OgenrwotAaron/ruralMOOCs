@@ -98,7 +98,7 @@ class AddInstructor extends Component {
             for(let i=0;i<8;i++){
                 pwd+=characters.charAt(Math.floor(Math.random()*charLength));
             }
-            axios.post('/register',{
+            axios.post('/api/register',{
                 email:dataToSubmit.email,
                 password:pwd,
                 fname:dataToSubmit.fname,
