@@ -18,11 +18,10 @@ class Courses extends Component {
                 courses:response.data
             })
         })
-        .catch(e=>console.log(e))
     }
 
     renderCourses=(data)=>{
-       return data.slice(0,2).map((item,i)=>
+       return data.slice(0,3).map((item,i)=>
             (
             <div key={i}>
                 <div className='col-sm-4'>

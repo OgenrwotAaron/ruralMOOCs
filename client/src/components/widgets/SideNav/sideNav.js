@@ -34,7 +34,7 @@ class SideNav extends Component{
                         </li>
                         <hr/>
                         <li>
-                            <Link style={{color:'white'}} to='/dashboard/feeds'>
+                            <Link style={{color:'white',display:'none'}} to='/dashboard/feeds'>
                                 <span style={{padding:'0 5px'}} className='icon icon-feed'></span>
                                 News Feed
                             </Link>

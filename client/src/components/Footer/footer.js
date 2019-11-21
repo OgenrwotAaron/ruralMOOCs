@@ -1,6 +1,10 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 
 const Footer = () => {
+
+    useEffect(()=>{
+        window.addEventListener('scroll',getScroll)
+    })
     let date=new Date()
     const getScroll=()=>{
         const headers=document.getElementById('scrolling')
@@ -8,7 +12,6 @@ const Footer = () => {
         let percent=(window.pageYOffset/max) * 100;
         headers.style.width=percent +'%'
     }
-    window.addEventListener('scroll',getScroll)
     return (
         <div>
             <div className='col-xs-12' style={{color:'#1e486d',textAlign:'center',fontSize:'25px'}}>

@@ -27,9 +27,8 @@ const inboxSchema=mongoose.Schema({
         required:true
     }
 },
-{
-    timestamp:true
-})
+{ timestamps: { createdAt: 'created_at' }}
+)
 
 const Inbox= mongoose.model('Inbox',inboxSchema);
 

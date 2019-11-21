@@ -51,7 +51,7 @@ class ContactUs extends Component{
             loading:true
         })
 
-        axios.post('/message',{
+        axios.post('/api/message',{
             fname:dataToSubmit.fname,
             lname:dataToSubmit.lname,
             subject:dataToSubmit.subject,
@@ -76,8 +76,12 @@ class ContactUs extends Component{
                 <div style={{color:'red'}}>{this.state.sendError}</div>
             )
         }else if(this.state.sendSuccess !== ''){
+            const form=document.getElementById('form1')
+            for (let i = 0; i < form.length; i++) {
+                form[i].value=null
+            }
             return (
-                <div style={{color:'#257d38'}}>{this.state.sendSuccess}</div>
+                <div style={{color:'#257d38',fontSize:'18px'}}>{this.state.sendSuccess}</div>
             )
         }else{
             return null;
@@ -89,7 +93,7 @@ class ContactUs extends Component{
             <div style={{background:'#f8f9fa',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
                 <h1 style={{color:'#707070'}}>Message Us</h1>
                 <h3 style={{color:'#808080',fontWeight:'300',padding:'0 0 5% 5%',textAlign:'center'}}>Get in touch with us for all enquiries and support</h3>
-                <form className='form' onSubmit={(e)=>{this.sendMessage(e)}}>
+                <form id="form1" className='form' onSubmit={(e)=>{this.sendMessage(e)}}>
                     <div className='rows'>
                         <div className='col-sm-6' style={{padding:'15px'}}>
                             <input onChange={(e)=>{this.updateForm({e,id:'fname'})}} required type='text' placeholder='First Name' className='form-control'/>

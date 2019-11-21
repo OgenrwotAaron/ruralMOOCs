@@ -122,12 +122,53 @@ app.post('/api/login',(req,res)=>{
     });
 });
 
+app.get('/api/inbox',(req,res)=>{
+    Inbox.find((err,doc)=>{
+        if(err) return res.json(err);
+        return res.json(doc)
+    })
+})
+
 app.get('/api/user',auth,(req,res)=>{
     res.json({
         isAuth:true,
         user:req.token
     })
 });
+
+app.get('/api/users',(req,res)=>{
+    User.find((err,doc)=>{
+        if(err) return res.json({error:err})
+        let data=[];
+        doc.forEach((i,key)=>{
+            data[key]={id:i._id,role:i.role,email:i.email,fname:i.fname,lname:i.lname}
+        })
+        return res.json(data)
+    })
+})
+
+app.get('/api/users/:role',(req,res)=>{
+    User.find({role:req.params.role},(err,doc)=>{
+        if(err) return res.json(err);
+        let data=[];
+        doc.forEach((i,key)=>{
+            data[key]={id:i._id,role:i.role,email:i.email,fname:i.fname,lname:i.lname}
+        })
+        return res.json(data)
+    })
+})
+
+app.get('/api/user/:id',(req,res)=>{
+    User.find({_id:ObjectId(req.params.id)},(err,doc)=>{
+        if(err) return res.json(err);
+        let data=[];
+        doc.forEach((i,key)=>{
+            data[key]={id:i._id,role:i.role,email:i.email,fname:i.fname,lname:i.lname}
+        })
+        return res.json(data)
+    })
+})
+
 
 app.get('/api/courses',(req,res)=>{
     gfs.files.find().toArray((err,files)=>{
@@ -180,6 +221,13 @@ app.get('/api/topic/:id',(req,res)=>{
             return res.status(404).json({error:'No files exist'});
         }
         return res.json(topic);
+    })
+})
+
+app.delete('/api/message/:id',(req,res)=>{
+    Inbox.findOneAndDelete({_id:ObjectId(req.params.id)},(err,doc)=>{
+        if(err) return res.json(err)
+        return res.json(doc)
     })
 })
 

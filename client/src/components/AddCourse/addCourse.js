@@ -1,4 +1,5 @@
-import React from 'react';
+import React,{ useEffect,useState} from 'react';
+import axios from 'axios';
 
 const changeLabel=(event)=>{
     const file=event.target.files[0];
@@ -13,6 +14,26 @@ const changeLabel=(event)=>{
 }
 
 const AddCourse=()=>{
+
+    let [instructors,setInstructors]=useState()
+
+    useEffect(()=>{
+        axios.get('/api/users/1')
+        .then(instructors=>{
+            setInstructors(instructors.data)
+        })
+    },[])
+
+    if(!instructors){
+        return null;
+    }
+
+    const renderOptions=(instructors)=>{
+        return instructors.map((instructor,i)=>(
+            <option key={i} value={instructor.id}>{`${instructor.fname} ${instructor.lname}`}</option>
+        ))
+    }
+
     return(
         <div className="slide-1" style={{backgroundImage:"url('images/science.jpg')",backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition:"50% 50%",backgroundAttachment:'fixed'}}>
             <div className="container jumb" style={{backgroundColor:'rgba(7,6,28,0.88)',width:'100%'}}>
@@ -36,9 +57,8 @@ const AddCourse=()=>{
                             <div className="row form-group">
                                 <div className="col-sm-6">
                                     <select name='instructor' className="form-control">
-                                        <option value='Instructor'>Instructor</option>
-                                        <option value='Instructor1'>Instructor1</option>
-                                        <option value='Instructor2'>Instructor2</option>
+                                        <option value='Instructor'>Choose Instructor</option>
+                                        {renderOptions(instructors)}
                                     </select>
                                 </div>
                                 <div className="col-sm-6">
