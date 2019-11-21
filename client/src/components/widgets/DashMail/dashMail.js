@@ -1,5 +1,5 @@
 import React,{ useEffect,useState} from 'react';
-//import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios'
 
 const DashMail = () => {
@@ -11,7 +11,7 @@ const DashMail = () => {
         .then(res=>{
             setInbox(res.data)
         })
-    })
+    },[])
 
     const deleteMessage=(item)=>{
         axios.delete(`/api/message/${item}`)
@@ -29,7 +29,9 @@ const DashMail = () => {
                     }
                 </td>
                 <td>
-                    <span style={{padding:'2px 10px',cursor:'pointer',color:'green',fontSize:'20px'}} className='icon icon-eye'></span>
+                    <Link to={`/dashboard/message/${item._id}`}>
+                        <span style={{padding:'2px 10px',cursor:'pointer',color:'green',fontSize:'20px'}} className='icon icon-eye'></span>
+                    </Link>
                     <span style={{padding:'2px 10px',cursor:'pointer',color:'red',fontSize:'20px'}} onClick={()=>deleteMessage(item._id)} className='icon icon-delete'></span>
                 </td>
             </tr>

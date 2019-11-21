@@ -7,6 +7,7 @@ import DashInstructor from '../widgets/DashInstructor/dashInstructor';
 import DashFeeds from '../widgets/DashFeeds/dashFeeds';
 import DashMail from '../widgets/DashMail/dashMail';
 import DashDefault from '../widgets/DashDefault/dashDefault';
+import DashMessage from '../widgets/DashMessage/dashMessage';
 
 const Dashboard =(props)=>{
     const renderDashboard=()=>{
@@ -40,6 +41,11 @@ const Dashboard =(props)=>{
             case 'mail':
                 template=(
                     <DashMail/>
+                )
+                break;
+            case 'message':
+                template=(
+                    <DashMessage {...props}/>
                 )
                 break;
         

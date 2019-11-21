@@ -17,7 +17,7 @@ const Routes = (props) => {
             <Switch>
                 <Route path="/" exact component={Home}/>
                 <Route path="/category/:id" exact component={Categories}/>
-                <Route path="/dashboard/:id" exact component={Dashboard}/>
+                <Route path="/dashboard/:id/*" exact component={Dashboard}/>
                 <Route path="/dashboard" exact component={Dashboard}/>
                 <Route path="/join" exact component={Join}/>
                 <Route path="/add-course" exact component={AddCourse}/>

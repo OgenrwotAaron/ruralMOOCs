@@ -129,6 +129,13 @@ app.get('/api/inbox',(req,res)=>{
     })
 })
 
+app.get('/api/inbox/:id',(req,res)=>{
+    Inbox.findById(req.params.id,(err,doc)=>{
+        if(err) return res.json(err)
+        return res.json(doc)
+    })
+})
+
 app.get('/api/user',auth,(req,res)=>{
     res.json({
         isAuth:true,

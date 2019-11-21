@@ -15,39 +15,39 @@ class SideNav extends Component{
                         </li>
                         <hr/>
                         <li>
-                            <Link style={{color:'white'}} to='/dashboard/courses'>
+                            <Link style={{color:'white'}} to='/dashboard/courses/1'>
                                 <span style={{padding:'0 5px'}} className='icon icon-apps'></span>
                                 Courses
                             </Link>
                         </li>
                         <li>
-                            <Link style={{color:'white'}} to='/dashboard/students'>
+                            <Link style={{color:'white'}} to='/dashboard/students/1'>
                                 <span style={{padding:'0 5px'}} className='icon icon-users'></span>
                                 Students
                             </Link>
                         </li>
                         <li>
-                            <Link style={{color:'white'}} to='/dashboard/instructors'>
+                            <Link style={{color:'white'}} to='/dashboard/instructors/1'>
                                 <span style={{padding:'0 5px'}} className='icon icon-id-card'></span>
                                 Instructors
                             </Link>
                         </li>
                         <hr/>
                         <li>
-                            <Link style={{color:'white',display:'none'}} to='/dashboard/feeds'>
+                            <Link style={{color:'white',display:'none'}} to='/dashboard/feeds/1'>
                                 <span style={{padding:'0 5px'}} className='icon icon-feed'></span>
                                 News Feed
                             </Link>
                         </li>
                         <li>
-                            <Link style={{color:'white'}} to='/dashboard/mail'>
+                            <Link style={{color:'white'}} to='/dashboard/mail/1'>
                                 <span style={{padding:'0 5px'}} className='icon icon-mail_outline'></span>
                                 Inbox
                             </Link>
                         </li>
                         <hr/>
                         <li>
-                            <Link style={{color:'white'}} to='/dashboard/mail'>
+                            <Link style={{color:'white'}} to='/dashboard/mail/1'>
                                 <span style={{padding:'0 5px'}} className='icon icon-exit_to_app'></span>
                                 Logout
                             </Link>
