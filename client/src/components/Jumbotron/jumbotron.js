@@ -28,7 +28,7 @@ class Jumbotron extends Component {
                                 <div className="col-sm-12" style={{padding:'0 5%'}}  data-aos="fade-up" data-aos-duration="500">
                                     <div className="col-sm-6" style={{paddingBottom:'10px'}}>
                                         <h1 style={{marginBottom:'0',fontSize:'50px'}}>Learning Beyond Limitations</h1>
-                                        <p style={{marginTop:'0'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime ipsa nulla sed quis rerum amet natus quas necessitatibus.</p>
+                                        <p style={{marginTop:'0'}}> We truly believe in giving everyone a chance to pursue happiness and pursue their goals, through education beyond limitations.</p>
                                         <Link to="/join"><button className="btn btn-white">Get Started</button></Link>
                                     </div>
                                     <div className='col-sm-6'>
