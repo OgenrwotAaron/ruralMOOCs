@@ -64,7 +64,7 @@ class CourseSingle extends Component {
                         {this.renderTopics(this.state.topics)}
                     </div>
                     <div className='col-sm-3'>
-                        <InstructorCard id={this.props.match.params.id}/>
+                        <InstructorCard id={this.state.item.metadata.instructor}/>
                     </div>
                 </div>
             </div>

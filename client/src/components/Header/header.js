@@ -32,9 +32,9 @@ class Header extends Component {
                   data-toggle="collapse"
                   data-target="#myNavbar"
                 >
-                  <span className="icon-bar" style={{backgroundColor:'white'}} />
-                  <span className="icon-bar" style={{backgroundColor:'white'}}/>
-                  <span className="icon-bar" style={{backgroundColor:'white'}}/>
+                  <span className="icon-bar" style={{backgroundColor:'#a5a5a5'}} />
+                  <span className="icon-bar" style={{backgroundColor:'#a5a5a5'}}/>
+                  <span className="icon-bar" style={{backgroundColor:'#a5a5a5'}}/>
                 </button>
                 <div className="navbar-brand">
                     <Link to="/">
@@ -46,7 +46,7 @@ class Header extends Component {
                 <Nav {...this.props}/>
               </div>
             </div>
-            <hr id='scrolling' style={{margin:'0',borderTop:'3px solid white',width:'0'}}/>
+            <hr id='scrolling' style={{margin:'0',borderTop:'3px solid #dddff5',width:'0'}}/>
           </nav>
         );
     }

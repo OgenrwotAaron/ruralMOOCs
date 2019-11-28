@@ -36,11 +36,11 @@ const AddCourse=()=>{
 
     return(
         <div className="slide-1" style={{backgroundImage:"url('images/science.jpg')",backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition:"50% 50%",backgroundAttachment:'fixed'}}>
-            <div className="container jumb" style={{backgroundColor:'rgba(7,6,28,0.88)',width:'100%'}}>
+            <div className="container jumb" style={{backgroundColor:'white',width:'100%'}}>
                 <div className="row jumbo">
                     <div className="col-sm-3"></div>
                     <div className="col-sm-6"  data-aos="fade-up" data-aos-duration="500">
-                        <form encType='multipart/form-data' method='POST' action='/api/addCourse'>
+                        <form style={{boxShadow:'#e4e2e2 2px 2px 4px',padding:'10%',borderRadius:'5%'}} encType='multipart/form-data' method='POST' action='/api/addCourse'>
                             <h1 style={{textAlign:'center'}}>Add Course</h1>
                             <div className="custom-file mb-3">
                                 <input type="file" name="file" id="file" onChange={(e)=>changeLabel(e)} className="custom-file-input"/>

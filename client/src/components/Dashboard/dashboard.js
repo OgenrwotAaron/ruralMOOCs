@@ -68,7 +68,7 @@ const Dashboard =(props)=>{
                 backgroundAttachment:'fixed'
             }}
         >
-            <div style={{background:'rgba(7,6,28,0.88)',height:'100%'}}>
+            <div style={{background:'white',height:'100%'}}>
                 <div className='row' style={{width:'100%'}}>
                     <div className='col-sm-3'>
                         <div style={{padding:'32% 0 0 0'}}>

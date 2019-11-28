@@ -89,11 +89,11 @@ h1, h2, h3, h4, h5,
         color: #fff; }
   .btn.btn-white {
     border-width: 2px;
-    border-color: #fff;
-    background: #fff;
-    color: #000; }
+    border-color: #1e1846;
+    background: #1e1846;
+    color: #fff; }
     .btn.btn-white:hover {
-      color: #fff;
+      color: #1e1846;
       background-color: transparent; }
     .btn.btn-white.btn-outline-white {
       color: #fff;

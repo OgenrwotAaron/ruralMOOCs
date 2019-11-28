@@ -31,14 +31,14 @@ const DashInstructor = () => {
     return ( 
         <div className='col-sm-9'>
             <div style={{padding:'9% 0 0 0'}}>
-                <h1 style={{float:'left',margin:'20px'}}>Instructors</h1>
+                <h1 style={{float:'left',margin:'20px',color:'#191828'}}>Instructors</h1>
                 <Link style={{float:'right',margin:'20px'}} className='btn btn-primary btn-pill' to='/add-instructor'>
                     <span className='icon icon-person_add' style={{fontSize:'14px',padding:'2px 5px 0 2px'}}></span>
                     Instructor
                 </Link>
                 <div className="row">
-                    <table className='table' style={{fontSize:'14px'}}>
-                        <tbody>
+                    <table className='table' style={{fontSize:'14px',color:'#191828'}}>
+                        <tbody style={{color:'#191828'}}>
                             <tr style={{fontWeight:'bold'}}>
                                 <td>First Name</td>
                                 <td>Last Name</td>

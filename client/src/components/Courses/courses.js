@@ -37,8 +37,9 @@ class Courses extends Component {
     render(){
         return (
             <div style={{textAlign:'center'}}>
-                <div  style={{backgroundColor:'#337ab7',margin:'0',padding:'5%',borderRadius:'0 0 100% 100%'}}>
-                <h1 data-aos="fade-in" data-aos-duration="500">Availabble MOOCs</h1>
+                <div  style={{margin:'0'}}>
+                <h1 style={{color:'#163550',marginBottom:'0'}} data-aos="fade-in" data-aos-duration="500">Available MOOCs</h1>
+                <hr style={{borderTop:'2px solid #1e486d',width:'8%',marginTop:'0'}}/>
                 </div>
                 <div className='row' style={{width:'100%', marginLeft:'0',color:'#1e486d'}}>
                     {this.renderCourses(this.state.courses)}

@@ -9,11 +9,12 @@ const Nav = (props) => {
                       className="dropdown-toggle"
                       data-toggle="dropdown"
                       href="all"
+                      style={{fontSize:'15px'}}
                     >
-                      <span style={{fontSize:'20px'}} className='icon icon-th'/>
+                      Courses
                     </a>
                     <ul className="dropdown-menu">
-                      <label style={{paddingLeft:'5px'}}>Available MOOCs</label>
+                      <label style={{paddingLeft:'5px'}}>MOOCs category</label>
                       <li>
                         <Link to='/category/science'>TECHNOLOGY</Link>
                       </li>
@@ -40,6 +41,34 @@ const Nav = (props) => {
                       </li>
                       <li>
                       <Link to='/category/arts'>LIFESTYLE</Link>
+                      </li>
+                    </ul>
+                  </li>
+                  <li className="dropdown">
+                    <a
+                      className="dropdown-toggle"
+                      data-toggle="dropdown"
+                      href="all"
+                      style={{fontSize:'15px'}}
+                    >
+                      Programs
+                    </a>
+                    <ul className="dropdown-menu">
+                      <label style={{paddingLeft:'5px'}}>Available Programs</label>
+                      <li>
+                        <Link to='/category/science'>Computer Science</Link>
+                      </li>
+                      <li>
+                        <Link to='/category/arts'>Information Technology</Link>
+                      </li>
+                      <li>
+                        <Link to='/category/science'>Data Science</Link>
+                      </li>
+                      <li>
+                      <Link to='/category/science'>Artificial Intelligence</Link>
+                      </li>
+                      <li>
+                      <Link to='/category/commerce'>Programming</Link>
                       </li>
                     </ul>
                   </li>

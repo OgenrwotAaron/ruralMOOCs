@@ -92,7 +92,7 @@ class ContactUs extends Component{
         return (
             <div style={{background:'#f8f9fa',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
                 <h1 style={{color:'#707070'}}>Message Us</h1>
-                <h3 style={{color:'#808080',fontWeight:'300',padding:'0 0 5% 5%',textAlign:'center'}}>Get in touch with us for all enquiries and support</h3>
+                <h3 style={{color:'#808080',fontWeight:'300',textAlign:'center'}}>Get in touch with us for all enquiries and support</h3>
                 <form id="form1" className='form' onSubmit={(e)=>{this.sendMessage(e)}}>
                     <div className='rows'>
                         <div className='col-sm-6' style={{padding:'15px'}}>

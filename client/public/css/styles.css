@@ -3,8 +3,7 @@ body{
   color: white !important;
 }
 h3, h4 {
-  margin: 10px 0 30px 0;
-  letter-spacing: 10px;      
+  margin: 10px 0 30px 0;     
   font-size: 20px;
   color: #111;
 }
@@ -37,7 +36,8 @@ h3, h4 {
   position: fixed !important;
   top: 0;
   z-index: 999;
-  background: #285f8f !important;
+  background: #fff !important;
+  box-shadow: #00000017 1px 1px 10px;
   width: 100%;
   transition: .3s all ease;
 }
@@ -57,11 +57,11 @@ h3, h4 {
   border-radius: 0 !important;
 }
 .navbar li a, .navbar{ 
-  color: #dbdbdb !important;
+  color: #a5a5a5 !important;
 }
 .navbar-brand a{
   text-decoration: none;
-  color: white;
+  color: #a5a5a5;
   font-size: 1.8em;
 }
 /*Mobile Small*/
@@ -86,7 +86,7 @@ h3, h4 {
   color: rgb(1, 169, 240) !important;
 }
 .navbar-nav li a{
-  color: #fff;
+  color: #1e1846;
 }
 .navbar-nav li.active a {
   color: #fff !important;
@@ -100,10 +100,10 @@ h3, h4 {
   background-color: #555 !important;
 }
 .dropdown-menu{
-  background-color: #444343f0;
+  background-color: #0000009e;
 }
 .dropdown-menu li a {
-  color: #bfbfbf !important;
+  color: #fff !important;
 }
 .dropdown-menu li a:hover {
   background-color: rgb(141, 139, 139) !important;

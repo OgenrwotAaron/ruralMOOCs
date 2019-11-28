@@ -29,10 +29,10 @@ const DashStudent = () => {
     return ( 
         <div className='col-sm-9'>
             <div style={{padding:'9% 0 0 0'}}>
-            <h1>Students</h1>
+            <h1 style={{color:'#191828'}}>Students</h1>
             <div className="row">
-                <table className='table' style={{fontSize:'14px'}}>
-                        <tbody>
+                <table className='table' style={{fontSize:'14px',color:'#191828'}}>
+                        <tbody style={{color:'#191828'}}>
                             <tr style={{fontWeight:'bold'}}>
                                 <td>First Name</td>
                                 <td>Last Name</td>
