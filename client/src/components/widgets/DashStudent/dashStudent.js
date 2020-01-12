@@ -10,7 +10,15 @@ const DashStudent = () => {
         .then(students=>{
             setStudents(students.data)
         })
-    },[])
+    })
+
+    const deleteStudent=(id)=>{
+        window.confirm('Are you sure?')
+        console.log('hello')
+        //axios.delete(`/api/user/${id}`)
+        //.then(res=>{/*console.log(res.data)*/})
+        //.catch(err=>console.log(err))
+    }
 
     const renderStudents=(students)=>{
         return students.map((student,i)=>(
@@ -20,7 +28,7 @@ const DashStudent = () => {
                 <td>{student.email}</td>
                 <td>
                     <span style={{padding:'2px 5px'}} className='icon icon-eye'></span>
-                    <span style={{padding:'2px 5px'}} className='icon icon-delete'></span>
+                    <span onClick={()=>deleteStudent(student.id)} style={{cursor:'pointer',padding:'2px 5px'}} className='icon icon-delete'></span>
                 </td>
             </tr>
         ))

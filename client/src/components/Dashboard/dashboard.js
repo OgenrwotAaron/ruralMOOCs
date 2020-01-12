@@ -10,6 +10,7 @@ import DashDefault from '../widgets/DashDefault/dashDefault';
 import DashMessage from '../widgets/DashMessage/dashMessage';
 
 const Dashboard =(props)=>{
+
     const renderDashboard=()=>{
         let template=null;
 
@@ -72,7 +73,7 @@ const Dashboard =(props)=>{
                 <div className='row' style={{width:'100%'}}>
                     <div className='col-sm-3'>
                         <div style={{padding:'32% 0 0 0'}}>
-                            <SideNav/>
+                            <SideNav user={props.user.user}/>
                         </div>
                     </div>
                     {renderDashboard()}

@@ -78,15 +78,22 @@ app.post('/api/addtopic',(req,res)=>{
 })
 
 app.post('/api/register',(req,res)=>{
-    const user= new User(req.body);
 
-    user.save((err,doc)=>{
-        if(err) return res.json({success:false,error:err});
-        res.status(200).json({
-            success:true,
-            user:doc
-        });
-    });
+    User.findOne({'email':req.body.email},(err,user)=>{
+        if(err) return res.json({error:err});
+        if(!user){
+            const user= new User(req.body);
+
+            user.save((err,doc)=>{
+                if(err) return res.json({success:false,error:err});
+                res.status(200).json({
+                    success:true,
+                    user:doc
+                });
+            });
+        }
+        res.json({message:"User Already exist"});
+    })
 });
 
 app.post('/api/message',(req,res)=>{
@@ -114,13 +121,21 @@ app.post('/api/login',(req,res)=>{
                 res.cookie('auth',user.token).json({
                     same:true,
                     id:user._id,
-                    email:user.email
+                    email:user.email,
+                    role:user.role
                 });
                 //res.redirect('/dashboard');
             });
         });
     });
 });
+
+app.get('/api/logout',auth,(req,res)=>{
+    req.user.deleteToken(req.user.token,(err,user)=>{
+        if(err) return res.status(400).send(err);
+        res.status(200).send('logged-out')
+    })
+})
 
 app.get('/api/inbox',(req,res)=>{
     Inbox.find((err,doc)=>{
@@ -139,7 +154,7 @@ app.get('/api/inbox/:id',(req,res)=>{
 app.get('/api/user',auth,(req,res)=>{
     res.json({
         isAuth:true,
-        user:req.token
+        user:req.user
     })
 });
 
@@ -233,6 +248,13 @@ app.get('/api/topic/:id',(req,res)=>{
 
 app.delete('/api/message/:id',(req,res)=>{
     Inbox.findOneAndDelete({_id:ObjectId(req.params.id)},(err,doc)=>{
+        if(err) return res.json(err)
+        return res.json(doc)
+    })
+})
+
+app.delete('/api/user/:id',(req,res)=>{
+    User.findOneAndDelete({_id:ObjectId(req.params.id)},(err,doc)=>{
         if(err) return res.json(err)
         return res.json(doc)
     })

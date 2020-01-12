@@ -10,19 +10,22 @@ import AddInstructor from './components/AddInstructor/addInstructor';
 import CourseSingle from './components/Course/courseSingle';
 import AddTopic from './components/AddTopic/addTopic';
 import Video from './components/Video/video';
+import PublicRoute from './components/AuthRoute/publicRoute';
+import PrivateRoute from './components/AuthRoute/privateRoute'
 
 const Routes = (props) => {
     return (
         <Layout user={props.user}>
             <Switch>
-                <Route path="/" exact component={Home}/>
+                <PublicRoute {...props} restricted={false} path="/" exact component={Home}/>
+                <Route path="/category" exact component={Categories}/>
                 <Route path="/category/:id" exact component={Categories}/>
-                <Route path="/dashboard/:id/*" exact component={Dashboard}/>
-                <Route path="/dashboard" exact component={Dashboard}/>
-                <Route path="/join" exact component={Join}/>
-                <Route path="/add-course" exact component={AddCourse}/>
-                <Route path='/add-instructor' exact component={AddInstructor}/>
-                <Route path='/course/:id' exact component={CourseSingle}/>
+                <PrivateRoute {...props} path="/dashboard/:id/:role" exact component={Dashboard}/>
+                <PrivateRoute {...props} path="/dashboard" exact component={Dashboard}/>
+                <PublicRoute {...props} restricted={true} path="/join" exact component={Join}/>
+                <PrivateRoute {...props} path="/add-course" exact component={AddCourse}/>
+                <PrivateRoute {...props} path='/add-instructor' exact component={AddInstructor}/>
+                <PublicRoute {...props} restricted={false} path='/course/:id' exact component={CourseSingle}/>
                 <Route path='/addTopic/:id' exact component={AddTopic}/>
                 <Route path='/video/:id' exact component={Video}/>
             </Switch>

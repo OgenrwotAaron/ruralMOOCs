@@ -1,9 +1,24 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 const Nav = (props) => {
+
+    const logout=()=>{
+      axios.get('/api/logout')
+      .then(res=>{
+          window.location.assign('/')
+      })
+      .catch(err=>console.log(err))
+    }
+
     return (
         <ul className="nav navbar-nav navbar-right">
+                  <li>
+                    <Link style={{fontSize:'15px'}} to="/">
+                        Home
+                    </Link>
+                  </li>
                   <li className="dropdown">
                     <a
                       className="dropdown-toggle"
@@ -14,7 +29,8 @@ const Nav = (props) => {
                       Courses
                     </a>
                     <ul className="dropdown-menu">
-                      <label style={{paddingLeft:'5px'}}>MOOCs category</label>
+                      <li><Link to="/category">Courses</Link></li>
+                      <label style={{paddingLeft:'5px'}}>Course Category</label>
                       <li>
                         <Link to='/category/science'>TECHNOLOGY</Link>
                       </li>
@@ -76,9 +92,42 @@ const Nav = (props) => {
                     <input id='search' className="form-control" placeholder='browse..' style={{height:'25px',padding:'2px 10px',border:'none',borderRadius:'25px'}} type='search' /><span style={{margin:'15px',fontSize:'18px',paddingTop:'2px',color:'#01a9f0'}} className='icon icon-search form-control-feedback'></span>
                   </li>
                   {props.user ? 
-                    <li style={{padding:'10px 5px',fontSize:'25px'}}>
-                      <span className="icon icon-user-circle-o"></span>
-                    </li>
+                      (
+                        props.user.user.role !== 0 ?
+                          <>
+                            <li style={{padding:'10px 5px',fontSize:'25px'}}>
+                              <Link style={{padding:'5px'}} to="/dashboard">
+                                <span className="icon icon-dashboard"></span>
+                              </Link> 
+                            </li>
+                            <li className="dropdown" style={{padding:'0 5px',fontSize:'25px'}}>
+                              <a
+                                className="dropdown-toggle"
+                                data-toggle="dropdown"
+                                href="all"
+                              >
+                                <span className="icon icon-user-circle-o"></span>
+                              </a>
+                              <ul className="dropdown-menu">
+                                <li>
+                                  <Link to={`/profile/${props.user.user._id}`}>Profile</Link>
+                                </li>
+                                <li>
+                                  <button onClick={()=>logout()} style={{padding:'3px 20px',border:'none',background:'none',color:'white'}} to='/dashboard/mail/1'>
+                                    Logout
+                                  </button>
+                                </li>
+                              </ul>
+                            </li>
+                          </>
+                          
+                          :
+                          <li style={{padding:'10px 5px',fontSize:'25px'}}>
+                          <Link style={{padding:'5px'}} to={`/profile/${props.user.user._id}`}>
+                            <span className="icon icon-user-circle-o"></span>
+                          </Link> 
+                          </li>
+                      )
                     :
                     null
                   }

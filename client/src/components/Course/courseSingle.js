@@ -42,16 +42,23 @@ class CourseSingle extends Component {
         if(this.state.item === ''){
             return null;
         }
+        
         return ( 
             <div>
                 <Jumbotron type='category' title={`${this.state.item.metadata.course}`} image={`/api/image/${this.state.item.filename}`}/>
                 {this.state.topics.error ==="No files exist" ? null:<Link data-aos='fade' data-aos-duration='700' id='playvid' style={{fontSize:'45px',position:'absolute',zIndex:'1',bottom:'52%',left:'5%',color:'#ffffffab'}} to={`/video/${this.state.topics[0]._id}`}>
                     <span className="icon icon-play_circle_outline"></span>
                 </Link>}
-                <Link data-aos='fade' data-aos-duration='700' id='addvid' style={{fontSize:'18px',position:'absolute',zIndex:'1',bottom:'52%',right:'5%',color:'#ffffffab'}} to={`/addTopic/${this.state.item._id}`}>  
-                    <span className="icon icon-playlist_add"></span>
-                    Add topic
-                </Link>
+                {
+                    this.props.user && (this.props.user.user.role === 1 || this.props.user.user.role === 2)?
+                       <Link data-aos='fade' data-aos-duration='700' id='addvid' style={{fontSize:'18px',position:'absolute',zIndex:'1',bottom:'52%',right:'5%',color:'#ffffffab'}} to={`/addTopic/${this.state.item._id}`}>  
+                            <span className="icon icon-playlist_add"></span>
+                            Add topic
+                        </Link> 
+                    :
+                        null
+                }
+                
                 <div className='row' style={{width:'100%',margin:'0'}}>
                     <div className='col-sm-3'>
                         <div id="course-card" className='card' style={{textAlign:'center',padding:'10px',margin:'10px',border:'1px solid #e4dcdc',borderRadius:'5px'}}>

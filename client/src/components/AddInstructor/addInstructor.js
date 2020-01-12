@@ -128,12 +128,12 @@ class AddInstructor extends Component {
 
     render(){
         return (
-            <div className="slide-1" style={{backgroundImage:"url('images/science.jpg')",backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition:"50% 50%",backgroundAttachment:'fixed'}}>
-                    <div className="container jumb" style={{backgroundColor:'white',width:'100%'}}>
+            <div className="slide-1">
+                    <div className="container jumb" style={{background:'linear-gradient(to right top, #d1d2f1, #ffffff)',width:'100%'}}>
                         <div className="row jumbo">
                             <div className="col-sm-3"></div>
                             <div className="col-sm-6"  data-aos="fade-up" data-aos-duration="500">
-                            <form style={{boxShadow:'#e4e2e2 2px 2px 4px'}} className="form-box">
+                            <form style={{boxShadow:'#0000005e 1px 1px 20px 1px'}} className="form-box">
                                     <div data-aos='fade-in' data-aos-delay='100' data-aos-duration='500'>
                                         <h3 className="h4 text-black mb-4">Add Instructor</h3>
                                         <div className="form-group">

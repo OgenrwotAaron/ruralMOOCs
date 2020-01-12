@@ -1,7 +1,18 @@
 import React,{ Component } from 'react';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 class SideNav extends Component{
+
+    logout=(e)=>{
+        e.preventDefault();
+        axios.get('/api/logout')
+        .then(res=>{
+            window.location.assign('/')
+        })
+        .catch(err=>console.log(err))
+    }
+
     render(){
         return(
             <div style={{padding:'0'}}>
@@ -44,13 +55,18 @@ class SideNav extends Component{
                                 <span style={{padding:'0 5px'}} className='icon icon-mail_outline'></span>
                                 Inbox
                             </Link>
+                        </li><li>
+                            <Link style={{color:'rgb(25,24,40)'}} to={`/profile/${this.props.user._id}`}>
+                                <span style={{padding:'0 5px'}} className='icon icon-user-o'></span>
+                                Profile
+                            </Link>
                         </li>
                         <hr/>
                         <li>
-                            <Link style={{color:'rgb(25,24,40)'}} to='/dashboard/mail/1'>
+                            <button onClick={(e)=>this.logout(e)} style={{border:'none',background:'none',color:'rgb(25,24,40)'}} to='/dashboard/mail/1'>
                                 <span style={{padding:'0 5px'}} className='icon icon-exit_to_app'></span>
                                 Logout
-                            </Link>
+                            </button>
                         </li>
                     </ul>
                 </div>

@@ -1,5 +1,6 @@
 import React,{ Component,Fragment} from 'react';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 class SignUpForm extends Component {
 
@@ -116,6 +117,9 @@ class SignUpForm extends Component {
                                 </button>
                             }
                             {this.props.fun()}
+                            <Link style={{position:'absolute',top:'0',right:'0'}} to="/">
+                                <span className="icon icon-close"></span>
+                            </Link>
                         </div>
                     </div>
                 )
@@ -152,6 +156,9 @@ class SignUpForm extends Component {
                                 </button>
                             }
                             {this.props.fun()}
+                            <Link style={{position:'absolute',top:'0',right:'0'}} to="/">
+                                <span className="icon icon-close"></span>
+                            </Link>
                         </div>
                     </div>
                 )
@@ -192,7 +199,19 @@ class SignUpForm extends Component {
                     lname:dataToSubmit.lname
                 })
                 .then(response=>{
-                    window.location.reload();
+                    const message=response.data.message
+                    if(message){
+                        this.setState({
+                            registerError:response.data.message,
+                            loading:false
+                        })
+                    }else{
+                        this.setState({
+                           loggedIn:true,
+                           loading:false
+                        });
+                        window.location.reload();
+                    }
                 })
                 .catch(err=>this.setState({
                     registerError:err
@@ -230,7 +249,14 @@ class SignUpForm extends Component {
                            loggedIn:true,
                            loading:false
                         });
-                        this.props.history.push('/dashboard');
+                        switch(response.data.role){
+                            case 2:
+                                window.location.replace('/dashboard');
+                                break;
+                            default:
+                                window.location.replace('/');
+                                break;
+                        }
                     }
                     
                 })
@@ -250,7 +276,7 @@ class SignUpForm extends Component {
     render(){
         return (
             <Fragment>
-                {!this.state.loggedIn ? <form className="form-box">
+                {!this.state.loggedIn ? <form style={{padding:'20px 40px',boxShadow:'#0000005e 1px 1px 20px 1px'}} className="form-box">
                     {this.renderFields()}
                     {this.showError()}
                 </form> : ''}

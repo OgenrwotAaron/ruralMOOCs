@@ -24,6 +24,9 @@ const userSchema = mongoose.Schema({
         maxlength:100
     },
     role:{
+        //0-normal users
+        //1-instructor
+        //2-admin
         type:Number,
         default:0
     },

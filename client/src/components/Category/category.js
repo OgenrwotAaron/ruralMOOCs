@@ -1,34 +1,117 @@
-import React from 'react';
-import Jumbotron from '../Jumbotron/jumbotron';
+import React,{ useEffect} from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types'
+
+import { getCourses } from '../../actions';
+import CatDefault from '../widgets/CatDefault/catDefault';
+import { Link } from 'react-router-dom';
 
 const Categories = (props) => {
-    const imageName=()=>{
-        let name=null
+
+    useEffect(()=>{
+        props.getCourses()
+        
+    },[props])
+
+    const renderDash=()=>{
+        let template=null
 
         switch (props.match.params.id) {
+            case 'technology':
+                template=(
+                    <h1>Technology</h1>
+                );
+            break;
+            case 'language':
+                template=(
+                    <h1>language</h1>
+                );
+            break;
             case 'science':
-                name='/images/science.jpg'
+                template=(
+                    <h1>science</h1>
+                );
             break;
-            case 'agriculture':
-                    name='/images/agriculture.jpg'
+            case 'health':
+                template=(
+                    <h1>health</h1>
+                );
             break;
-            case 'arts':
-                name='/images/history.png'
+            case 'humanities':
+                template=(
+                    <h1>humanities</h1>
+                );
             break;
-            case 'commerce':
-                name='/images/economics.jpg'
+            case 'business':
+                template=(
+                    <h1>business</h1>
+                );
+            break;
+            case 'mathematics':
+                template=(
+                    <h1>mathematics</h1>
+                );
+            break;
+            case 'marketing':
+                template=(
+                    <h1>marketing</h1>
+                );
+            break;
+            case 'lifestyle':
+                template=(
+                    <h1>lifestyle</h1>
+                );
             break;
             default:
-                name=null;
+                template=(
+                    <CatDefault courses={props.courses}/>
+                );
                 break;
         }
-        return name;
+        return template;
+    }
+    let cat=["TECHNOLOGY","LANGUAGE","SCIENCE","HEALTH","HUMANITIES","BUSINESS","MATHEMATICS","MARKETING","LIFESTYLE"]
+    const renderCat=()=>{
+       return cat.map((item,i)=>(
+                    <li key={i}>
+                        <Link to={`/category/${item.toLowerCase()}`} style={{fontSize:'15px'}}>{item}</Link>
+                    </li>
+                )
+            )
     }
     return (
-        <div>
-            <Jumbotron type='category' image={imageName()}/>
+        <div className="row" style={{margin:'8% 0 0 0',width:'100%'}}>
+            <div className="col-sm-3 catnav">
+                <div style={{marginTop:'8%'}}>
+                    <ul style={{lineHeight:'5'}}>
+                        {renderCat()}
+                    </ul>
+                </div>
+                
+            </div>
+            <div className="col-sm-9">
+                {renderDash()}
+            </div>
+            
         </div>
     );
 };
 
-export default Categories;
+const mapStateToProps = (state) => {
+    return {
+        courses: state.courses
+    }
+}
+
+const mapDispatchToProps=(dispatch)=>{
+    return bindActionCreators({getCourses},dispatch)
+}
+
+Categories.propTypes={
+    courses:PropTypes.object,
+    getCourses:PropTypes.func
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Categories)

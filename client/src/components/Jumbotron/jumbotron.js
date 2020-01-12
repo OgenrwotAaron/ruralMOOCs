@@ -11,9 +11,9 @@ class Jumbotron extends Component {
 
     getStarted=()=>(
         this.state.getStarted? 
-            <p onClick={()=>{this.setState({form:'signup',getStarted:false})}} style={{color:'#333',cursor:'pointer'}}>Or Signup here</p>
+            <p onClick={()=>{this.setState({form:'signup',getStarted:false})}} style={{color:'#333',cursor:'pointer'}}>Or Signup <i style={{color:'#337ab7',textDecoration:'underline'}}>here</i></p>
             :
-            <p onClick={()=>{this.setState({form:'signin',getStarted:true})}} style={{color:'#333',cursor:'pointer'}}>Login</p>
+            <p onClick={()=>{this.setState({form:'signin',getStarted:true})}} style={{color:'#333',cursor:'pointer'}}><i style={{color:'#337ab7',textDecoration:'underline'}}>Login</i></p>
     )
 
     renderJumbo=()=>{
@@ -29,7 +29,14 @@ class Jumbotron extends Component {
                                     <div className="col-sm-6" style={{paddingBottom:'10px'}}>
                                         <h1 style={{marginBottom:'0',color:'#1e1746',fontSize:'50px'}}>Learning Beyond Limitations</h1>
                                         <p style={{marginTop:'0',color:'#171235'}}> We truly believe in giving everyone a chance to pursue their goals, through education beyond limitations.</p>
-                                        <Link to="/join"><button className="btn btn-white">Get Started</button></Link>
+                                        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                                            this.props.auth ? 
+                                                null                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                            :
+                                                <Link to="/join">   
+                                                    <button className="btn btn-white">Get Started</button>
+                                                </Link>
+                                        }
                                     </div>
                                     <div className='col-sm-6' style={{display:'flex',justifyContent:'center'}}>
                                         <img style={{width:'60%', height:'auto',float:'right'}} src='/images/header-img.png' alt='home'/>
@@ -56,8 +63,8 @@ class Jumbotron extends Component {
                 break;
             case 'join':
                 template=(
-                    <div className="slide-1" style={{backgroundImage:"url('images/hero.jpg')",backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition:"50% 50%",backgroundAttachment:'fixed'}}>
-                        <div className="container jumb" style={{backgroundColor:'rgba(7,6,28,0.88)',width:'100%'}}>
+                    <div className="slide-1">
+                        <div className="container jumb" style={{background:'linear-gradient(to right top, #d1d2f1, #ffffff)',width:'100%'}}>
                             <div className="row jumbo">
                                 <div className="col-sm-12"  data-aos="fade-up" data-aos-duration="500">
                                     <div className="col-sm-4"></div>

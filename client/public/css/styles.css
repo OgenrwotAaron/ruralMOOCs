@@ -57,11 +57,11 @@ h3, h4 {
   border-radius: 0 !important;
 }
 .navbar li a, .navbar{ 
-  color: #a5a5a5 !important;
+  color: #6b6868 !important;
 }
 .navbar-brand a{
   text-decoration: none;
-  color: #a5a5a5;
+  color: #6b6868;
   font-size: 1.8em;
 }
 /*Mobile Small*/
@@ -80,6 +80,10 @@ h3, h4 {
   }
   #video-player{
     padding: 0;
+  }
+
+  .catnav{
+    display: none;
   }
 }
 .navbar-nav li a:hover {
@@ -100,7 +104,7 @@ h3, h4 {
   background-color: #555 !important;
 }
 .dropdown-menu{
-  background-color: #0000009e;
+  background-color: #3a3a3a;
 }
 .dropdown-menu li a {
   color: #fff !important;
@@ -176,7 +180,7 @@ ul#board{
 }
 
 [type="file"] + label{
-  background: #fff;
+  background: #e7e7e7;
   border: none;
   border-radius: 5px;
   color: #111;
