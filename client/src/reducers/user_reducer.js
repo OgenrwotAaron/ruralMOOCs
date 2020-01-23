@@ -3,7 +3,7 @@ export default function(state={},action){
         case "GET_INSTRUCTOR":
             return{
                 ...state,
-                instructors:action.payload
+                instructor:action.payload
             }
         default:
             return state

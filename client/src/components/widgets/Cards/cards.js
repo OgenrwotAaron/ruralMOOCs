@@ -1,18 +1,25 @@
 import React,{ useEffect,useState} from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import  PropTypes from "prop-types";
 
 const Card = ({item,type}) => {
 
-    let [instructors,setInstructors]=useState()
+    let [instructors,setInstructors]=useState();
+    let [cardClass,setCardClass]=useState('card-in');
 
     useEffect(()=>{
         axios.get(`/api/user/${item.metadata.instructor}`)
         .then(res=>{
             setInstructors(res.data)
         })
-    },[item.metadata.instructor])
+    },[item.metadata.instructor]);
+    
     if(!instructors){
-        return null;
+        return (
+            <div className="spinner-border" role="status">
+                <span className="sr-only">Loading</span>
+            </div>
+        );
     }
 
     const renderCard=()=>{
@@ -62,10 +69,17 @@ const Card = ({item,type}) => {
     }
 
     return (
-        <div data-aos="fade-up" data-aos-duration="500" className='cards'>
-            {renderCard()}
+        <div data-aos="fade-up" data-aos-duration="500" className="cards">
+            <div onMouseOver={()=>setCardClass('hovered')} className={cardClass}>
+               {renderCard()} 
+            </div>                                                                                                                                                                         
         </div>
     );
 };
+
+Card.propTypes={
+    item:PropTypes.object,
+    type:PropTypes.string
+}
 
 export default Card;

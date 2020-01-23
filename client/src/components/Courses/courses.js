@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Card from '../widgets/Cards/cards';
 
@@ -43,5 +44,9 @@ const Courses =(props)=>{
         </div>
     );
 };
+
+Courses.propTypes={
+    courses:PropTypes.array
+}
 
 export default Courses;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import Card from '../Cards/cards';
 
 const CatDefault = (props) => {
@@ -35,7 +35,7 @@ const CatDefault = (props) => {
                     ))}
                 </div>
                 <div style={{textAlign:'center',margin:'30px 0 0 0'}}>
-                    <Link style={{fontSize:'15px'}} to={`/category/${item}`}>Load More...</Link>
+                    <Link style={{fontSize:'15px'}} to={`/category/${item.toLowerCase()}`}>Load More...</Link>
                 </div>
             </div>
             

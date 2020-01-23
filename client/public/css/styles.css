@@ -57,11 +57,18 @@ h3, h4 {
   border-radius: 0 !important;
 }
 .navbar li a, .navbar{ 
-  color: #6b6868 !important;
+  color: #9c9c9c !important;
+}
+.card-in{
+  background-color: #111;
+}
+.hovered{
+  background-color: #111;
+  position: absolute;
 }
 .navbar-brand a{
   text-decoration: none;
-  color: #6b6868;
+  color: #9c9c9c;
   font-size: 1.8em;
 }
 /*Mobile Small*/
