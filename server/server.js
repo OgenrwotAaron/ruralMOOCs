@@ -9,7 +9,7 @@ const methodOverride=require('method-override');
 const { createServer }=require('http');
 const ObjectId=require('mongodb').ObjectId;
 const TransloaditClient=require('transloadit');
-//const nodeMailer=require('nodemailer');
+const nodeMailer=require('nodemailer');
 const path=require('path');
 
 const app=express();
@@ -64,11 +64,13 @@ const storage=new GridFsStorage({
 
 const upload= multer({ storage });
 
+//add a Course
 app.post('/api/addCourse',upload.any(),(req,res)=>{
     //res.json({file:req.files});
     res.redirect(`/course/${req.files[0].id}`)
 })
 
+//Add a topic to a course
 app.post('/api/addtopic',(req,res)=>{
     const topic= new Topic(req.body);
     topic.save((err,doc)=>{
@@ -77,13 +79,13 @@ app.post('/api/addtopic',(req,res)=>{
     })
 })
 
+//Create new user account or SignUp
 app.post('/api/register',(req,res)=>{
 
     User.findOne({'email':req.body.email},(err,user)=>{
         if(err) return res.json({error:err});
         if(!user){
             const user= new User(req.body);
-
             user.save((err,doc)=>{
                 if(err) return res.json({success:false,error:err});
                 res.status(200).json({
@@ -95,6 +97,60 @@ app.post('/api/register',(req,res)=>{
         res.json({message:"User Already exist"});
     })
 });
+
+//Create new Instructor account
+app.post('/api/addInstructor',(req,res)=>{
+    User.findOne({'email':req.body.email},(err,instructor)=>{
+        if(err) return res.json({error:err})
+        if(!instructor){
+            const instructor=new User(req.body);
+            
+            //Change the role to 1:- Instructor
+            instructor.role=1;
+
+            //generate a random password for the added instructor
+            let result=''
+            const characters='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            const charLength=characters.length;
+            for(let i=0;i<8;i++){
+                result+=characters.charAt(Math.floor(Math.random()*charLength));
+            }
+            instructor.password=result
+
+            instructor.save((err,doc)=>{
+                if(err) return res.json({success:false,error:err});
+
+                //Send an email to the instructor with a link to login with a password
+                let transporter=nodeMailer.createTransport({
+                    host:"smtp.mailgun.org",
+                    port:587,
+                    secure:false,
+                    auth:{
+                        user:"postmaster@sandbox3d068d1f69154db389a9846cdea3bfdc.mailgun.org",
+                        pass:"f27ddb89fa40706f6e8a9e479241b6ed-074fa10c-7716f932"
+                    }
+                });
+
+                transporter.sendMail({
+                    from:'RuralMOOCs <no-reply@ruralmoocs.com>',
+                    to:doc.email,
+                    subject:"Instructor Account details",
+                    text:`Hello ${doc.fname}, your Instructor account has been created on RuralMoocs https://ruralmoocs.herokuapp.com; here's your password "${result}", you can login here https://ruralmoocs.herokuapp.com/login `,
+                    html:`<p>Hello ${doc.fname}, your Instructor account has been created on <a href="https://ruralmoocs.herokuapp.com">RuralMoocs</a>;</p> <p>here's your password "${result}", you can login <a href="https://ruralmoocs.herokuapp.com/login">here</a></p> `
+                },(error,info)=>{
+                    if(error) return res.json({error:error})
+                    return res.status(200).json({
+                        success:true,
+                        message:`Account added successfully, check ${doc.email} for the password to your account`
+                    });
+                })
+            })
+        }
+        if(instructor){
+            return res.json({message:'Instructor already exists'})
+        }
+    })
+})
 
 app.post('/api/message',(req,res)=>{
     const inbox= new Inbox(req.body);
@@ -124,7 +180,6 @@ app.post('/api/login',(req,res)=>{
                     email:user.email,
                     role:user.role
                 });
-                //res.redirect('/dashboard');
             });
         });
     });
@@ -249,6 +304,9 @@ app.get('/api/topic/:id',(req,res)=>{
 app.delete('/api/message/:id',(req,res)=>{
     Inbox.findOneAndDelete({_id:ObjectId(req.params.id)},(err,doc)=>{
         if(err) return res.json(err)
+        if(!doc){
+            return res.status(404).json({message:'Message doesnt exist'})
+        }
         return res.json(doc)
     })
 })
@@ -256,7 +314,10 @@ app.delete('/api/message/:id',(req,res)=>{
 app.delete('/api/user/:id',(req,res)=>{
     User.findOneAndDelete({_id:ObjectId(req.params.id)},(err,doc)=>{
         if(err) return res.json(err)
-        return res.json(doc)
+        if(!doc){
+            return res.status(404).json({message:'Specified user not found'})
+        }
+        return res.json({message:`user ${doc.email} removed successfully`})
     })
 })
 

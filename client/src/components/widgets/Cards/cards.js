@@ -5,7 +5,6 @@ import  PropTypes from "prop-types";
 const Card = ({item,type}) => {
 
     let [instructors,setInstructors]=useState();
-    let [cardClass,setCardClass]=useState('card-in');
 
     useEffect(()=>{
         axios.get(`/api/user/${item.metadata.instructor}`)
@@ -70,7 +69,7 @@ const Card = ({item,type}) => {
 
     return (
         <div data-aos="fade-up" data-aos-duration="500" className="cards">
-            <div onMouseOver={()=>setCardClass('hovered')} className={cardClass}>
+            <div className="card-in">
                {renderCard()} 
             </div>                                                                                                                                                                         
         </div>

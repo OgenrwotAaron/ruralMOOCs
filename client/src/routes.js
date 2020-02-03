@@ -13,7 +13,7 @@ import Video from './components/Video/video';
 import PublicRoute from './components/AuthRoute/publicRoute';
 import PrivateRoute from './components/AuthRoute/privateRoute'
 
-const Routes = (props) => {
+const Routes = (props) => { 
     return (
         <Layout user={props.user}>
             <Switch>

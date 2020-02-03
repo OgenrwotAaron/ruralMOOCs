@@ -35,7 +35,7 @@ const userSchema = mongoose.Schema({
     }
 },
 {
-    timestamp:true
+    timestamp:{ createdAt: 'created_at' }
 })
 
 userSchema.pre('save',function(next){

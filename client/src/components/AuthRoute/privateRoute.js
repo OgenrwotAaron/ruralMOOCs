@@ -10,7 +10,7 @@ const PrivateRoute = ({
         <Route {...rest} component={(props)=>(
             user ?
             (
-                user.user.role === 2 ?
+                user.user.role === 2 || 1 ?
                     <Comp {...props} user={user} />
                 :
                     <Redirect to="/"/>
