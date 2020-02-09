@@ -8,6 +8,7 @@ import DashFeeds from '../widgets/DashFeeds/dashFeeds';
 import DashMail from '../widgets/DashMail/dashMail';
 import DashDefault from '../widgets/DashDefault/dashDefault';
 import DashMessage from '../widgets/DashMessage/dashMessage';
+import DashProgram from '../widgets/DashProgram/dashProgram';
 
 const Dashboard =(props)=>{
 
@@ -15,6 +16,11 @@ const Dashboard =(props)=>{
         let template=null;
 
         switch (props.match.params.id) {
+            case 'programs':
+                template=(
+                    <DashProgram/>
+                );
+                break;
             case 'courses':
                 template=(
                     <DashCourse/>

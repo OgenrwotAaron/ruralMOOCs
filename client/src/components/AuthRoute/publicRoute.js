@@ -15,7 +15,13 @@ const PublicRoute = ({
             <Comp {...props} user={user}/>
         )
         :
-        <Comp {...props} user={user} />
+        (
+            user ?
+            <Comp {...props} user={user} />
+            :
+            <Redirect to='/join'/>
+        )
+        
     )}/>
 }
  

@@ -11,6 +11,7 @@ const ObjectId=require('mongodb').ObjectId;
 const TransloaditClient=require('transloadit');
 const nodeMailer=require('nodemailer');
 const path=require('path');
+require('dotenv').config()
 
 const app=express();
 const transloadit= new TransloaditClient({
@@ -122,12 +123,12 @@ app.post('/api/addInstructor',(req,res)=>{
 
                 //Send an email to the instructor with a link to login with a password
                 let transporter=nodeMailer.createTransport({
-                    host:"smtp.mailgun.org",
+                    host:process.env.MAILGUN_HOST,
                     port:587,
                     secure:false,
                     auth:{
-                        user:"postmaster@sandbox3d068d1f69154db389a9846cdea3bfdc.mailgun.org",
-                        pass:"f27ddb89fa40706f6e8a9e479241b6ed-074fa10c-7716f932"
+                        user:process.env.MAILGUN_USER,
+                        pass:process.env.MAILGUN_PASS
                     }
                 });
 
@@ -174,7 +175,7 @@ app.post('/api/login',(req,res)=>{
             if(!same) return res.json({message:'Wrong Password'});
             user.generateToken((err,user)=>{
                 if(err) return res.send(err);
-                res.cookie('auth',user.token).json({
+                res.cookie('auth',user.token,{maxAge:31*Math.pow(10,9),httpOnly:true}).json({
                     same:true,
                     id:user._id,
                     email:user.email,

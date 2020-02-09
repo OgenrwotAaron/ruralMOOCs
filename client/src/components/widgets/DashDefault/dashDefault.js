@@ -30,21 +30,21 @@ const DashDefault = () => {
                 <h1 style={{color:'#191828'}}>Dashboard</h1>
                 <div className="row" id='dash'>
                     <Link to='/dashboard/courses/1'>
-                        <div className="col-sm-4" style={{textAlign:"center",background:'white',paddingTop:'3%',borderBottom:'#c1c1c1 solid 1px',borderRadius:'6px'}}>
+                        <div className="col-sm-4" style={{textAlign:"center",background:'whitesmoke',borderRight:'white 2px solid',paddingTop:'3%',borderBottom:'#c1c1c1 solid 1px',borderRadius:'6px'}}>
                             <span className="icon icon-university" style={{fontSize:'50px',color:'#191828'}}></span>
                             <h2 style={{color:'#191828',fontSize:'25px',margin:'0'}}>{courses}</h2>
                             <p style={{color:'#565661',margin:'5px 0'}}>Courses</p>
                         </div>
                     </Link>
                     <Link to='/dashboard/students/1'>
-                        <div className="col-sm-4" style={{textAlign:"center",background:'white',paddingTop:'3%',borderBottom:'#c1c1c1 solid 1px',borderRadius:'6px'}}>
+                        <div className="col-sm-4" style={{textAlign:"center",background:'whitesmoke',borderRight:'white 2px solid',paddingTop:'3%',borderBottom:'#c1c1c1 solid 1px',borderRadius:'6px'}}>
                             <span className="icon icon-graduation-cap" style={{fontSize:'50px',color:'#191828'}}></span>
                             <h2 style={{color:'#191828',fontSize:'25px',margin:'0'}}>{students}</h2>
                             <p style={{color:'#565661',margin:'5px 0'}}>Students</p>
                         </div>
                     </Link>
                     <Link to='/dashboard/instructors/1'>
-                        <div className="col-sm-4" style={{textAlign:"center",background:'white',paddingTop:'3%',borderBottom:'#c1c1c1 solid 1px',borderRadius:'6px'}}>
+                        <div className="col-sm-4" style={{textAlign:"center",background:'whitesmoke',paddingTop:'3%',borderBottom:'#c1c1c1 solid 1px',borderRadius:'6px'}}>
                             <span className="icon icon-users" style={{fontSize:'50px',color:'#191828'}}></span>
                             <h2 style={{color:'#191828',fontSize:'25px',margin:'0'}}>{instructors}</h2>
                             <p style={{color:'#565661',margin:'5px 0'}}>Instructors</p>

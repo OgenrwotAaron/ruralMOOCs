@@ -17,7 +17,7 @@ const Routes = (props) => {
     return (
         <Layout user={props.user}>
             <Switch>
-                <PublicRoute {...props} restricted={false} path="/" exact component={Home}/>
+                <Route {...props} path="/" exact component={Home}/>
                 <Route path="/category" exact component={Categories}/>
                 <Route path="/category/:id" exact component={Categories}/>
                 <PrivateRoute {...props} path="/dashboard/:id/:role" exact component={Dashboard}/>

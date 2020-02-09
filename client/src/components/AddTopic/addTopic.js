@@ -87,13 +87,12 @@ class AddTopic extends Component {
                             {
                                 <Dashboard
                                     uppy={this.uppy}
-                                    height={200}
+                                    height={400}
                                     metaFields={[
                                         { id: 'title', name: 'Title', placeholder: 'Enter topic title' },
                                         { id: 'description', name: 'Description', placeholder: 'Brief Description of the topic' }
                                     ]}
                                     note='Click on the edit button to add Topic title'
-                                
                                 />
                             }
                             {

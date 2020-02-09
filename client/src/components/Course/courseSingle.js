@@ -46,9 +46,14 @@ class CourseSingle extends Component {
         return ( 
             <div>
                 <Jumbotron type='category' title={`${this.state.item.metadata.course}`} image={`/api/image/${this.state.item.filename}`}/>
-                {this.state.topics.error ==="No files exist" ? null:<Link data-aos='fade' data-aos-duration='700' id='playvid' style={{fontSize:'45px',position:'absolute',zIndex:'1',bottom:'52%',left:'5%',color:'#ffffffab'}} to={`/video/${this.state.topics[0]._id}`}>
-                    <span className="icon icon-play_circle_outline"></span>
-                </Link>}
+                {
+                    this.state.topics.error ==="No files exist" ? 
+                        null
+                    :
+                        <Link data-aos='fade' data-aos-duration='700' id='playvid' style={{fontSize:'45px',position:'absolute',zIndex:'1',bottom:'52%',left:'5%',color:'#ffffffab'}} to={`/video/${this.state.topics[0]._id}`}>
+                            <span className="icon icon-play_circle_outline"></span>
+                        </Link>
+                }
                 {
                     this.props.user && (this.props.user.user.role === 1 || this.props.user.user.role === 2)?
                        <Link data-aos='fade' data-aos-duration='700' id='addvid' style={{fontSize:'18px',position:'absolute',zIndex:'1',bottom:'52%',right:'5%',color:'#ffffffab'}} to={`/addTopic/${this.state.item._id}`}>  
@@ -56,7 +61,9 @@ class CourseSingle extends Component {
                             Add topic
                         </Link> 
                     :
-                        null
+                        <button data-aos='fade' data-aos-duration='700' style={{fontSize:'18px',fontWeight:'bold',position:'absolute',zIndex:'1',bottom:'52%',left:'5%',background:'#03a9f0',border:'none',color:'white'}}>  
+                            Enroll
+                        </button>
                 }
                 
                 <div className='row' style={{width:'100%',margin:'0'}}>

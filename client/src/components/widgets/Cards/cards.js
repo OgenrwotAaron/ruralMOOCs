@@ -1,6 +1,6 @@
 import React,{ useEffect,useState} from 'react';
 import axios from 'axios';
-import  PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 const Card = ({item,type}) => {
 
@@ -27,12 +27,15 @@ const Card = ({item,type}) => {
             case 'category':
                 template=(
                     <div style={{background:'white',marginTop:'25px',border:'1px solid #343a4030',borderTop:'0',paddingBottom:'20px'}}>
-                        <div style={{height:'120px',overflow:'hidden'}}>
+                        <div style={{height:'100px',overflow:'hidden'}}>
                             <img style={{width:'100%'}} className='img-responsive' alt='card' src={`/api/image/${item.filename}`}/>
                         </div>
-                        <div style={{height:'50px',textAlign:'center'}}>
+                        <div style={{height:'70px',textAlign:'center'}}>
                             <h2>{item.metadata.course}</h2>
-                            <div>{item.metadata.duration}</div>
+                            <div style={{display:'flex',justifyContent:'center'}}>
+                                <div style={{color:'#03a9f0',padding:'0 5px',fontWeight:'bold',borderRight:'2px solid white'}}>{item.metadata.duration}</div>
+                                <button style={{background:'#03a9f0',color:'white',border:'none',padding:'0 5px',fontWeight:'bold'}} to='/join'>Enroll</button>
+                            </div> 
                         </div>
                     </div>
                 )
@@ -46,12 +49,15 @@ const Card = ({item,type}) => {
                         <div style={{height:'120px'}}>
                             <h2>{item.metadata.course}</h2>
                             <p style={{color:'gray'}}>{item.metadata.description}</p>
-                            <div>{item.metadata.duration}</div>
+                            <div style={{display:'flex',justifyContent:'center'}}>
+                                <div style={{color:'#03a9f0',padding:'0 5px',fontWeight:'bold',borderRight:'2px solid white'}}>{item.metadata.duration}</div>
+                                <button style={{background:'#03a9f0',color:'white',border:'none',padding:'0 5px',fontWeight:'bold'}} to='/join'>Enroll</button>
+                            </div>  
                             <div>
                                 {
                                     instructors.map(ite=>{
                                         return ite.id===item.metadata.instructor ? 
-                                            `${ite.fname} ${ite.lname}`
+                                            `By ${ite.fname} ${ite.lname}`
                                             :
                                             'null'
                                         }

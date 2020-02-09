@@ -250,11 +250,11 @@ class SignUpForm extends Component {
                            loading:false
                         });
                         switch(response.data.role){
-                            case 2:
+                            case 2 || 1:
                                 window.location.replace('/dashboard');
                                 break;
                             default:
-                                window.location.replace('/');
+                                window.location.replace('/category');
                                 break;
                         }
                     }

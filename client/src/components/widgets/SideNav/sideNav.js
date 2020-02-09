@@ -25,11 +25,18 @@ const SideNav = (props)=> {
                     </li>
                     <hr/>
                     <li>
+                        <Link style={{color:'rgb(25,24,40)'}} to='/dashboard/programs/1'>
+                            <span style={{padding:'0 5px'}} className='icon icon-th-large'></span>
+                            Programs
+                        </Link>
+                    </li>
+                    <li>
                         <Link style={{color:'rgb(25,24,40)'}} to='/dashboard/courses/1'>
                             <span style={{padding:'0 5px'}} className='icon icon-apps'></span>
                             Courses
                         </Link>
                     </li>
+                    <hr/>
                     <li>
                         <Link style={{color:'rgb(25,24,40)'}} to='/dashboard/students/1'>
                             <span style={{padding:'0 5px'}} className='icon icon-users'></span>
