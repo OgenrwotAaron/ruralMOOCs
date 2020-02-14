@@ -15,13 +15,13 @@ require('dotenv').config()
 
 const app=express();
 const transloadit= new TransloaditClient({
-    authKey:'c330851cae3e4bbc83328eb89b2926fe',
-    authSecret:'0eeaeac9bbb1594b9f1e3c0017ecf8f74989c74c'
+    authKey:process.env.TRANSLOADIT_AUTHKEY,
+    authSecret:process.env.TRANSLOADIT_AUTHSECRET
 });
 
 mongoose.Promise= global.Promise;
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/moocs');
-const conn=mongoose.createConnection(process.env.MONGODB_URI || 'mongodb://localhost:27017/moocs');
+mongoose.connect(process.env.MONGODB_URI);
+const conn=mongoose.createConnection(process.env.MONGODB_URI);
 
 const { User } = require('./models/user');
 const { Inbox } = require('./models/inbox');
@@ -42,7 +42,7 @@ conn.once('open',()=>{
 
 //create storage engine
 const storage=new GridFsStorage({
-    url:process.env.MONGODB_URI || 'mongodb://localhost:27017/moocs',
+    url:process.env.MONGODB_URI,
     file:(req,file)=>{
         return new Promise((resolve,reject)=>{
             let result='';
@@ -89,13 +89,14 @@ app.post('/api/register',(req,res)=>{
             const user= new User(req.body);
             user.save((err,doc)=>{
                 if(err) return res.json({success:false,error:err});
-                res.status(200).json({
-                    success:true,
-                    user:doc
-                });
+                return res.status(200).json({
+                            success:true,
+                            user:doc
+                        });
             });
+        }else{
+            return res.json({message:"User Already exist"});
         }
-        res.json({message:"User Already exist"});
     })
 });
 
@@ -122,15 +123,15 @@ app.post('/api/addInstructor',(req,res)=>{
                 if(err) return res.json({success:false,error:err});
 
                 //Send an email to the instructor with a link to login with a password
-                let transporter=nodeMailer.createTransport({
-                    host:process.env.MAILGUN_HOST,
-                    port:587,
+                const transporter=nodeMailer.createTransport({
+                    host:process.env.MAIL_HOST,
+                    port:process.env.SMTP_PORT,
                     secure:false,
                     auth:{
-                        user:process.env.MAILGUN_USER,
-                        pass:process.env.MAILGUN_PASS
+                        user:process.env.MAIL_USER,
+                        pass:process.env.MAIL_PASSWORD
                     }
-                });
+                })
 
                 transporter.sendMail({
                     from:'RuralMOOCs <no-reply@ruralmoocs.com>',
@@ -142,13 +143,39 @@ app.post('/api/addInstructor',(req,res)=>{
                     if(error) return res.json({error:error})
                     return res.status(200).json({
                         success:true,
-                        message:`Account added successfully, check ${doc.email} for the password to your account`
+                        message:`${doc.fname} added successfully as an Instructor, password to their account has been sent to ${doc.email}`
                     });
                 })
             })
         }
         if(instructor){
-            return res.json({message:'Instructor already exists'})
+            instructor.role=1;
+            instructor.save((err,doc)=>{
+                if(err) return res.json({success:false,error:err});
+                const transporter=nodeMailer.createTransport({
+                    host:process.env.MAIL_HOST,
+                    port:process.env.SMTP_PORT,
+                    secure:false,
+                    auth:{
+                        user:process.env.MAIL_USER,
+                        pass:process.env.MAIL_PASSWORD
+                    }
+                })
+
+                transporter.sendMail({
+                    from:'RuralMOOCs <no-reply@ruralmoocs.com>',
+                    to:doc.email,
+                    subject:"Instructor Account details",
+                    text:`Hello ${doc.fname}, you have been added as an Instructor on RuralMoocs https://ruralmoocs.herokuapp.com; you can login here https://ruralmoocs.herokuapp.com/login \n If this wasn't you, please email us here support@ruralmoocs.com`,
+                    html:`<p>Hello ${doc.fname}, you have been added as an Instructor on <a href="https://ruralmoocs.herokuapp.com">RuralMoocs</a>;</p> <p> you can login <a href="https://ruralmoocs.herokuapp.com/login">here</a></p> <p>If this wasn't you, please email us here <a href="mailto:support@ruralmoocs.com">support@ruralmoocs.com</a></p> `
+                },(error,info)=>{
+                    if(error) return res.json({success:false,error:error})
+                    return res.status(200).json({
+                        success:true,
+                        message:`${doc.fname} has successfully been added as an Instructor`
+                    });
+                })
+            })
         }
     })
 })
@@ -290,6 +317,13 @@ app.get('/api/topics/:course',(req,res)=>{
         }
         return res.json(files);
     });
+})
+
+app.get('/api/topics',(req,res)=>{
+    Topic.find((err,doc)=>{
+        if(err) return res.json({error:err})
+        return res.json(doc)
+    })
 })
 
 app.get('/api/topic/:id',(req,res)=>{

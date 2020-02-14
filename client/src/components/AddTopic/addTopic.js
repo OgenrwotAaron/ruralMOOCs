@@ -92,7 +92,7 @@ class AddTopic extends Component {
                                         { id: 'title', name: 'Title', placeholder: 'Enter topic title' },
                                         { id: 'description', name: 'Description', placeholder: 'Brief Description of the topic' }
                                     ]}
-                                    note='Click on the edit button to add Topic title'
+                                    note={`Click on the edit button to add Topic title`}
                                 />
                             }
                             {

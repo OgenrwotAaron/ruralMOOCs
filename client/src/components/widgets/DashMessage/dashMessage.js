@@ -6,7 +6,7 @@ const DashMessage = (props) => {
     let [message,setMessage]=useState()
 
     useEffect(()=>{
-        axios.get(`/api/inbox/${props.match.params[0]}`)
+        axios.get(`/api/inbox/${props.match.params.role}`)
         .then(res=>{
             setMessage(res.data)
         },[])

@@ -95,13 +95,27 @@ const Nav = (props) => {
                       (
                         props.user.user.role !== 0 ?
                           <>
-                            <li style={{padding:'10px 5px',fontSize:'25px'}}>
-                              <Link style={{padding:'5px'}} to="/dashboard">
+                            <li className="dropdown" style={{padding:'0 5px',fontSize:'20px'}}>
+                              <a style={{padding:'15px 5px'}} className="dropdown-toggle" data-toggle="dropdown" href="all">
+                                <span className="icon-chat_bubble_outline"></span>
+                              </a>
+                              <ul className="dropdown-menu">
+                                <li>
+                                  Messages
+                                </li>
+                                <li>
+                                  <Link to="/inbox/user-id">All Messages</Link>
+                                </li>
+                              </ul>
+                            </li>
+                            <li style={{padding:'0 5px',fontSize:'20px'}}>
+                              <Link style={{padding:'15px 5px'}}  to="/dashboard">
                                 <span className="icon icon-dashboard"></span>
                               </Link> 
                             </li>
-                            <li className="dropdown" style={{padding:'0 5px',fontSize:'25px'}}>
+                            <li className="dropdown" style={{padding:'0 5px',fontSize:'20px'}}>
                               <a
+                                style={{padding:'15px 5px'}}
                                 className="dropdown-toggle"
                                 data-toggle="dropdown"
                                 href="all"
@@ -122,11 +136,55 @@ const Nav = (props) => {
                           </>
                           
                           :
-                          <li style={{padding:'10px 5px',fontSize:'25px'}}>
-                          <Link style={{padding:'5px'}} to={`/profile/${props.user.user._id}`}>
-                            <span className="icon icon-user-circle-o"></span>
-                          </Link> 
-                          </li>
+                          <>
+                            <li className="dropdown" style={{padding:'0 5px',fontSize:'20px'}}>
+                              <a style={{padding:'15px 5px'}} className="dropdown-toggle" data-toggle="dropdown" href="all">
+                                <span className="icon icon-bell-o"></span>
+                              </a>
+                              <ul className="dropdown-menu">
+                                <li>
+                                  Notifications
+                                </li>
+                                <li>
+                                  <Link to='/notifications/user-id'>View all</Link>
+                                </li>
+                              </ul>
+                            </li>
+                            <li className="dropdown" style={{padding:'0 5px',fontSize:'20px'}}>
+                              <a style={{padding:'15px 5px'}} className="dropdown-toggle" data-toggle="dropdown" href="all">
+                                <span className="icon-chat_bubble_outline"></span>
+                              </a>
+                              <ul className="dropdown-menu">
+                                <li>
+                                  Messages
+                                </li>
+                                <li>
+                                  <Link to="/inbox/user-id">All Messages</Link>
+                                </li>
+                              </ul>
+                            </li>
+                            <li className="dropdown" style={{padding:'0 5px',fontSize:'20px'}}>
+                              <a
+                                style={{padding:'15px 5px'}}
+                                className="dropdown-toggle"
+                                data-toggle="dropdown"
+                                href="all"
+                              >
+                                <span className="icon icon-user-circle-o"></span>
+                              </a>
+                              <ul className="dropdown-menu">
+                                <li>
+                                  <Link to={`/profile/${props.user.user._id}`}>Profile</Link>
+                                </li>
+                                <li>
+                                  <button onClick={()=>logout()} style={{padding:'3px 20px',border:'none',background:'none',color:'white'}} to='/dashboard/mail/1'>
+                                    Logout
+                                  </button>
+                                </li>
+                              </ul>
+                            </li>
+                          </>
+                          
                       )
                     :
                     null

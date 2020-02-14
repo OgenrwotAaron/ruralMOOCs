@@ -5,6 +5,7 @@ class AddInstructor extends Component {
     state={
         loggedIn:false,
         registerError:'',
+        registerSuccess:'',
         loading:false,
         formData:{
             fname:{
@@ -98,7 +99,7 @@ class AddInstructor extends Component {
             for(let i=0;i<8;i++){
                 pwd+=characters.charAt(Math.floor(Math.random()*charLength));
             }
-            axios.post('/api/register',{
+            axios.post('/api/addInstructor',{
                 email:dataToSubmit.email,
                 password:pwd,
                 fname:dataToSubmit.fname,
@@ -111,7 +112,39 @@ class AddInstructor extends Component {
                         registerError:response.data.error.errmsg
                     })
                 }else{
-                    this.props.history.push('/dashboard/instructor')
+                    this.setState({
+                        registerSuccess:response.data.message,
+                        formData:{
+                            fname:{
+                                value:'',
+                                validation:{
+                                    required:true
+                                },
+                                valid:false,
+                                touched:false,
+                                validationMessage:''
+                            },
+                            lname:{
+                                value:'',
+                                validation:{
+                                    required:true
+                                },
+                                valid:false,
+                                touched:false,
+                                validationMessage:''
+                            },
+                            email:{
+                                value:'',
+                                validation:{
+                                    email:true,
+                                    required:true
+                                },
+                                valid:false,
+                                touched:false,
+                                validationMessage:''
+                            }
+                        }
+                    })
                 }
             })
             .catch(err=>this.setState({
@@ -123,7 +156,11 @@ class AddInstructor extends Component {
     showError = ()=>(
         this.state.registerError !=='' ? 
         <div style={{color:'red'}}>{this.state.registerError}</div>
-        :''
+        :
+        this.state.registerSuccess !=='' ?
+        <div style={{color:'green'}}>{this.state.registerSuccess}</div>
+        :
+        ''
     )
 
     render(){
