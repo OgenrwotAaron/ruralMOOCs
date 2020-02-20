@@ -27,7 +27,8 @@ const Home = (props) => {
 
 const matchStateToProps=(state)=>{
     return {
-        courses:state.courses
+        courses:state.courses,
+        user:state.user
     }
 }
 
@@ -37,6 +38,7 @@ const matchDispatchToProps=(dispatch)=>{
 
 Home.propTypes={
     courses:PropTypes.object,
+    user:PropTypes.object,
     getCourses:PropTypes.func
 }
 

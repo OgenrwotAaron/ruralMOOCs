@@ -12,6 +12,7 @@ import AddTopic from './components/AddTopic/addTopic';
 import Video from './components/Video/video';
 import PublicRoute from './components/AuthRoute/publicRoute';
 import PrivateRoute from './components/AuthRoute/privateRoute'
+import Inbox from './components/Inbox/inbox';
 
 const Routes = (props) => { 
     return (
@@ -27,7 +28,8 @@ const Routes = (props) => {
                 <PrivateRoute {...props} path='/add-instructor' exact component={AddInstructor}/>
                 <PublicRoute {...props} restricted={false} path='/course/:id' exact component={CourseSingle}/>
                 <Route path='/addTopic/:id' exact component={AddTopic}/>
-                <Route path='/video/:id' exact component={Video}/>
+                <PublicRoute restricted={false} {...props} path='/video/:id' exact component={Video}/>
+                <PublicRoute {...props} restricted={false} path="/inbox/:id" exact component={Inbox}/>
             </Switch>
         </Layout>
         

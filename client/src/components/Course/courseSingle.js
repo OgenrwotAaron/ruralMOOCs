@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import InstructorCard from '../widgets/InstructorCard/instructorCard';
 import Topics from '../widgets/Topics/topics';
+import Discussions from '../widgets/Discussions/discussions';
+import Comment from '../widgets/Comment/comment';
 
 class CourseSingle extends Component {
 
@@ -75,7 +77,21 @@ class CourseSingle extends Component {
                         </div>
                     </div>
                     <div className='col-sm-6'>
-                        {this.renderTopics(this.state.topics)}
+                        <ul className="nav nav-tabs">
+                            <li className="active"><a data-toggle="tab" href="#topics">Topics</a></li>
+                            <li><a data-toggle="tab" href="#discussions">Discussions</a></li>
+                        </ul>
+                        <div className="tab-content">
+                            <div id="topics" className="tab-pane fade in active">
+                                <br/>
+                                {this.renderTopics(this.state.topics)}
+                            </div>
+                            <div id="discussions" className="tab-pane fade">
+                                <br/>
+                                <Comment type="course"/>
+                                <Discussions type="course" {...this.props}/>
+                            </div>
+                        </div>
                     </div>
                     <div className='col-sm-3'>
                         <InstructorCard id={this.state.item.metadata.instructor}/>

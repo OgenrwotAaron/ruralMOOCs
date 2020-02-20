@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Topics = (props) => {
-    const topic=props.topic
+    const topic=props.topic;
     return ( 
         <div className='row' style={{padding:'10px',borderBottom:'solid 1px lightgray'}}>
             <Link to={`/video/${topic._id}`}>
@@ -11,7 +11,6 @@ const Topics = (props) => {
                 </div>
                 <div className='col-xs-10'>
                     <p style={{color:'#565555',fontWeight:'bold',margin:'0'}}>{topic.title}</p>
-                    <p style={{float:'left',color:'#565555',margin:'0'}}>{topic.description}</p>
                     <p style={{margin:'0',color:'#565555',float:'right'}}>{`${Math.round((topic.duration/60)*10)/10} mins`}</p>
                 </div>
             </Link>

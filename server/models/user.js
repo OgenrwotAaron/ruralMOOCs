@@ -30,6 +30,10 @@ const userSchema = mongoose.Schema({
         type:Number,
         default:0
     },
+    online:{
+        type:Boolean,
+        default:false
+    },
     token:{
         type:String
     }

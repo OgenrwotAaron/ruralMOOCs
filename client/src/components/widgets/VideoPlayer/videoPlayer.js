@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 //import shaka from 'shaka-player';
 import axios from 'axios';
 import 'shaka-player/dist/controls.css';
+import Discussions from '../Discussions/discussions';
+import Comment from '../Comment/comment';
 const shaka = require('shaka-player/dist/shaka-player.ui.js');
 
 class VideoPlayer extends Component {
@@ -47,7 +49,7 @@ class VideoPlayer extends Component {
 
         player.load(vid)
         .then(()=>{
-            console.log('Video has been loaded')
+            
         })
         .catch(this.onError)
     }
@@ -62,14 +64,46 @@ class VideoPlayer extends Component {
 
     render() { 
         return ( 
-            <div id='videoContainer'>
-                <video
-                    style={{position:'relative'}}
-                    width='100%'
-                    id='video'
-                    poster={this.state.video.poster}
-                ></video>
-            </div> 
+            <>
+                <div id='videoContainer'>
+                    <video
+                        style={{position:'relative'}}
+                        width='100%'
+                        id='video'
+                        poster={this.state.video.poster}
+                    ></video>
+                </div>
+                <div>
+                    <p style={{color:'#333'}}>{this.state.video.description}</p>
+                </div>
+                <ul className="nav nav-tabs">
+                    <li className="active"><a data-toggle="tab" href="#topics">Streaming Comments</a></li>
+                    <li><a data-toggle="tab" href="#discussions">Content Comments</a></li>
+                    <li><a data-toggle="tab" href="#files">Files</a></li>
+                    <li><a data-toggle="tab" href="#tests">Tests</a></li>
+                </ul>
+                <div style={{color:'black'}} className="tab-content">
+                    <div id="topics" className="tab-pane fade in active">
+                        <br/>
+                        Streaming comments go here
+                        <Comment type="topic-stream"/>
+                        <Discussions type="topic-stream" {...this.props}/>
+                    </div>
+                    <div id="discussions" className="tab-pane fade">
+                        <br/>
+                        Content comments go here
+                        <Comment type="topic-content"/>
+                        <Discussions type="topic-content" {...this.props}/>
+                    </div>
+                    <div style={{textAlign:'center',color:'#333'}} id="files" className="tab-pane fade well well-lg">
+                        <h3>No topic files available</h3>
+                    </div>
+                    <div style={{textAlign:'center',color:'#333'}} id="tests" className="tab-pane fade well well-lg">
+                        <h3>No tests Available</h3>
+                    </div>
+                </div>
+            </>
+             
         );
     }
 }

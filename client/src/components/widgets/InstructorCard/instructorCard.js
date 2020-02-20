@@ -6,10 +6,15 @@ const InstructorCard = (props) => {
     let [instructor,setInstructor]=useState()
 
     useEffect(()=>{
-        axios.get(`/api/user/${props.id}`)
-        .then(res=>{
-            setInstructor(res.data[0])
-        })
+        if(props.id===undefined){
+            console.error('Error fetching Instructor')
+        }else{
+            axios.get(`/api/user/${props.id}`)
+            .then(res=>{
+                setInstructor(res.data[0])
+            })
+        }
+        
     })
     if(!instructor){
         return null;

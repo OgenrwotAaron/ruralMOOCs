@@ -37,7 +37,7 @@ class Video extends Component {
         return ( 
             <div className='row' style={{width:'100%',margin:'10% 0 0 0'}}>
                 <div id='video-player' className='col-sm-8'>
-                    <VideoPlayer source={this.props.match.params.id}/>
+                    <VideoPlayer {...this.props} source={this.props.match.params.id}/>
                 </div>
                 <div className='col-sm-4'>
                     <InstructorCard/>

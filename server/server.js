@@ -6,14 +6,15 @@ const multer=require('multer');
 const GridFsStorage=require('multer-gridfs-storage');
 const Grid=require('gridfs-stream');
 const methodOverride=require('method-override');
-const { createServer }=require('http');
 const ObjectId=require('mongodb').ObjectId;
 const TransloaditClient=require('transloadit');
 const nodeMailer=require('nodemailer');
 const path=require('path');
+const app=express();
+const server=require('http').Server(app)
+const io=require('socket.io')(server);
 require('dotenv').config()
 
-const app=express();
 const transloadit= new TransloaditClient({
     authKey:process.env.TRANSLOADIT_AUTHKEY,
     authSecret:process.env.TRANSLOADIT_AUTHSECRET
@@ -23,9 +24,14 @@ mongoose.Promise= global.Promise;
 mongoose.connect(process.env.MONGODB_URI);
 const conn=mongoose.createConnection(process.env.MONGODB_URI);
 
+//Models
 const { User } = require('./models/user');
 const { Inbox } = require('./models/inbox');
-const { Topic } = require('./models/topic')
+const { Topic } = require('./models/topic');
+const { Message } = require('./models/messages');
+const { Comment } = require('./models/comment');
+
+//Custom MiddleWares
 const { auth } = require('./middleware/auth');
 
 app.use(bodyParser.json());
@@ -64,6 +70,42 @@ const storage=new GridFsStorage({
 })
 
 const upload= multer({ storage });
+
+//Socket.io
+io.on('connection',(socket)=>{
+    console.log('connected');
+    socket.on('online',(user_id)=>{
+        User.findById(user_id,(err,user)=>{
+            user.online=true;
+            user.save((err,doc)=>{
+                io.emit('online_status',true);
+            })
+        })
+    })
+    
+    socket.on('get_inbox',(msg)=>{
+        io.emit('messages','you want all your messages?')
+    })
+
+    socket.on('add_comment',(data)=>{
+        const comment=new Comment(data);
+        comment.save((err,doc)=>{
+            if(err){
+                io.emit('comment_added',{success:false,data:err})
+            }
+            io.emit('comment_added',{success:true,data:doc})
+        })
+    })
+
+    socket.on('get_all_comments',data=>{
+        Comment.find({'type':data.type},(err,doc)=>{
+            if(err){
+                io.emit('all_comments',{success:false,data:err})
+            }
+            io.emit('all_comments',{success:true,data:doc})
+        })
+    })
+})
 
 //add a Course
 app.post('/api/addCourse',upload.any(),(req,res)=>{
@@ -213,6 +255,14 @@ app.post('/api/login',(req,res)=>{
     });
 });
 
+//GET requests
+app.get('/api/comments',(req,res)=>{
+    Comment.find((err,doc)=>{
+        if(err) return res.json({success:false,error:err})
+        return res.json({success:true,comments:doc})
+    })
+})
+
 app.get('/api/logout',auth,(req,res)=>{
     req.user.deleteToken(req.user.token,(err,user)=>{
         if(err) return res.status(400).send(err);
@@ -264,8 +314,9 @@ app.get('/api/users/:role',(req,res)=>{
 })
 
 app.get('/api/user/:id',(req,res)=>{
+    
     User.find({_id:ObjectId(req.params.id)},(err,doc)=>{
-        if(err) return res.json(err);
+        if(err) return res.status(404).json(err);
         let data=[];
         doc.forEach((i,key)=>{
             data[key]={id:i._id,role:i.role,email:i.email,fname:i.fname,lname:i.lname}
@@ -362,8 +413,6 @@ app.get('*',(req,res)=>{
 
 
 const PORT = process.env.PORT || 5000;
-
-const server=createServer(app);
 
 server.listen(PORT,_=>{
     console.log(`App listening on port ${PORT}`);

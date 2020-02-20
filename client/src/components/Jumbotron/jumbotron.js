@@ -18,6 +18,7 @@ class Jumbotron extends Component {
 
     renderJumbo=()=>{
         let template=null;
+        
 
         switch (this.props.type) {
             case 'home':

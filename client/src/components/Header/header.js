@@ -1,11 +1,26 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
 import Nav from '../Nav/nav';
+import io from 'socket.io-client';
+const socket=io('http://localhost:5000');
 
 class Header extends Component {
 
   state={
-    classes:'navbar header'
+    classes:'navbar header',
+    online:false
+  }
+
+  //WARNING! To be deprecated in React v17. Use componentDidMount instead.
+  componentWillMount() {
+    if(this.props.user){
+      socket.emit('online',this.props.user.user._id)
+    }
+    socket.on('online_status',(status)=>{
+      this.setState({
+        online:status
+      })
+    })
   }
 
   handleScroll=()=>{
@@ -22,6 +37,7 @@ class Header extends Component {
 
     render() {
       window.addEventListener('scroll',this.handleScroll)
+      
         return (
           <nav className={this.state.classes}>
             <div className="container-fluid">
@@ -43,7 +59,7 @@ class Header extends Component {
                 </div>
               </div>
               <div className="collapse navbar-collapse" id="myNavbar">
-                <Nav {...this.props}/>
+                <Nav online={this.state.online} {...this.props}/>
               </div>
             </div>
             <hr id='scrolling' style={{margin:'0',borderTop:'3px solid #dddff5',width:'0'}}/>
@@ -52,4 +68,4 @@ class Header extends Component {
     }
 }
 
-export default Header;
+export {Header,socket};
