@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import Jumbotron from '../Jumbotron/jumbotron';
 import Courses from '../Courses/courses';
-import { getCourses} from '../../actions';
+import { getCourses,getUserProfile} from '../../actions';
 import Us from '../Us/us';
 import ContactUs from '../widgets/ContactUs/contactUs';
 
@@ -14,11 +14,11 @@ const Home = (props) => {
     useEffect(()=>{
         props.getCourses();
     },[props])
-    
+
     return (
         <div>
             <Jumbotron auth={props.user} type='home'/>
-            <Courses courses={props.courses} />
+            <Courses {...props} courses={props.courses} />
             <Us/>
             <ContactUs/>
         </div>
@@ -27,13 +27,12 @@ const Home = (props) => {
 
 const matchStateToProps=(state)=>{
     return {
-        courses:state.courses,
-        user:state.user
+        courses:state.courses
     }
 }
 
 const matchDispatchToProps=(dispatch)=>{
-    return bindActionCreators({getCourses},dispatch);
+    return bindActionCreators({getCourses,getUserProfile},dispatch);
 }
 
 Home.propTypes={

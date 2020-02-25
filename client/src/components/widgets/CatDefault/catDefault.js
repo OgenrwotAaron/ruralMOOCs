@@ -26,16 +26,13 @@ const CatDefault = (props) => {
                 <h1 style={{paddingLeft:'10px',marginBottom:'0'}}>{item}</h1>
                 <hr style={{margin:'0',borderTop:'2px solid #dddff5'}}/>
                 <div className="row" style={{width:'100%', marginLeft:'0',color:'#1e486d'}}>
-                    {cat[item].slice(0,3).map((it,i)=>(
+                    {cat[item].map((it,i)=>(
                         <div key={i} className="col-sm-4">
                             <Link to={`/course/${it._id}`}>
                                 <Card item={it} type="category"/>
                             </Link>
                         </div>
                     ))}
-                </div>
-                <div style={{textAlign:'center',margin:'30px 0 0 0'}}>
-                    <Link style={{fontSize:'15px'}} to={`/category/${item.toLowerCase()}`}>Load More...</Link>
                 </div>
             </div>
             

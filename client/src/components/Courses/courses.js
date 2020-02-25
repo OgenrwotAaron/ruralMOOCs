@@ -20,7 +20,7 @@ const Courses =(props)=>{
             <div key={i}>
                 <div className='col-sm-4'>
                     <Link to={`/course/${item._id}`}>
-                        <Card item={item}/>
+                        <Card {...props} item={item}/>
                     </Link>
                 </div>
             </div>

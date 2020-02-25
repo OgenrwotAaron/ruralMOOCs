@@ -2,7 +2,7 @@ const mongoose=require('mongoose');
 
 const commentSchema=mongoose.Schema({
     sender:{
-        type:String,
+        type:Object,
         required:true
     },
     topic:{

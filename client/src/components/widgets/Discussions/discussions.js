@@ -1,5 +1,4 @@
 import React,{useState} from 'react';
-import axios from 'axios';
 import { socket } from '../../Header/header'
 
 const Discussions = (props) => {
@@ -14,7 +13,7 @@ const Discussions = (props) => {
         e.preventDefault();
         socket.emit('add_comment',
             {
-                sender:props.user.user._id,
+                sender:props.user.user,
                 topic:props.match.params.id,
                 body:comment,
                 type:props.type
@@ -24,7 +23,7 @@ const Discussions = (props) => {
             if(!data.success){
                 console.error(data.data)
             }else{
-                console.log(data)
+                setComment('')
             }
         })
         
@@ -34,7 +33,7 @@ const Discussions = (props) => {
         <div>
             <form onSubmit={(e)=>addComment(e)}>
                 <div className='form-group'>
-                    <textarea onChange={(e)=>updateFormData(e)} value={comment} style={{width:'100%',borderRadius:'5px',border:'1px solid #4d4d50'}} className="form-control" cols='20' rows='3' placeholder='Write your Comments here'></textarea>
+                    <textarea onChange={(e)=>updateFormData(e)} value={comment} style={{width:'100%',borderRadius:'5px',border:'1px solid #b3b3b3',marginTop:'20px'}} className="form-control" cols='20' rows='3' placeholder='Write your Comments here'></textarea>
                 </div>
                 <div className='row'>
                     <div className='col-xs-3'>

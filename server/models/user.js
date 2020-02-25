@@ -36,6 +36,19 @@ const userSchema = mongoose.Schema({
     },
     token:{
         type:String
+    },
+    phone:{
+        type:String,
+        default:'nil'
+    },
+    dob:{
+        type:String
+    },
+    avatar:{
+        type:String
+    },
+    courses:{
+        type:Array
     }
 },
 {

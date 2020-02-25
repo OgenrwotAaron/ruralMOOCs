@@ -1,7 +1,9 @@
 import React,{ Component} from 'react';
-import Jumbotron from '../Jumbotron/jumbotron';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { socket } from '../Header/header'
+
+import Jumbotron from '../Jumbotron/jumbotron';
 import InstructorCard from '../widgets/InstructorCard/instructorCard';
 import Topics from '../widgets/Topics/topics';
 import Discussions from '../widgets/Discussions/discussions';
@@ -11,7 +13,8 @@ class CourseSingle extends Component {
 
     state={
         item:'',
-        topics:[]
+        topics:[],
+        enrolled:false
     }
 
     //WARNING! To be deprecated in React v17. Use componentDidMount instead.
@@ -40,6 +43,13 @@ class CourseSingle extends Component {
         }
     }
 
+    enroll=(courseId)=>{
+        socket.emit('enroll_to_course',{course:courseId,user:this.props.user.user._id})
+        socket.on('enrolled_to_course',status=>{
+            this.setState({enrolled:status.success})
+        })
+    }
+
     render(){
         if(this.state.item === ''){
             return null;
@@ -57,13 +67,15 @@ class CourseSingle extends Component {
                         </Link>
                 }
                 {
-                    this.props.user && (this.props.user.user.role === 1 || this.props.user.user.role === 2)?
+                    this.props.user.isAuth && (this.props.user.user.role === 1 || this.props.user.user.role === 2)?
                        <Link data-aos='fade' data-aos-duration='700' id='addvid' style={{fontSize:'18px',position:'absolute',zIndex:'1',bottom:'52%',right:'5%',color:'#ffffffab'}} to={`/addTopic/${this.state.item._id}`}>  
                             <span className="icon icon-playlist_add"></span>
                             Add topic
                         </Link> 
-                    :
-                        <button data-aos='fade' data-aos-duration='700' style={{fontSize:'18px',fontWeight:'bold',position:'absolute',zIndex:'1',bottom:'52%',left:'5%',background:'#03a9f0',border:'none',color:'white'}}>  
+                    : 
+                        this.state.enrolled?null:
+                        this.props.user.user.courses.filter(a=>a===this.props.match.params.id)===true?null:
+                        <button onClick={()=>this.enroll(this.props.match.params.id)} data-aos='fade' data-aos-duration='700' style={{fontSize:'18px',fontWeight:'bold',position:'absolute',zIndex:'1',bottom:'52%',right:'5%',background:'#03a9f0',border:'none',color:'white'}}>  
                             Enroll
                         </button>
                 }
@@ -88,7 +100,8 @@ class CourseSingle extends Component {
                             </div>
                             <div id="discussions" className="tab-pane fade">
                                 <br/>
-                                <Comment type="course"/>
+                                <h3>Comments on content go here</h3>
+                                <Comment type="course" {...this.props}/>
                                 <Discussions type="course" {...this.props}/>
                             </div>
                         </div>

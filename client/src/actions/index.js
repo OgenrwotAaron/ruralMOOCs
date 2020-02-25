@@ -1,5 +1,20 @@
 import axios from 'axios';
 
+const getUserProfileAsync=res=>{
+    return {
+        type:'GET_USER',
+        payload:res
+    }
+}
+
+export const getUserProfile=()=>{
+    return dispatch=>{
+        axios.get(`/api/user`)
+        .then(res=>{
+            dispatch(getUserProfileAsync(res.data))
+        })
+    }
+}
 
 export const getCoursesAsync = res=>{
     return {

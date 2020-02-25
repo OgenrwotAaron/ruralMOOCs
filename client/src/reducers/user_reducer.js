@@ -5,6 +5,11 @@ export default function(state={},action){
                 ...state,
                 instructor:action.payload
             }
+        case "GET_USER":
+            return{
+                ...state,
+                user:action.payload
+            }
         default:
             return state
     }

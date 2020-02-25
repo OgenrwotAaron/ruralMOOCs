@@ -104,7 +104,7 @@ const Nav = (props) => {
                                   Messages
                                 </li>
                                 <li>
-                                  <Link to="/inbox/user-id">All Messages</Link>
+                                  <Link to={`/inbox/${props.user.user._id}`}>All Messages</Link>
                                 </li>
                               </ul>
                             </li>
@@ -121,6 +121,9 @@ const Nav = (props) => {
                                 href="all"
                               >
                                 <span className="icon icon-user-circle-o"></span>
+                                {
+                                    props.online && <div style={{width: '10px',height: '10px',background: 'green',position: 'absolute',right: '5px',borderRadius: '5px',bottom: '18px',margin: '0'}}></div>
+                                }
                               </a>
                               <ul className="dropdown-menu">
                                 <li>
@@ -146,7 +149,7 @@ const Nav = (props) => {
                                   Notifications
                                 </li>
                                 <li>
-                                  <Link to='/notifications/user-id'>View all</Link>
+                                  <Link to={`/notifications/${props.user.user._id}`}>View all</Link>
                                 </li>
                               </ul>
                             </li>
@@ -159,7 +162,7 @@ const Nav = (props) => {
                                   Messages
                                 </li>
                                 <li>
-                                  <Link to="/inbox/user-id">All Messages</Link>
+                                  <Link to={`/inbox/${props.user.user._id}`}>All Messages</Link>
                                 </li>
                               </ul>
                             </li>
@@ -171,6 +174,9 @@ const Nav = (props) => {
                                 href="all"
                               >
                                 <span className="icon icon-user-circle-o"></span>
+                                {
+                                    props.online && <div style={{width: '10px',height: '10px',background: 'green',position: 'absolute',right: '5px',borderRadius: '5px',bottom: '18px',margin: '0'}}></div>
+                                }
                               </a>
                               <ul className="dropdown-menu">
                                 <li>

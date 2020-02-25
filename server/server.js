@@ -21,8 +21,8 @@ const transloadit= new TransloaditClient({
 });
 
 mongoose.Promise= global.Promise;
-mongoose.connect(process.env.MONGODB_URI);
-const conn=mongoose.createConnection(process.env.MONGODB_URI);
+mongoose.connect(process.env.MONGODB_URI,{ useNewUrlParser:true});
+const conn=mongoose.createConnection(process.env.MONGODB_URI,{ useNewUrlParser:true});
 
 //Models
 const { User } = require('./models/user');
@@ -74,6 +74,7 @@ const upload= multer({ storage });
 //Socket.io
 io.on('connection',(socket)=>{
     console.log('connected');
+
     socket.on('online',(user_id)=>{
         User.findById(user_id,(err,user)=>{
             user.online=true;
@@ -82,9 +83,39 @@ io.on('connection',(socket)=>{
             })
         })
     })
+
+    socket.on('get_all_messages',data=>{
+        Message.find({'receiver':data.receiver},(err,doc)=>{
+            if(err){
+                io.emit('all_messages',{success:false,data:err})
+            }
+            io.emit('all_messages',{success:true,data:doc})
+        })
+    })
+
+    socket.on('msg_private_sent',data=>{
+        const message=new Message(data)
+        message.save((err,doc)=>{
+            if(err){
+                io.emit('msg_private_updated',{success:false,data:err})
+            }
+            io.emit('msg_private_updated',{success:true,data:doc})
+        })
+    })
     
-    socket.on('get_inbox',(msg)=>{
-        io.emit('messages','you want all your messages?')
+    socket.on('get_inbox_private',msg=>{
+        Message.find({threadId:msg.threadId,sender:msg.sender},(err,doc)=>{
+            if(err){
+                io.emit('messages_private',{success:false,data:err})
+            }
+            //console.log(doc)
+            Message.find({threadId:msg.sender,sender:msg.threadId},(err,docs)=>{
+                if(err){
+                    io.emit('messages_private',{success:false,data:err})
+                }
+                io.emit('messages_private',{success:true,data:doc.concat(docs)})
+            })
+        })
     })
 
     socket.on('add_comment',(data)=>{
@@ -98,11 +129,56 @@ io.on('connection',(socket)=>{
     })
 
     socket.on('get_all_comments',data=>{
-        Comment.find({'type':data.type},(err,doc)=>{
+        Comment.find({'type':data.type,'topic':data.topic},(err,doc)=>{
             if(err){
                 io.emit('all_comments',{success:false,data:err})
             }
             io.emit('all_comments',{success:true,data:doc})
+        })
+    })
+
+    socket.on('upVote_comment',id=>{
+        Comment.findById(id.id,(err,comment)=>{
+            if(err){
+                io.emit('comment_added',{success:false,data:err})
+            }
+            comment.upVotes+=1
+            comment.save((err,doc)=>{
+                if(err){
+                    io.emit('comment_added',{success:false,data:err})
+                }
+                io.emit('comment_added',{success:true,data:doc})
+            })
+        })
+    })
+
+    socket.on('downVote_comment',id=>{
+        Comment.findById(id.id,(err,comment)=>{
+            if(err){
+                io.emit('comment_added',{success:false,data:err})
+            }
+            comment.downVotes+=1
+            comment.save((err,doc)=>{
+                if(err){
+                    io.emit('comment_added',{success:false,data:err})
+                }
+                io.emit('comment_added',{success:true,data:doc})
+            })
+        })
+    })
+
+    socket.on('enroll_to_course',data=>{
+        User.findById(data.user,(err,user)=>{
+            if(err){
+                io.emit('enrolled_to_course',{success:false,data:err})
+            }
+            user.courses.push(data.course)
+            user.save((err,doc)=>{
+                if(err){
+                    io.emit('enrolled_to_course',{success:false,data:err})
+                }
+                io.emit('enrolled_to_course',{success:true,data:doc})
+            })
         })
     })
 })
@@ -141,6 +217,24 @@ app.post('/api/register',(req,res)=>{
         }
     })
 });
+
+//Edit Profile
+app.post('/api/editProfile',(req,res)=>{
+    User.findById(req.body._id,(err,user)=>{
+        if(err) return res.json({success:false,error:err})
+
+        user.phone= req.body.phone;
+        user.dob=req.body.dob;
+        user.gender=req.body.gender;
+        user.email= req.body.email;
+        user.fname= req.body.fname;
+        user.lname= req.body.lname;
+        user.save((err,saved)=>{
+            if(err) return res.json({success:false,error:err})
+            return res.json({success:true,user:saved})
+        })
+    })
+})
 
 //Create new Instructor account
 app.post('/api/addInstructor',(req,res)=>{

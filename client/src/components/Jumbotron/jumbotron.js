@@ -62,6 +62,19 @@ class Jumbotron extends Component {
                 )
 
                 break;
+            case 'profile':
+                template=(
+                    <div className="slide-2" style={{backgroundImage:'url(/images/coverProfile.jpg)',backgroundSize:'cover'}}>
+                        <div className="container" style={{backgroundColor:'#041a2f94',height:'100%',width:'100%'}}>
+                            <div className="row jumbo">
+                                <div className="col-md-12"  data-aos="fade-up" data-aos-duration="500">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+                break;
             case 'join':
                 template=(
                     <div className="slide-1">

@@ -10,17 +10,15 @@ const messageSchema=mongoose.Schema({
         required:true
     },
     body:{
-        type:String
-    },
-    read:{
-        type:Boolean,
-        required:true
-    },
-    senderIP:{
         type:String,
         required:true
     },
-    senderMAC:{
+    read:{
+        type:Boolean,
+        required:true,
+        default:false
+    },
+    threadId:{
         type:String,
         required:true
     }

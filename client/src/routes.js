@@ -13,6 +13,9 @@ import Video from './components/Video/video';
 import PublicRoute from './components/AuthRoute/publicRoute';
 import PrivateRoute from './components/AuthRoute/privateRoute'
 import Inbox from './components/Inbox/inbox';
+import Profile from './components/Profile/profile';
+import UserProfile from './components/UserProfile/userProfile';
+import Messages from './components/Messages/messages';
 
 const Routes = (props) => { 
     return (
@@ -28,8 +31,11 @@ const Routes = (props) => {
                 <PrivateRoute {...props} path='/add-instructor' exact component={AddInstructor}/>
                 <PublicRoute {...props} restricted={false} path='/course/:id' exact component={CourseSingle}/>
                 <Route path='/addTopic/:id' exact component={AddTopic}/>
+                <PublicRoute restricted={false} {...props} path='/messages/:id' exact component={Messages}/>
                 <PublicRoute restricted={false} {...props} path='/video/:id' exact component={Video}/>
                 <PublicRoute {...props} restricted={false} path="/inbox/:id" exact component={Inbox}/>
+                <PublicRoute {...props} restricted={false} path="/profile/:id" exact component={Profile}/>
+                <PublicRoute {...props} restricted={false} path="/user-profile/:id" exact component={UserProfile}/>
             </Switch>
         </Layout>
         
