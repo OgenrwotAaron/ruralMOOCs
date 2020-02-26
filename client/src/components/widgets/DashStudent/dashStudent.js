@@ -1,7 +1,7 @@
 import React,{ useEffect,useState} from 'react';
 import axios from 'axios'
 
-const DashStudent = () => {
+const DashStudent = (props) => {
 
     let [students,setStudents]=useState()
 
@@ -10,7 +10,7 @@ const DashStudent = () => {
         .then(students=>{
             setStudents(students.data)
         })
-    })
+    },[])
 
     const deleteStudent=(id)=>{
         window.confirm('Are you sure?')
@@ -57,4 +57,4 @@ const DashStudent = () => {
      );
 }
  
-export default DashStudent;
+export default React.memo(DashStudent);

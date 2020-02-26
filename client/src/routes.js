@@ -16,6 +16,7 @@ import Inbox from './components/Inbox/inbox';
 import Profile from './components/Profile/profile';
 import UserProfile from './components/UserProfile/userProfile';
 import Messages from './components/Messages/messages';
+import EditCourse from './components/EditCourse/editCourse';
 
 const Routes = (props) => { 
     return (
@@ -28,6 +29,7 @@ const Routes = (props) => {
                 <PrivateRoute {...props} path="/dashboard" exact component={Dashboard}/>
                 <PublicRoute {...props} restricted={true} path="/join" exact component={Join}/>
                 <PrivateRoute {...props} path="/add-course" exact component={AddCourse}/>
+                <PrivateRoute {...props} path="/edit-course/:id" exact component={EditCourse}/>
                 <PrivateRoute {...props} path='/add-instructor' exact component={AddInstructor}/>
                 <PublicRoute {...props} restricted={false} path='/course/:id' exact component={CourseSingle}/>
                 <Route path='/addTopic/:id' exact component={AddTopic}/>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 const ChatProfile = (props) => {
     if(!props.receiver){
@@ -20,7 +21,9 @@ const ChatProfile = (props) => {
                 
             </div>
             <div style={{textAlign:'center'}}>
-                <h2 style={{color:'#4c4c4c',margin:'0',fontWeight:'300'}}>{props.receiver.fname} {props.receiver.lname}</h2>
+                <Link to={`/user-profile/${props.receiver.id}`}>
+                    <h2 style={{color:'#4c4c4c',margin:'0',fontWeight:'300'}}>{props.receiver.fname} {props.receiver.lname}</h2>
+                </Link>
                 <div style={{color:'#6d6d6d',fontSize:'15px'}}>{props.receiver.email}</div>
                 <div style={{color:'#6d6d6d',fontSize:'15px'}}>{props.receiver.phone}</div>
             </div>

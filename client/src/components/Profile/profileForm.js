@@ -101,7 +101,7 @@ const ProfileForm = (props) => {
                     </div>
                 </div>
             </div>
-            <button type="submit" name="btn_update" className="btn btn-primary btn-flat m-b-30 m-t-30">{loading ? `Loading...`:`Update`}</button>
+            <button disabled={loading?true:false} type="submit" name="btn_update" className="btn btn-primary btn-flat m-b-30 m-t-30">{loading ? `Loading...`:`Update`}</button>
             { 
                 updated===true?
                     <p style={{color:'green'}}>Profile updated Successfully</p>

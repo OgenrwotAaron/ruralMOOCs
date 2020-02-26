@@ -18,7 +18,7 @@ const MessageThread = (props) => {
             }
             socket.emit("get_inbox_private",{threadId:props.match.params.id,sender:props.user.user._id});
         })
-    })
+    },[messages,props])
 
     const updateChat=(event)=>{
         setMessage(event.target.value)

@@ -19,7 +19,7 @@ const Inbox = (props) => {
         .then(res=>{
             setReceiver(res.data[0])
         })
-    })
+    },[props.match.params.id,props.user.user])
 
     if(props.match.params.id===props.user.user._id){
         props.history.push(`/messages/${props.user.user._id}`)

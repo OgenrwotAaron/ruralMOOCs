@@ -16,7 +16,7 @@ const InstructorCard = (props) => {
             })
         }
         
-    })
+    },[props.id])
     if(!instructor){
         return null;
     }
@@ -35,5 +35,9 @@ const InstructorCard = (props) => {
         </div>
     );
 }
+
+const propsAreEqual=(prevProps,nextProps)=>{
+    return prevProps.id===nextProps.id
+}
  
-export default InstructorCard;
+export default React.memo(InstructorCard,propsAreEqual);

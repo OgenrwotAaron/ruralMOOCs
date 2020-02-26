@@ -18,6 +18,12 @@ const DashCourse = () => {
         })
     },[])
 
+    const deleteCourse=(item,name)=>{
+        if(window.confirm(`Are you sure you want to delete ${name} course?`)){
+            axios.delete(`/api/message/${item}`)
+        }
+    }
+
     const renderData=(data)=>{
         return data.map((item,i)=>(
             <tr key={i}>
@@ -35,9 +41,13 @@ const DashCourse = () => {
                 </td>
                 <td>{item.metadata.duration}</td>
                 <td>
-                    <span style={{padding:'2px'}} className='icon icon-edit'></span>
-                    <span style={{padding:'2px'}} className='icon icon-eye'></span>
-                    <span style={{padding:'2px'}} className='icon icon-delete'></span>
+                    <Link to={`/edit-course/${item._id}`}>
+                        <span style={{padding:'2px',color:'green'}} className='icon icon-edit'></span>
+                    </Link>
+                    <Link to={`/course/${item._id}`}>
+                        <span style={{padding:'5px'}} className='icon icon-eye'></span>
+                    </Link>
+                    <span style={{padding:'2px',color:'red',cursor:'pointer'}} onClick={()=>deleteCourse(item._id,item.metadata.course)} className='icon icon-delete'></span>
                 </td>
             </tr>
             )

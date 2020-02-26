@@ -61,6 +61,10 @@ class VideoPlayer extends Component {
         console.error('Error code: ',error.code,'object',error)
     }
 
+    componentWillUnmount(){
+
+    }
+
     render() { 
         return ( 
             <>

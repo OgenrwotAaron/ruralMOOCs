@@ -29,7 +29,7 @@ const Dashboard =(props)=>{
             
             case 'students':
                 template=(
-                    <DashStudent/>
+                    <DashStudent student={[]}/>
                 )
                 break;
 

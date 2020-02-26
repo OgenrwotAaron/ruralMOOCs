@@ -76,5 +76,8 @@ Categories.propTypes={
     getCourses:PropTypes.func
 }
 
+const propsAreEqual=(prevProps,nextProps)=>{
+    return Object.keys(prevProps.courses).length===Object.keys(nextProps.courses).length
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Categories)
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Categories,propsAreEqual))

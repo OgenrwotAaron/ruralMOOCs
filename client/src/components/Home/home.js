@@ -41,4 +41,8 @@ Home.propTypes={
     getCourses:PropTypes.func
 }
 
-export default connect(matchStateToProps,matchDispatchToProps)(Home);
+const propsAreEqual=(prevProps,nextProps)=>{
+    return Object.keys(prevProps.courses).length===Object.keys(nextProps.courses).length
+}
+
+export default connect(matchStateToProps,matchDispatchToProps)(React.memo(Home,propsAreEqual));

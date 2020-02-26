@@ -84,6 +84,15 @@ io.on('connection',(socket)=>{
         })
     })
 
+    socket.on('online_users',status=>{
+        User.find({'online':status.online},(err,doc)=>{
+            if(err){
+                io.emit('active_users',{success:false,data:err})
+            }
+            io.emit('active_users',{success:true,users:doc})
+        })
+    })
+
     socket.on('get_all_messages',data=>{
         Message.find({'receiver':data.receiver},(err,doc)=>{
             if(err){
@@ -187,6 +196,14 @@ io.on('connection',(socket)=>{
 app.post('/api/addCourse',upload.any(),(req,res)=>{
     //res.json({file:req.files});
     res.redirect(`/course/${req.files[0].id}`)
+})
+
+//Edit Course
+app.post('/api/editCourse/:id',(req,res)=>{
+    gfs.files.update({_id:ObjectId(req.params.id)},{'$set':{'metadata':req.body}},(err,doc)=>{
+        if(err) return res.json({success:false,error:err});
+        return res.json({success:true,doc:doc})
+    })
 })
 
 //Add a topic to a course
@@ -504,7 +521,6 @@ app.delete('/api/user/:id',(req,res)=>{
 app.get('*',(req,res)=>{
     res.sendFile(path.resolve(__dirname,'..','client','build','index.html'));
 })
-
 
 const PORT = process.env.PORT || 5000;
 

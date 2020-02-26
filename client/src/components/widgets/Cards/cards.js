@@ -11,7 +11,7 @@ const Card = ({item,type}) => {
         .then(res=>{
             setInstructors(res.data)
         })
-    },[item.metadata.instructor]);
+    },[item]);
     
     if(!instructors){
         return (
