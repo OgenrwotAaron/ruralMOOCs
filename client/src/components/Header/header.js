@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
 import Nav from '../Nav/nav';
 import io from 'socket.io-client';
-const socket=io(process.env.SOCKET_URL);
+const socket=io();
 
 class Header extends Component {
 
