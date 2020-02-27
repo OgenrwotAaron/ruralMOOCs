@@ -12,7 +12,7 @@ const nodeMailer=require('nodemailer');
 const path=require('path');
 const app=express();
 const server=require('http').Server(app)
-const io=require('socket.io')(app);
+const io=require('socket.io')(server);
 require('dotenv').config()
 
 const transloadit= new TransloaditClient({
