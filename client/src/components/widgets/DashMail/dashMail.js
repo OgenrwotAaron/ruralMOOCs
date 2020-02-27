@@ -15,6 +15,10 @@ const DashMail = () => {
 
     const deleteMessage=(item)=>{
         axios.delete(`/api/message/${item}`)
+        .then(res=>{
+            let newInbox=inbox.filter(item=>item._id!==res.data._id)
+            setInbox(newInbox)
+        })
     }
 
     const renderInbox=(inbox)=>{

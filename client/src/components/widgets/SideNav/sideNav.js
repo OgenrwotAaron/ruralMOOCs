@@ -24,43 +24,53 @@ const SideNav = (props)=> {
                         </Link>
                     </li>
                     <hr/>
-                    <li>
+                    {/* <li>
                         <Link style={{color:'rgb(25,24,40)'}} to='/dashboard/programs/1'>
                             <span style={{padding:'0 5px'}} className='icon icon-th-large'></span>
                             Programs
                         </Link>
-                    </li>
+                    </li> */}
                     <li>
-                        <Link style={{color:'rgb(25,24,40)'}} to='/dashboard/courses/1'>
+                        <Link style={{color:'rgb(25,24,40)'}} to={`/dashboard/courses/${props.user.role}`}>
                             <span style={{padding:'0 5px'}} className='icon icon-apps'></span>
                             Courses
                         </Link>
                     </li>
                     <hr/>
                     <li>
-                        <Link style={{color:'rgb(25,24,40)'}} to='/dashboard/students/1'>
+                        <Link style={{color:'rgb(25,24,40)'}} to={`/dashboard/students/${props.user.role}`}>
                             <span style={{padding:'0 5px'}} className='icon icon-users'></span>
                             Students
                         </Link>
                     </li>
                     <li>
-                        <Link style={{color:'rgb(25,24,40)'}} to='/dashboard/instructors/1'>
-                            <span style={{padding:'0 5px'}} className='icon icon-id-card'></span>
-                            Instructors
-                        </Link>
+                        {   props.user.role===2?
+                                <Link style={{color:'rgb(25,24,40)'}} to={`/dashboard/instructors/${props.user.role}`}>
+                                    <span style={{padding:'0 5px'}} className='icon icon-id-card'></span>
+                                    Instructors
+                                </Link>
+                                :
+                                null
+                        }
+                        
                     </li>
                     <hr/>
-                    <li>
+                    {/* <li>
                         <Link style={{color:'rgb(25,24,40)',display:'none'}} to='/dashboard/feeds/1'>
                             <span style={{padding:'0 5px'}} className='icon icon-feed'></span>
                             News Feed
                         </Link>
-                    </li>
+                    </li> */}
                     <li>
-                        <Link style={{color:'rgb(25,24,40)'}} to='/dashboard/mail/1'>
-                            <span style={{padding:'0 5px'}} className='icon icon-mail_outline'></span>
-                            Inbox
-                        </Link>
+                        {
+                            props.user.role===2?
+                                <Link style={{color:'rgb(25,24,40)'}} to='/dashboard/mail/1'>
+                                    <span style={{padding:'0 5px'}} className='icon icon-mail_outline'></span>
+                                    Inbox
+                                </Link>
+                                :
+                                null
+                        }
                     </li><li>
                         <Link style={{color:'rgb(25,24,40)'}} to={`/profile/${props.user._id}`}>
                             <span style={{padding:'0 5px'}} className='icon icon-user-o'></span>

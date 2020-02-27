@@ -16,7 +16,7 @@ const UserProfile = (props) => {
         .catch(e=>{
             setUser(false)
         })
-    })
+    },[props])
 
     if(!user){
         return null;
@@ -59,17 +59,12 @@ const UserProfile = (props) => {
                     </div>
                 <div className="col-sm-9">
                     <ul className="nav nav-tabs">
-                        <li className="active"><a data-toggle="tab" href="#topics">My Courses</a></li>
-                        <li><a data-toggle="tab" href="#settings">Edit Profile</a></li>
+                        <li className="active"><a data-toggle="tab" href="#topics">Activities</a></li>
                     </ul>
                     <div className="tab-content">
                         <div id="topics" className="tab-pane fade in active well">
                             <br/>
-                            <h3>Courses enrolled to</h3>
-                        </div>
-                        <div id="settings" className="tab-pane fade well">
-                            <br/>
-                            <h3>Edit Profile</h3>
+                            <h3 style={{textTransform:'capitalize'}}>{user.fname}'s activities</h3>
                         </div>
                     </div>
                 </div>

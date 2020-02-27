@@ -84,6 +84,15 @@ io.on('connection',(socket)=>{
         })
     })
 
+    socket.on('offline',id=>{
+        User.findById(id,(err,user)=>{
+            user.online=false;
+            user.save((err,doc)=>{
+                io.emit('online_status',false)
+            })
+        })
+    })
+
     socket.on('online_users',status=>{
         User.find({'online':status.online},(err,doc)=>{
             if(err){
@@ -190,6 +199,9 @@ io.on('connection',(socket)=>{
             })
         })
     })
+})
+io.on('disconnected',()=>{
+    console.log('disconnected')
 })
 
 //add a Course
@@ -342,6 +354,20 @@ app.post('/api/message',(req,res)=>{
         res.status(200).json({
             success:true,
             inbox:doc
+        })
+    })
+})
+
+app.post('/api/editInstructor/:id',(req,res)=>{
+    User.findById(req.params.id,(err,user)=>{
+        if(err) return res.json({success:false,error:err})
+        user.role=req.body.role
+        user.email=req.body.email
+        user.fname=req.body.fname
+        user.lname=req.body.lname
+        user.save((err,doc)=>{
+            if(err) return res.json({success:false,error:err})
+            return res.json({success:true,data:doc})
         })
     })
 })
@@ -514,7 +540,14 @@ app.delete('/api/user/:id',(req,res)=>{
         if(!doc){
             return res.status(404).json({message:'Specified user not found'})
         }
-        return res.json({message:`user ${doc.email} removed successfully`})
+        return res.json(doc)
+    })
+})
+
+app.delete('/api/course/:id',(req,res)=>{
+    gfs.files.deleteOne({_id:ObjectId(req.params.id)},(err,doc)=>{
+        if(err) return res.json({error:err})
+        return res.json({doc,id:req.params.id})
     })
 })
 

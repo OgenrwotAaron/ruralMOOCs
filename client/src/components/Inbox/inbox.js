@@ -19,7 +19,7 @@ const Inbox = (props) => {
         .then(res=>{
             setReceiver(res.data[0])
         })
-    },[props.match.params.id,props.user.user])
+    },[props.user,messages])
 
     if(props.match.params.id===props.user.user._id){
         props.history.push(`/messages/${props.user.user._id}`)
@@ -30,7 +30,7 @@ const Inbox = (props) => {
     }
 
     const uniqueAddresses = Array.from(new Set(
-        messages.map(a => a.sender)))
+        messages.reverse().map(a => a.sender)))
         .map(sender => {
         return messages.find(a => a.sender === sender)
     })

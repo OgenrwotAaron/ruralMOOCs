@@ -1,4 +1,5 @@
 import React from 'react';
+import { socket } from '../Header/header'
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 
@@ -7,6 +8,7 @@ const Nav = (props) => {
     const logout=()=>{
       axios.get('/api/logout')
       .then(res=>{
+          socket.emit('offline',props.user.user._id)
           window.location.assign('/')
       })
       .catch(err=>console.log(err))

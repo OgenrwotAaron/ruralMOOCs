@@ -1,5 +1,6 @@
 import React,{ useEffect,useState} from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'
 
 const changeLabel=(event)=>{
     const file=event.target.files[0];
@@ -13,7 +14,7 @@ const changeLabel=(event)=>{
     
 }
 
-const AddCourse=()=>{
+const AddCourse=(props)=>{
 
     let [instructors,setInstructors]=useState()
 
@@ -43,7 +44,7 @@ const AddCourse=()=>{
                         <form className="form-box" style={{boxShadow:'#0000005e 1px 1px 20px 1px'}} encType='multipart/form-data' method='POST' action='/api/addCourse'>
                             <h1 style={{textAlign:'center'}}>Add Course</h1>
                             <div className="custom-file mb-3">
-                                <input type="file" name="file" id="file" onChange={(e)=>changeLabel(e)} className="custom-file-input"/>
+                                <input required type="file" name="file" id="file" onChange={(e)=>changeLabel(e)} className="custom-file-input"/>
                                 <label id="thename" htmlFor="file" className="custom-file-label">Choose Poster Photo</label>
                             </div>
                             <div className="row form-group">
@@ -79,9 +80,12 @@ const AddCourse=()=>{
                             <div className="form-group">
                                 <textarea name='description' className="form-control" type="text" placeholder="Course Description..."/>
                             </div>
-                                <button type='submit' className='btn btn-primary btn-block'>
-                                    Add Course
-                                </button>
+                            <button type='submit' className='btn btn-primary btn-block'>
+                                Add Course
+                            </button>
+                            <Link style={{position:'absolute',color:'white',backgroundColor:'red',height:'15px',width:'15px',textAlign:'center',borderRadius:'50%',top:'30px',right:'40px'}} to={`/dashboard/courses/${props.user.user.role}`}>
+                                <span className="icon icon-close"></span>
+                            </Link>
                         </form>
                     </div>
                     <div className="col-sm-3"></div>

@@ -23,6 +23,12 @@ class Header extends Component {
     })
   }
 
+  componentWillUnmount(){
+    if(this.props.user){
+      socket.emit('offline',this.props.user.user._id)
+    }
+  }
+
   handleScroll=()=>{
     if(window.scrollY>0){
       this.setState({

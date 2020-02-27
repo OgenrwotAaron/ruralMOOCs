@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useEffect } from 'react';
 
 import SideNav from '../widgets/SideNav/sideNav';
 import DashCourse from '../widgets/DashCourse/dashCourse';
@@ -12,6 +12,10 @@ import DashProgram from '../widgets/DashProgram/dashProgram';
 
 const Dashboard =(props)=>{
 
+    useEffect(()=>{
+
+    },[props])
+
     const renderDashboard=()=>{
         let template=null;
 
@@ -23,19 +27,19 @@ const Dashboard =(props)=>{
                 break;
             case 'courses':
                 template=(
-                    <DashCourse/>
+                    <DashCourse {...props}/>
                 );
                 break;
             
             case 'students':
                 template=(
-                    <DashStudent student={[]}/>
+                    <DashStudent {...props} student={[]}/>
                 )
                 break;
 
             case 'instructors':
                 template=(
-                    <DashInstructor/>
+                    <DashInstructor {...props}/>
                 )
                 break;
 
@@ -58,7 +62,7 @@ const Dashboard =(props)=>{
         
             default:
                 template=(
-                    <DashDefault/>
+                    <DashDefault {...props}/>
                 )
                 break;
         }

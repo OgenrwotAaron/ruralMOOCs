@@ -47,7 +47,6 @@ const Card = ({item,type}) => {
                         </div>
                         <div style={{height:'120px'}}>
                             <h2>{item.metadata.course}</h2>
-                            <p style={{color:'gray'}}>{item.metadata.description}</p>
                             <div style={{display:'flex',justifyContent:'center'}}>
                                 <div style={{color:'#03a9f0',padding:'0 5px',fontWeight:'bold',borderRight:'2px solid white'}}>{item.metadata.duration}</div>
                             </div>  

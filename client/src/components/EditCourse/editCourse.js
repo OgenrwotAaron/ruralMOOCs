@@ -1,5 +1,6 @@
 import React,{ useEffect,useState} from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'
 
 const EditCourse=(props)=>{
 
@@ -112,13 +113,16 @@ const EditCourse=(props)=>{
                             </button>
                             { 
                                 updated===true?
-                                    <p style={{color:'green'}}>Cours updated Successfully</p>
+                                    <p style={{color:'green'}}>Course updated Successfully</p>
                                     :
                                     updated===true?
                                         <p style={{color:'red'}}>Course update failed</p>
                                         :
                                         null
                             }
+                            <Link style={{position:'absolute',color:'white',backgroundColor:'red',height:'15px',width:'15px',textAlign:'center',borderRadius:'50%',top:'30px',right:'40px'}} to={`/dashboard/courses/${props.user.user.role}`}>
+                                <span className="icon icon-close"></span>
+                            </Link>
                         </form>
                     </div>
                     <div className="col-sm-3"></div>

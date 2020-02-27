@@ -48,6 +48,7 @@ const Messages = (props) => {
     return ( 
         <div className='row' style={{width:'100%',margin:'60px 0 0 0'}}>
             <div className="col-sm-4">
+                <h3 style={{color:'#616161'}}>Online Users</h3>
                 {renderOnlineUsers(onlineUsers)}
             </div>
             <div className="col-sm-6">

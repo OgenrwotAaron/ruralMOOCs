@@ -12,7 +12,7 @@ const UserMessage = ({message}) => {
         .then(user=>{
             setReceiver(user.data[0])
         })
-    },[message.receiver])
+    },[message,receiver])
 
     if(!message){
         return null

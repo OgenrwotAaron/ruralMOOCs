@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'
 
 class AddInstructor extends Component {
     state={
@@ -196,6 +197,9 @@ class AddInstructor extends Component {
                                             {this.showError()}
                                         </div>
                                     </div>
+                                    <Link style={{position:'absolute',color:'white',backgroundColor:'red',height:'15px',width:'15px',textAlign:'center',borderRadius:'50%',top:'30px',right:'40px'}} to={`/dashboard/instructors/${this.props.user.user.role}`}>
+                                        <span className="icon icon-close"></span>
+                                    </Link>
                             </form>
                             </div>
                             <div className="col-sm-3"></div>

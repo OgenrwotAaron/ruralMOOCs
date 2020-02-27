@@ -1,5 +1,6 @@
 import React,{ useEffect,useState} from 'react';
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const DashStudent = (props) => {
 
@@ -12,12 +13,14 @@ const DashStudent = (props) => {
         })
     },[])
 
-    const deleteStudent=(id)=>{
-        window.confirm('Are you sure?')
-        console.log('hello')
-        //axios.delete(`/api/user/${id}`)
-        //.then(res=>{/*console.log(res.data)*/})
-        //.catch(err=>console.log(err))
+    const deleteStudent=(id,name)=>{
+        if(window.confirm(`Are you sure you want to delete ${name}'s account?`)){
+            axios.delete(`/api/user/${id}`)
+            .then(res=>{
+                let newstudents=students.filter(item=>item.id!==res.data._id)
+                setStudents(newstudents)
+            })
+        }
     }
 
     const renderStudents=(students)=>{
@@ -27,8 +30,13 @@ const DashStudent = (props) => {
                 <td>{student.lname}</td>
                 <td>{student.email}</td>
                 <td>
-                    <span style={{padding:'2px 5px'}} className='icon icon-eye'></span>
-                    <span onClick={()=>deleteStudent(student.id)} style={{cursor:'pointer',padding:'2px 5px'}} className='icon icon-delete'></span>
+                    <Link to={`/user-profile/${student.id}`}>
+                        <span style={{padding:'5px',color:'green'}} className='icon icon-eye'></span>
+                    </Link>
+                    {
+                        props.user.user.role===2&&
+                        <span onClick={()=>deleteStudent(student.id,student.fname)} style={{padding:'2px',color:'red',cursor:'pointer'}} className='icon icon-delete'></span>
+                    }
                 </td>
             </tr>
         ))
