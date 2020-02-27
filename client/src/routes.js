@@ -24,7 +24,7 @@ const Routes = (props) => {
         <Layout user={props.user}>
             <Switch>
                 <Route {...props} path="/" exact component={Home}/>
-                <Route path="/category" exact component={Categories}/>
+                <Route {...props} path="/category" exact component={Categories}/>
                 <Route path="/category/:id" exact component={Categories}/>
                 <PrivateRoute {...props} path="/dashboard/:id/:role" exact component={Dashboard}/>
                 <PrivateRoute {...props} path="/dashboard" exact component={Dashboard}/>

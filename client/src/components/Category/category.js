@@ -20,10 +20,6 @@ const Categories = (props) => {
         })
     },[props])
 
-    if(!user){
-        return null;
-    }
-
     const renderDash=()=>{
         let template=null
 
