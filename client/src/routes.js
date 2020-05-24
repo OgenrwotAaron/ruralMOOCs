@@ -33,10 +33,11 @@ const Routes = (props) => {
                 <PrivateRoute {...props} path="/edit-course/:id" exact component={EditCourse}/>
                 <PrivateRoute {...props} path='/add-instructor' exact component={AddInstructor}/>
                 <PrivateRoute {...props} path="/edit-instructor/:id" exact component={EditInstructor}/>
-                <Route {...props} restricted={false} path='/course/:id' exact component={CourseSingle}/>
+                <Route {...props} path='/course/:id' exact component={CourseSingle}/>
                 <Route path='/addTopic/:id' exact component={AddTopic}/>
                 <PublicRoute restricted={false} {...props} path='/messages/:id' exact component={Messages}/>
-                <PublicRoute restricted={false} {...props} path='/video/:id' exact component={Video}/>
+                <Route {...props} path='/video/:id' exact component={Video}/>
+                {/*<PublicRoute restricted={false} {...props} path='/video/:id' exact component={Video}/>*/}
                 <PublicRoute {...props} restricted={false} path="/inbox/:id" exact component={Inbox}/>
                 <PublicRoute {...props} restricted={false} path="/profile/:id" exact component={Profile}/>
                 <PublicRoute {...props} restricted={false} path="/user-profile/:id" exact component={UserProfile}/>
