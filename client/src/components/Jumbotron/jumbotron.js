@@ -101,7 +101,7 @@ class Jumbotron extends Component {
     }
 
     render(){
-        console.log(this.props.auth)
+        console.log(this.props.user)
        return (
             <div>
                 {this.renderJumbo()}
