@@ -42,11 +42,11 @@ app.use(express.static(path.resolve(__dirname, "..", "client", "build")));
 
 //init gfs
 let gfs = Grid(conn.db, mongoose.mongo);
-conn.once("open", () => {
-  //initialise stream
-  gfs = Grid(conn.db, mongoose.mongo);
-  gfs.collection("courses");
-});
+// conn.once("open", () => {
+//initialise stream
+gfs = Grid(conn.db, mongoose.mongo);
+gfs.collection("courses");
+// });
 
 //create storage engine
 const storage = new GridFsStorage({
