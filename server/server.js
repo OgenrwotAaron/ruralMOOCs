@@ -528,7 +528,7 @@ app.get("/api/image/:filename", (req, res) => {
 });
 
 app.get("/api/course/:id", (req, res) => {
-  gfs?.files.findOne({ _id: ObjectId(req.params.id) }, (err, file) => {
+  gfs.files.findOne({ _id: ObjectId(req.params.id) }, (err, file) => {
     if (err) return res.json({ error: err });
     if (!file || file.length === 0) {
       return res.status(404).json({ error: "No files exists" });
