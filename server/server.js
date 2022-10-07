@@ -17,13 +17,13 @@ require("dotenv").config();
 
 const transloadit = new TransloaditClient({
   authKey: process.env.TRANSLOADIT_AUTHKEY,
-  authSecret: process.env.TRANSLOADIT_AUTHSECRET,
+  authSecret: process.env.TRANSLOADIT_AUTHSECRET
 });
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 const conn = mongoose.createConnection(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
+  useNewUrlParser: true
 });
 
 //Models
@@ -64,21 +64,21 @@ const storage = new GridFsStorage({
       const fileInfo = {
         filename: filename,
         metadata: req.body,
-        bucketName: "courses",
+        bucketName: "courses"
       };
 
       resolve(fileInfo);
     });
-  },
+  }
 });
 
 const upload = multer({ storage });
 
 //Socket.io
-io.on("connection", (socket) => {
+io.on("connection", socket => {
   console.log("connected");
 
-  socket.on("online", (user_id) => {
+  socket.on("online", user_id => {
     User.findById(user_id, (err, user) => {
       user.online = true;
       user.save((err, doc) => {
@@ -87,7 +87,7 @@ io.on("connection", (socket) => {
     });
   });
 
-  socket.on("offline", (id) => {
+  socket.on("offline", id => {
     User.findById(id, (err, user) => {
       user.online = false;
       user.save((err, doc) => {
@@ -96,7 +96,7 @@ io.on("connection", (socket) => {
     });
   });
 
-  socket.on("online_users", (status) => {
+  socket.on("online_users", status => {
     User.find({ online: status.online }, (err, doc) => {
       if (err) {
         io.emit("active_users", { success: false, data: err });
@@ -105,7 +105,7 @@ io.on("connection", (socket) => {
     });
   });
 
-  socket.on("get_all_messages", (data) => {
+  socket.on("get_all_messages", data => {
     Message.find({ receiver: data.receiver }, (err, doc) => {
       if (err) {
         io.emit("all_messages", { success: false, data: err });
@@ -114,7 +114,7 @@ io.on("connection", (socket) => {
     });
   });
 
-  socket.on("msg_private_sent", (data) => {
+  socket.on("msg_private_sent", data => {
     const message = new Message(data);
     message.save((err, doc) => {
       if (err) {
@@ -124,7 +124,7 @@ io.on("connection", (socket) => {
     });
   });
 
-  socket.on("get_inbox_private", (msg) => {
+  socket.on("get_inbox_private", msg => {
     Message.find({ threadId: msg.threadId, sender: msg.sender }, (err, doc) => {
       if (err) {
         io.emit("messages_private", { success: false, data: err });
@@ -138,14 +138,14 @@ io.on("connection", (socket) => {
           }
           io.emit("messages_private", {
             success: true,
-            data: doc.concat(docs),
+            data: doc.concat(docs)
           });
         }
       );
     });
   });
 
-  socket.on("add_comment", (data) => {
+  socket.on("add_comment", data => {
     const comment = new Comment(data);
     comment.save((err, doc) => {
       if (err) {
@@ -155,7 +155,7 @@ io.on("connection", (socket) => {
     });
   });
 
-  socket.on("get_all_comments", (data) => {
+  socket.on("get_all_comments", data => {
     Comment.find({ type: data.type, topic: data.topic }, (err, doc) => {
       if (err) {
         io.emit("all_comments", { success: false, data: err });
@@ -164,7 +164,7 @@ io.on("connection", (socket) => {
     });
   });
 
-  socket.on("upVote_comment", (id) => {
+  socket.on("upVote_comment", id => {
     Comment.findById(id.id, (err, comment) => {
       if (err) {
         io.emit("comment_added", { success: false, data: err });
@@ -179,7 +179,7 @@ io.on("connection", (socket) => {
     });
   });
 
-  socket.on("downVote_comment", (id) => {
+  socket.on("downVote_comment", id => {
     Comment.findById(id.id, (err, comment) => {
       if (err) {
         io.emit("comment_added", { success: false, data: err });
@@ -194,7 +194,7 @@ io.on("connection", (socket) => {
     });
   });
 
-  socket.on("enroll_to_course", (data) => {
+  socket.on("enroll_to_course", data => {
     User.findById(data.user, (err, user) => {
       if (err) {
         io.emit("enrolled_to_course", { success: false, data: err });
@@ -250,7 +250,7 @@ app.post("/api/register", (req, res) => {
         if (err) return res.json({ success: false, error: err });
         return res.status(200).json({
           success: true,
-          user: doc,
+          user: doc
         });
       });
     } else {
@@ -307,8 +307,8 @@ app.post("/api/addInstructor", (req, res) => {
           secure: false,
           auth: {
             user: process.env.MAIL_USER,
-            pass: process.env.MAIL_PASSWORD,
-          },
+            pass: process.env.MAIL_PASSWORD
+          }
         });
 
         transporter.sendMail(
@@ -317,13 +317,13 @@ app.post("/api/addInstructor", (req, res) => {
             to: doc.email,
             subject: "Instructor Account details",
             text: `Hello ${doc.fname}, your Instructor account has been created on RuralMoocs https://ruralmoocs.herokuapp.com; here's your password "${result}", you can login here https://ruralmoocs.herokuapp.com/login `,
-            html: `<p>Hello ${doc.fname}, your Instructor account has been created on <a href="https://ruralmoocs.herokuapp.com">RuralMoocs</a>;</p> <p>here's your password "${result}", you can login <a href="https://ruralmoocs.herokuapp.com/login">here</a></p> `,
+            html: `<p>Hello ${doc.fname}, your Instructor account has been created on <a href="https://ruralmoocs.herokuapp.com">RuralMoocs</a>;</p> <p>here's your password "${result}", you can login <a href="https://ruralmoocs.herokuapp.com/login">here</a></p> `
           },
           (error, info) => {
             if (error) return res.json({ error: error });
             return res.status(200).json({
               success: true,
-              message: `${doc.fname} added successfully as an Instructor, password to their account has been sent to ${doc.email}`,
+              message: `${doc.fname} added successfully as an Instructor, password to their account has been sent to ${doc.email}`
             });
           }
         );
@@ -339,8 +339,8 @@ app.post("/api/addInstructor", (req, res) => {
           secure: false,
           auth: {
             user: process.env.MAIL_USER,
-            pass: process.env.MAIL_PASSWORD,
-          },
+            pass: process.env.MAIL_PASSWORD
+          }
         });
 
         transporter.sendMail(
@@ -349,13 +349,13 @@ app.post("/api/addInstructor", (req, res) => {
             to: doc.email,
             subject: "Instructor Account details",
             text: `Hello ${doc.fname}, you have been added as an Instructor on RuralMoocs https://ruralmoocs.herokuapp.com; you can login here https://ruralmoocs.herokuapp.com/login \n If this wasn't you, please email us here support@ruralmoocs.com`,
-            html: `<p>Hello ${doc.fname}, you have been added as an Instructor on <a href="https://ruralmoocs.herokuapp.com">RuralMoocs</a>;</p> <p> you can login <a href="https://ruralmoocs.herokuapp.com/login">here</a></p> <p>If this wasn't you, please email us here <a href="mailto:support@ruralmoocs.com">support@ruralmoocs.com</a></p> `,
+            html: `<p>Hello ${doc.fname}, you have been added as an Instructor on <a href="https://ruralmoocs.herokuapp.com">RuralMoocs</a>;</p> <p> you can login <a href="https://ruralmoocs.herokuapp.com/login">here</a></p> <p>If this wasn't you, please email us here <a href="mailto:support@ruralmoocs.com">support@ruralmoocs.com</a></p> `
           },
           (error, info) => {
             if (error) return res.json({ success: false, error: error });
             return res.status(200).json({
               success: true,
-              message: `${doc.fname} has successfully been added as an Instructor`,
+              message: `${doc.fname} has successfully been added as an Instructor`
             });
           }
         );
@@ -372,7 +372,7 @@ app.post("/api/message", (req, res) => {
 
     res.status(200).json({
       success: true,
-      inbox: doc,
+      inbox: doc
     });
   });
 });
@@ -403,13 +403,13 @@ app.post("/api/login", (req, res) => {
         res
           .cookie("auth", user.token, {
             maxAge: 31 * Math.pow(10, 9),
-            httpOnly: true,
+            httpOnly: true
           })
           .json({
             same: true,
             id: user._id,
             email: user.email,
-            role: user.role,
+            role: user.role
           });
       });
     });
@@ -448,7 +448,7 @@ app.get("/api/inbox/:id", (req, res) => {
 app.get("/api/user", auth, (req, res) => {
   res.json({
     isAuth: true,
-    user: req.user,
+    user: req.user
   });
 });
 
@@ -462,7 +462,7 @@ app.get("/api/users", (req, res) => {
         role: i.role,
         email: i.email,
         fname: i.fname,
-        lname: i.lname,
+        lname: i.lname
       };
     });
     return res.json(data);
@@ -479,7 +479,7 @@ app.get("/api/users/:role", (req, res) => {
         role: i.role,
         email: i.email,
         fname: i.fname,
-        lname: i.lname,
+        lname: i.lname
       };
     });
     return res.json(data);
@@ -496,7 +496,7 @@ app.get("/api/user/:id", (req, res) => {
         role: i.role,
         email: i.email,
         fname: i.fname,
-        lname: i.lname,
+        lname: i.lname
       };
     });
     return res.json(data);
@@ -504,8 +504,8 @@ app.get("/api/user/:id", (req, res) => {
 });
 
 app.get("/api/courses", (req, res) => {
-  gfs.files.find().toArray((err, files) => {
-    if (!files || files.length === 0) {
+  gfs.files?.find().toArray((err, files) => {
+    if (!files || files?.length === 0) {
       return res.status(404).json({ error: "No files exist" });
     }
     return res.json(files);
@@ -597,7 +597,7 @@ app.get("*", (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
-server.listen(PORT, (_) => {
+server.listen(PORT, _ => {
   console.log(`App listening on port ${PORT}`);
   console.log("Press Ctrl+C to quit");
 });
