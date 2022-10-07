@@ -513,7 +513,7 @@ app.get("/api/courses", (req, res) => {
 });
 
 app.get("/api/image/:filename", (req, res) => {
-  gfs?.files.findOne({ filename: req.params.filename }, (err, file) => {
+  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
     if (!file || file.length === 0) {
       return res.status(404).json({ error: "No such file exists" });
     }
