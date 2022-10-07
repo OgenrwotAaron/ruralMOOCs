@@ -21,13 +21,6 @@ const transloadit = new TransloaditClient({
 });
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }, error => {
-  if (error) {
-    console.log(error);
-    throw new Error("DB Connection Error");
-  }
-});
-
 //Models
 const { User } = require("./models/user");
 const { Inbox } = require("./models/inbox");
@@ -52,6 +45,7 @@ mongoose.createConnection(
   },
   (error, conn) => {
     if (error) {
+      console.log(error);
       throw new Error("DB Connection Error");
     }
     gfs = Grid(conn.db, mongoose.mongo);
