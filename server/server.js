@@ -41,10 +41,10 @@ app.use(cookieParser());
 app.use(express.static(path.resolve(__dirname, "..", "client", "build")));
 
 //init gfs
-let gfs;
+let gfs = Grid(conn.db, mongoose.mongo);
 conn.once("open", () => {
   //initialise stream
-  gfs = Grid(conn.db, mongoose.mongo);
+
   gfs.collection("courses");
 });
 
