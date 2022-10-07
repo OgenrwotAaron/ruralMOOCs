@@ -44,7 +44,7 @@ app.use(express.static(path.resolve(__dirname, "..", "client", "build")));
 let gfs = Grid(conn.db, mongoose.mongo);
 conn.once("open", () => {
   //initialise stream
-
+  gfs = Grid(conn.db, mongoose.mongo);
   gfs.collection("courses");
 });
 
@@ -504,7 +504,7 @@ app.get("/api/user/:id", (req, res) => {
 });
 
 app.get("/api/courses", (req, res) => {
-  gfs.files?.find().toArray((err, files) => {
+  gfs?.files?.find().toArray((err, files) => {
     if (!files || files?.length === 0) {
       return res.status(404).json({ error: "No files exist" });
     }
@@ -513,7 +513,7 @@ app.get("/api/courses", (req, res) => {
 });
 
 app.get("/api/image/:filename", (req, res) => {
-  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+  gfs?.files.findOne({ filename: req.params.filename }, (err, file) => {
     if (!file || file.length === 0) {
       return res.status(404).json({ error: "No such file exists" });
     }
@@ -528,7 +528,7 @@ app.get("/api/image/:filename", (req, res) => {
 });
 
 app.get("/api/course/:id", (req, res) => {
-  gfs.files.findOne({ _id: ObjectId(req.params.id) }, (err, file) => {
+  gfs?.files.findOne({ _id: ObjectId(req.params.id) }, (err, file) => {
     if (err) return res.json({ error: err });
     if (!file || file.length === 0) {
       return res.status(404).json({ error: "No files exists" });
