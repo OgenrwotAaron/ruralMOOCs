@@ -21,9 +21,10 @@ const transloadit = new TransloaditClient({
 });
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
-const conn = mongoose.createConnection(process.env.MONGODB_URI, {
-  useNewUrlParser: true
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }, error => {
+  if (error) {
+    throw new Error("DB Connection Error");
+  }
 });
 
 //Models
@@ -41,12 +42,21 @@ app.use(cookieParser());
 app.use(express.static(path.resolve(__dirname, "..", "client", "build")));
 
 //init gfs
-let gfs = Grid(conn.db, mongoose.mongo);
-// conn.once("open", () => {
-//initialise stream
-gfs = Grid(conn.db, mongoose.mongo);
-gfs.collection("courses");
-// });
+let gfs;
+
+mongoose.createConnection(
+  process.env.MONGODB_URI,
+  {
+    useNewUrlParser: true
+  },
+  (error, conn) => {
+    if (error) {
+      throw new Error("DB Connection Error");
+    }
+    gfs = Grid(conn.db, mongoose.mongo);
+    gfs.collection("courses");
+  }
+);
 
 //create storage engine
 const storage = new GridFsStorage({
