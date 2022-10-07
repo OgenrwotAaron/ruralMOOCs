@@ -504,8 +504,8 @@ app.get("/api/user/:id", (req, res) => {
 });
 
 app.get("/api/courses", (req, res) => {
-  gfs?.files?.find().toArray((err, files) => {
-    if (!files || files?.length === 0) {
+  gfs.files.find().toArray((err, files) => {
+    if (!files || files.length === 0) {
       return res.status(404).json({ error: "No files exist" });
     }
     return res.json(files);
