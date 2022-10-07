@@ -35,11 +35,13 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.resolve(__dirname, "..", "client", "build")));
 
+const dbUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster-98l4k2fx.jaaxi.mongodb.net/?retryWrites=true&w=majority`;
+
 //init gfs
 let gfs;
 
 mongoose.createConnection(
-  process.env.MONGODB_URI,
+  dbUrl,
   {
     useNewUrlParser: true
   },
@@ -55,7 +57,7 @@ mongoose.createConnection(
 
 //create storage engine
 const storage = new GridFsStorage({
-  url: process.env.MONGODB_URI,
+  url: dbUrl,
   file: (req, file) => {
     return new Promise((resolve, reject) => {
       let result = "";
