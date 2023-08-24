@@ -37,7 +37,7 @@
     "multer-gridfs-storage": "^3.3.0",
     "nodemailer": "^6.8.0",
     "socket.io": "^2.5.0",
-    "transloadit": "^2.0.8"
+    "transloadit": "^3.0.2"
   },
   "devDependencies": {
     "husky": "^8.0.1",
